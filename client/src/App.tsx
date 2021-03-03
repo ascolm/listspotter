@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  // Link
+  useLocation
 } from "react-router-dom";
 
 
@@ -15,7 +15,7 @@ function App() {
     <Router>
         <Switch>
           <Route path="/main">
-            <Main />
+            <Main/>
           </Route>
           <Route path="/">
             <Login />
