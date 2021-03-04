@@ -7,25 +7,40 @@ const redirectUri = 'http://localhost:3000/main';
 const tokenValidForMs = 1000 * 60 * 45 // This is equal to 45 mins (Token is valid for 1 hour)
 let tokens;
 
+async function getTokens (code) {
+  let tokenResponse;
+  try {
+      tokenResponse = await axios.request({
+      method: 'POST',
+      url: spotifyTokenUrl,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${clientID}&client_secret=${clientSecret}`
+    });
+  } catch (err) {
+  }
+
+  tokens = tokenResponse.data;
+  setTimeout(() => tokens = '', tokenValidForMs);
+}
+
 // TODO: REFACTOR
-async function getTracks (req, res) {
+exports.getTracks = async (req, res) => {
   const {code, offset} = req.body;
 
-  try {
-    if (!tokens) {
-      const tokenResponse = await axios.request({
-        method: 'POST',
-        url: spotifyTokenUrl,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${clientID}&client_secret=${clientSecret}`
-      });
-
-      tokens = tokenResponse.data;
-      setTimeout(() => tokens = '', tokenValidForMs);
+  if (!tokens) {
+    try {
+      await getTokens(code);
+    } catch (err) {
+      console.log('🔥Error while getting tokens from Spotify');
+      console.log(err);
+      res.statusCode = 500;
+      res.send('Spotify authentication failed.');
     }
+  }
 
+  try {
     const trackResponse = await axios.request({
       method: 'GET',
       url: spotifyTracksUrl + `?offset=${offset}&limit=50`,
@@ -35,13 +50,9 @@ async function getTracks (req, res) {
       },
     });
 
-    console.log(trackResponse.data.href);
     res.statusCode = 200;
     res.send(trackResponse.data);
   } catch (err) {
     console.log(err);
   }
 }
-
-
-module.exports = { getTracks }

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getTracks } from '../../apiService';
-import { TrackItem, TrackData } from '../../interfaces/spotifyObjects';
+import { TrackItem } from '../../interfaces/spotifyObjects';
 import { fetchTracksWithOffset } from './main-helpers';
 
 export interface Props {
