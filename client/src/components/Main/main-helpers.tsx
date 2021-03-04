@@ -61,3 +61,11 @@ export function generateGenres (artists: Artist[]) {
 
   return genreDb;
 };
+
+export function sortGenres (genres: GenreDb) {
+  const sortedKeys = Object.keys(genres).sort((a, b) => {
+    return genres[a].length > genres[b].length ? -1 : 1
+  });
+
+  return sortedKeys;
+}

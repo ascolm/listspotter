@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { TrackItem, Artist } from '../../interfaces/spotifyObjects';
 import { getTokens } from '../../apiService';
-import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, GenreDb } from './main-helpers';
+import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, GenreDb, sortGenres } from './main-helpers';
 
 export interface Props {
 }
@@ -32,15 +32,6 @@ const Main: React.FC<Props> = (props) => {
 
     fetchData();
   }, []);
-
-  const sortGenres = (genres: GenreDb) => {
-    const sortedKeys = Object.keys(genres).sort((a, b) => {
-      return genres[a].length > genres[b].length ? -1 : 1
-    });
-
-    return sortedKeys;
-  }
-
 
   return (
     <div>
