@@ -8,10 +8,10 @@ export function fetchTracksWithOffset (code: string, setState: React.Dispatch<Re
     const trackData: TrackData = await getTracks(code, offset);
     await setState((prevTracks) => [...prevTracks, ...trackData.items]);
 
-    // if (trackData.next) {
-    //   offset += offsetIncrement
-    //   fetchTracksAsync (code, offset);
-    // }
+    if (trackData.next) {
+      offset += offsetIncrement
+      fetchTracksAsync (code, offset);
+    }
   };
 
   fetchTracksAsync(code, offset);
@@ -28,9 +28,7 @@ export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<R
 
       await setState((prevArtists) => {
         let updatedArtists = [...prevArtists, ...artistData.artists.items]
-
         if (!nextUrl) genres = generateGenres(updatedArtists);
-
         return updatedArtists;
       });
 
@@ -51,8 +49,6 @@ export interface GenreDb {
 
 export function generateGenres (artists: Artist[]) {
   const genreDb: GenreDb = {};
-  console.log('artists received:')
-  console.log(artists)
   artists.forEach((artist) => {
     artist.genres.forEach((artistGenre) => {
       if (!genreDb[artistGenre]) {
@@ -63,6 +59,5 @@ export function generateGenres (artists: Artist[]) {
     })
   })
 
-  console.log(genreDb)
   return genreDb;
 };

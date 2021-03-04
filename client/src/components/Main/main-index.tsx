@@ -33,13 +33,22 @@ const Main: React.FC<Props> = (props) => {
     fetchData();
   }, []);
 
+  const sortGenres = (genres: GenreDb) => {
+    const sortedKeys = Object.keys(genres).sort((a, b) => {
+      return genres[a].length > genres[b].length ? -1 : 1
+    });
+
+    return sortedKeys;
+  }
+
+
   return (
     <div>
       <h1>Main'e hoşgeldiniz aq.</h1>
       {searchParams.get('code') ?
         <div>
           <p>Loaded {tracks.length} songs!</p>
-          { Object.keys(genres).length > 0 && Object.keys(genres).map((genre) => <p>{genre}:{genres[genre].length}</p>)}
+          { Object.keys(genres).length > 0 && sortGenres(genres).map((genreKey) => <p>{genreKey}:{genres[genreKey].length}</p>)}
           {artists.map((artist) => <p>{artist.name}</p>)}
         </div>
       :
