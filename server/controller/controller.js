@@ -6,7 +6,6 @@ const spotifyTracksUrl = baseUrl + '/tracks';
 const spotifyArtistsUrl = baseUrl + '/following';
 const tokenValidForMs = 1000 * 60 * 60 // Token is valid for 1 hour
 
-
 let tokens ='';
 
 // TODO: CHECK ERROR HANDLING IN CATCH METHODS // CREATE CUSTOM HANDLER MIDDLEWARE

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { TrackItem, Artist } from '../../interfaces/spotifyObjects';
 import { getTokens } from '../../apiService';
-import { fetchTracksWithOffset, fetchArtistsWithOffset } from './main-helpers';
+import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, GenreDb } from './main-helpers';
 
 export interface Props {
 }
@@ -15,16 +15,18 @@ const Main: React.FC<Props> = (props) => {
 
   let [tracks, setTracks] = useState<TrackItem[]>([]);
   let [artists, setArtists] = useState<Artist[]>([]);
+  let [genres, setGenres] = useState<GenreDb>({});
 
   useEffect(() => {
     if (!code) return;
 
     const fetchData = async () => {
-      // AWAIT GET TOKENS HERE, then move on to below
       await getTokens(code);
       if (tracks.length === 0) fetchTracksWithOffset(code, setTracks);
       if (artists.length === 0) {
-        fetchArtistsWithOffset(code, setArtists);
+        fetchArtistsWithOffset(code, setArtists).then((genres) => {
+          setGenres(genres)
+        });
       }
     }
 
@@ -37,6 +39,7 @@ const Main: React.FC<Props> = (props) => {
       {searchParams.get('code') ?
         <div>
           <p>Loaded {tracks.length} songs!</p>
+          { Object.keys(genres).length > 0 && Object.keys(genres).map((genre) => <p>{genre}:{genres[genre].length}</p>)}
           {artists.map((artist) => <p>{artist.name}</p>)}
         </div>
       :
