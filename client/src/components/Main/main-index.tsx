@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { TrackItem } from '../../interfaces/spotifyObjects';
-import { fetchTracksWithOffset } from './main-helpers';
+import { TrackItem, Artist } from '../../interfaces/spotifyObjects';
+import { getTokens } from '../../apiService';
+import { fetchTracksWithOffset, fetchArtistsWithOffset } from './main-helpers';
 
 export interface Props {
 }
@@ -13,10 +14,21 @@ const Main: React.FC<Props> = (props) => {
   const code = searchParams.get('code');
 
   let [tracks, setTracks] = useState<TrackItem[]>([]);
+  let [artists, setArtists] = useState<Artist[]>([]);
 
   useEffect(() => {
     if (!code) return;
-    if (tracks.length === 0) fetchTracksWithOffset(code, setTracks);
+
+    const fetchData = async () => {
+      // AWAIT GET TOKENS HERE, then move on to below
+      await getTokens(code);
+      if (tracks.length === 0) fetchTracksWithOffset(code, setTracks);
+      if (artists.length === 0) {
+        fetchArtistsWithOffset(code, setArtists);
+      }
+    }
+
+    fetchData();
   }, []);
 
   return (
@@ -25,6 +37,7 @@ const Main: React.FC<Props> = (props) => {
       {searchParams.get('code') ?
         <div>
           <p>Loaded {tracks.length} songs!</p>
+          {artists.map((artist) => <p>{artist.name}</p>)}
         </div>
       :
       <p>Login unsuccessful (redirect)</p> // TODO: add redirect, cleaner alert

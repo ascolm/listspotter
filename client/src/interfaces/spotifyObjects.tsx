@@ -16,6 +16,13 @@ export interface TrackData {
   next: string | null
 }
 
+export interface ArtistData{
+  artists: {
+    items: Artist[],
+    next: string,
+  }
+}
+
 export interface Artist{
   id: string,
   name: string,

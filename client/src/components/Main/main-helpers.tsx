@@ -1,5 +1,7 @@
-import { TrackData, TrackItem } from '../../interfaces/spotifyObjects';
-import { getTracks } from '../../apiService';
+import { TrackData, TrackItem, ArtistData, Artist } from '../../interfaces/spotifyObjects';
+import { getTracks, getArtists } from '../../apiService';
+
+// TODO: Refactor into a standard fetch template
 
 export function fetchTracksWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<TrackItem[]>>, offset = 0, offsetIncrement = 50) {
 
@@ -14,5 +16,20 @@ export function fetchTracksWithOffset (code: string, setState: React.Dispatch<Re
   };
 
   fetchTracksAsync(code, offset);
+}
 
+export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<Artist[]>>) {
+    let nextUrl;
+    async function fetchArtistsAsync (code: string, nextUrl: string | undefined) {
+      const artistData: ArtistData = await getArtists(code, nextUrl);
+      nextUrl = artistData.artists.next;
+
+      await setState((prevArtists) => [...prevArtists, ...artistData.artists.items]);
+
+      if (nextUrl) {
+        fetchArtistsAsync (code, nextUrl);
+      }
+    };
+
+    fetchArtistsAsync(code, nextUrl);
 }
