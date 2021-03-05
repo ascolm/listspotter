@@ -7,7 +7,8 @@ import Genres from './Genres/genres-index';
 import { getTokens } from '../../apiService';
 import { artistsMock, tracksMock, genresMock } from '../../devtools/dataMocks';
 import './main-style.scss';
-import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres } from './main-helpers';
+import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, getArtistsFromGenreList, filterSelectedGenres } from './main-helpers';
+import Artists from './Artists/artists-index';
 
 export interface Props {
 }
@@ -41,6 +42,12 @@ const Main: React.FC<Props> = (props) => {
   //
   // **DISABLED END
 
+  useEffect(() => {
+    const selectedGenres = filterSelectedGenres(genres);
+    const updatedArtists = getArtistsFromGenreList(selectedGenres);
+    setArtists(updatedArtists);
+  }, [genres]);
+
   function selectGenreHandler (genreName: string) {
     // TODO: RESORTING BASED ON MATCH
     const newGenreDb = Object.assign({}, genres);
@@ -53,6 +60,7 @@ const Main: React.FC<Props> = (props) => {
       <h1>Main'e hoşgeldiniz aq.</h1>
     <div className='main-container'>
       <Genres genreList={genres} selectHandler={selectGenreHandler}/>
+      <Artists artistList={artists}/>
 
 
       {/* ** DISABLED FOR TESTING - CHECKS FETCH / UNCOMMENT OR REMOVE LATER

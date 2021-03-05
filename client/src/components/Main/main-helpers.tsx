@@ -58,3 +58,23 @@ export function generateGenres (artists: Artist[]) {
 
   return genreDb;
 };
+
+export function getArtistsFromGenreList (list: GenreDb) {
+  const artists: Artist[] = [];
+  Object.values(list).forEach((genre) => {
+    genre.artists.forEach((genreArtist) => {
+      if (!artists.some((artist) => artist.id === genreArtist.id)) {
+        artists.push(genreArtist);
+      }
+    });
+  })
+  return artists;
+}
+
+export function filterSelectedGenres (list: GenreDb) {
+  return Object.entries(list).filter(([key, value]) => value.selected)
+    .reduce<GenreDb>((acc, [key, value]) => {
+      acc[key] = value
+      return acc;
+    }, {});
+};
