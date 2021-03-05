@@ -10,7 +10,8 @@ const ArtistItem: React.FC<Props> = ({ artist }) => {
 
   return (
     <a className='artist-item-container'>
-      {artist.name}
+      {artist.images[0] && <img src={artist.images[0].url} alt={'Image of artist ' + artist.name}/>}
+      <p>{artist.name}</p>
     </a>
   );
 }

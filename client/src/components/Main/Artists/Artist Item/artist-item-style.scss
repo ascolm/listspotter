@@ -8,14 +8,30 @@
   padding: 0.11rem;
   border-radius: 3px;
   cursor: pointer;
+  width: 50%;
+  margin: 10px 0;
   user-select: none;
-  display: block;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  justify-content: center;
+  align-items: center;
     &:hover{
       @extend %focus;
     }
     &.selected{
       @extend %focus;
       background-color: aqua;
+    }
+    p{
+      margin: 0;
+      padding: 0;
+    }
+    img{
+      height: 85px;
+      width: 85px;
+      border-radius: 100%;
     }
 }
 

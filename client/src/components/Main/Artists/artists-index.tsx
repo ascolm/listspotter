@@ -8,7 +8,7 @@ export interface Props {
 
 const Artists: React.FC<Props> = ({ artistList }) => {
   return (
-    <div className='genres-container'>
+    <div className='artists-container'>
       {artistList.map((artist) => <ArtistItem artist={artist}/>)}
     </div>
   );

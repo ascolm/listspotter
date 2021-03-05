@@ -31,7 +31,14 @@ export interface ArtistData{
 export interface Artist{
   id: string,
   name: string,
-  genres: string[]
+  genres: string[],
+  images: Image[]
+}
+
+interface Image{
+  height: number,
+  url: string,
+  width: number
 }
 
 export interface SimplifiedArtist{
