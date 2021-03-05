@@ -29,7 +29,7 @@ const Main: React.FC<Props> = (props) => {
     if (!code) return;
 
     const fetchData = async () => {
-      await getTokens(code);
+      // await getTokens(code);
       // if (tracks.length === 0) fetchTracksWithOffset(code, setTracks);
       // if (artists.length === 0) {
       //   fetchArtistsWithOffset(code, setArtists).then((genres) => {

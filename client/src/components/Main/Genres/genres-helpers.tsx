@@ -8,9 +8,18 @@ export function getSortedGenreKeys (genres: GenreDb) {
   return sortedKeys;
 }
 
+export function getMatchingGenres (searchValue: string, genres: GenreDb) {
+  const searchRegex = new RegExp(searchValue, 'ig');
+
+  return Object.entries(genres).filter(([key, value]) => key.match(searchRegex))
+    .reduce<GenreDb>((acc, [key, value]) => {
+      acc[key] = value
+      return acc;
+    }, {});
+}
+
+
 export function genreResort (genreName: string, db: GenreDb) {
   const splitName = genreName.split(' ');
-
   // Go over each item in
-
 }

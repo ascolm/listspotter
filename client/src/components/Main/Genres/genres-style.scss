@@ -4,7 +4,17 @@
   border-radius: 20px;
   background-color: black;
   padding: 2rem;
-  overflow-y: scroll
+  overflow-y: scroll;
+  .genres-search{
+    background-color: transparent;
+    border: none;
+    margin-bottom: 5px;
+    border-bottom: 1px solid white;
+    color: white;
+      &:focus{
+        outline: none;
+      }
+  }
 }
 
 ::-webkit-scrollbar{

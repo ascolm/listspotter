@@ -17,7 +17,8 @@ function App() {
             <Main/>
           </Route>
           <Route path="/">
-            <Login />
+            <Main/>
+            {/* <Login /> UNCOMMENT, REMOVE ABOVE*/}
           </Route>
         </Switch>
     </Router>
