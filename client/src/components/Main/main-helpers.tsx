@@ -49,9 +49,9 @@ export function generateGenres (artists: Artist[]) {
   artists.forEach((artist) => {
     artist.genres.forEach((artistGenre) => {
       if (!genreDb[artistGenre]) {
-        genreDb[artistGenre] = [artist];
+        genreDb[artistGenre] = {artists: [artist], selected: false};
       } else {
-        genreDb[artistGenre].push(artist);
+        genreDb[artistGenre].artists.push(artist);
       }
     })
   })

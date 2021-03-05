@@ -6,5 +6,5 @@ export interface Genre{
 }
 
 export interface GenreDb {
-  [key: string]: Artist[]
+  [key: string]: Genre
 }

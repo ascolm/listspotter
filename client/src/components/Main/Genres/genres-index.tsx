@@ -11,7 +11,7 @@ const Genres: React.FC<Props> = ({genreList}) => {
   return (
     <div className='genres-container'>
       {getSortedGenreKeys(genreList).map((genreName) => {
-        return <GenreItem genreName={genreName} artistCount={genreList[genreName].length}/>
+        return <GenreItem genreName={genreName} artistCount={genreList[genreName].artists.length}/>
       })}
     </div>
   );

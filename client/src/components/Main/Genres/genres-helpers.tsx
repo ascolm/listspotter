@@ -2,7 +2,7 @@ import { GenreDb } from '../../../interfaces/genreObjects'
 
 export function getSortedGenreKeys (genres: GenreDb) {
   const sortedKeys = Object.keys(genres).sort((a, b) => {
-    return genres[a].length > genres[b].length ? -1 : 1
+    return genres[a].artists.length > genres[b].artists.length ? -1 : 1
   });
 
   return sortedKeys;
