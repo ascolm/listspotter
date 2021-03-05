@@ -17,6 +17,22 @@
   }
 }
 
+.searchbar{
+  display: flex;
+  align-items: center;
+  a{
+    line-height: 0;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  i{
+    color: rgba(82, 81, 81, 0.671);
+    cursor: pointer;
+    margin-left: 10px;
+  }
+}
+
 ::-webkit-scrollbar{
   display: none;
 }

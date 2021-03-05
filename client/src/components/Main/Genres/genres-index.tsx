@@ -15,7 +15,14 @@ const Genres: React.FC<Props> = ({genreList, selectHandler}) => {
 
   return (
     <div className='genres-container'>
-      <input type='text' className='genres-search' placeholder='Search genres' onChange={(e) => setSearchValue(e.target.value)}/>
+      {/* TODO: SPLIT SEARCHBAR INTO SEPARATE COMPONENT */}
+      <div className='searchbar'>
+        <input type='text' className='genres-search' placeholder='Search genres' value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
+
+        {searchValue &&
+        <a onClick={() => setSearchValue('')}><i className="fas fa-times"></i></a>
+        }
+      </div>
 
       {getSortedGenreKeys(searchValue ? getMatchingGenres(searchValue, genreList) : genreList).map((genreName) => {
           return <GenreItem genreName={genreName} artistCount={genreList[genreName].artists.length} selectHandler={selectHandler} selected={genreList[genreName].selected}/>
