@@ -3,6 +3,7 @@
   padding: 0.11rem;
   border-radius: 3px;
   cursor: pointer;
+  user-select: none;
   display: block;
     &:hover{
       padding: 0.06rem 0.13rem;
@@ -11,6 +12,4 @@
     &.selected{
       background-color: aqua;
     }
-
-
 }

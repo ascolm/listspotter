@@ -41,11 +41,18 @@ const Main: React.FC<Props> = (props) => {
   //
   // **DISABLED END
 
+  function selectGenreHandler (genreName: string) {
+    // TODO: RESORTING BASED ON MATCH
+    const newGenreDb = Object.assign({}, genres);
+    newGenreDb[genreName].selected = !newGenreDb[genreName].selected;
+    setGenres(newGenreDb);
+  }
+
   return (
     <>
       <h1>Main'e hoşgeldiniz aq.</h1>
     <div className='main-container'>
-      <Genres genreList={genres}/>
+      <Genres genreList={genres} selectHandler={selectGenreHandler}/>
 
 
       {/* ** DISABLED FOR TESTING - CHECKS FETCH / UNCOMMENT OR REMOVE LATER

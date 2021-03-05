@@ -1,19 +1,17 @@
 import './genre-item-style.scss';
 import * as React from 'react';
-import { useState } from 'react';
 
 export interface Props {
   genreName: string,
   artistCount: number,
-  // genreSelect: () => void
+  selected: boolean,
+  selectHandler: (genreName: string) => void
 }
 
-const GenreItem: React.FC<Props> = ({ genreName, artistCount }) => {
-
-  let [selected, setSelected] = useState(false);
+const GenreItem: React.FC<Props> = ({ genreName, artistCount, selected, selectHandler }) => {
 
   function clickHandler () {
-    setSelected((prev) => !prev);
+    selectHandler(genreName);
   }
 
   return (
