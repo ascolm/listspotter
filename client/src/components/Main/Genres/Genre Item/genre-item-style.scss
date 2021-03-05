@@ -1,3 +1,8 @@
+%focus{
+  padding: 0.06rem 0.13rem;
+  font-size: 1.1rem;
+}
+
 .genre-item-container{
   color: white;
   padding: 0.11rem;
@@ -6,10 +11,11 @@
   user-select: none;
   display: block;
     &:hover{
-      padding: 0.06rem 0.13rem;
-      font-size: 1.1rem;
+      @extend %focus;
     }
     &.selected{
+      @extend %focus;
       background-color: aqua;
     }
 }
+
