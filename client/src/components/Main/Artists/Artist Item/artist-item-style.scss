@@ -17,13 +17,7 @@
   flex-grow: 0;
   justify-content: center;
   align-items: center;
-    &:hover{
-      @extend %focus;
-    }
-    &.selected{
-      @extend %focus;
-      background-color: aqua;
-    }
+  border: 1.1px solid transparent;
     p{
       margin: 0;
       padding: 0;
@@ -32,6 +26,9 @@
       height: 85px;
       width: 85px;
       border-radius: 100%;
+      &:hover{
+        border: 1px solid white;
+      }
     }
 }
 
