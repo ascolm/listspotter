@@ -5,7 +5,16 @@
   background-color: black;
   margin-left: 50px;
   padding: 2rem;
-  overflow-y: scroll
+  overflow-y: scroll;
+    .playlist-title{
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid white;
+      color: white;
+        &:focus{
+          outline: none;
+        }
+    }
 }
 
 ::-webkit-scrollbar{
