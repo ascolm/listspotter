@@ -20,7 +20,6 @@ const Main: React.FC<Props> = (props) => {
   let [artists, setArtists] = useState<Artist[]>(artistsMock); // WAS []
   let [genres, setGenres] = useState<GenreDb>(genresMock); // WAS {}
 
-
   // **FETCHING DATA DISABLED FOR TESTING - UNCOMMENT BELOW
   // const code = searchParams.get('code');
 

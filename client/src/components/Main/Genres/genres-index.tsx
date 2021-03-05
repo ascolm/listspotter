@@ -1,4 +1,5 @@
 import './genres-style.scss';
+import GenreItem from './Genre Item/genre-item-index';
 import { GenreDb } from '../../../interfaces/genreObjects';
 import { getSortedGenreKeys } from './genres-helpers';
 
@@ -7,11 +8,10 @@ export interface Props {
 }
 
 const Genres: React.FC<Props> = ({genreList}) => {
-  console.log(getSortedGenreKeys(genreList));
   return (
     <div className='genres-container'>
       {getSortedGenreKeys(genreList).map((genreName) => {
-        return <p key={genreName}>{genreName}:{genreList[genreName].length}</p>
+        return <GenreItem genreName={genreName} artistCount={genreList[genreName].length}/>
       })}
     </div>
   );
