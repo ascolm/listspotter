@@ -1,0 +1,13 @@
+.playlist-container{
+  height: 40rem;
+  width: 20rem;
+  border-radius: 20px;
+  background-color: black;
+  margin-left: 50px;
+  padding: 2rem;
+  overflow-y: scroll
+}
+
+::-webkit-scrollbar{
+  display: none;
+}

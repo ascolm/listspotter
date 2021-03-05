@@ -9,6 +9,7 @@ import { artistsMock, tracksMock, genresMock } from '../../devtools/dataMocks';
 import './main-style.scss';
 import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, getArtistsFromGenreList, filterSelectedGenres } from './main-helpers';
 import Artists from './Artists/artists-index';
+import Playlist from './Playlist/playlist-index';
 
 export interface Props {
 }
@@ -61,6 +62,10 @@ const Main: React.FC<Props> = (props) => {
     <div className='main-container'>
       <Genres genreList={genres} selectHandler={selectGenreHandler}/>
       <Artists artistList={artists}/>
+      <Playlist tracks={tracks
+        .filter((trackItem) => {
+          return trackItem.track.artists.some((trackArtist) => artists.findIndex((artist) => artist.id === trackArtist.id) !== -1);
+        })}/>
 
 
       {/* ** DISABLED FOR TESTING - CHECKS FETCH / UNCOMMENT OR REMOVE LATER

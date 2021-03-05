@@ -1439,7 +1439,7 @@ const trackData = {
             "spotify" : "https://open.spotify.com/artist/710FHFQeXKC6dZGCxt7kQh"
           },
           "href" : "https://api.spotify.com/v1/artists/710FHFQeXKC6dZGCxt7kQh",
-          "id" : "710FHFQeXKC6dZGCxt7kQh",
+          "id" : "02IFYoziC7CpQRK8fbehUY",
           "name" : "Yussef Kamaal",
           "type" : "artist",
           "uri" : "spotify:artist:710FHFQeXKC6dZGCxt7kQh"
@@ -1475,7 +1475,7 @@ const trackData = {
           "spotify" : "https://open.spotify.com/artist/710FHFQeXKC6dZGCxt7kQh"
         },
         "href" : "https://api.spotify.com/v1/artists/710FHFQeXKC6dZGCxt7kQh",
-        "id" : "710FHFQeXKC6dZGCxt7kQh",
+        "id" : "02IFYoziC7CpQRK8fbehUY",
         "name" : "Yussef Kamaal",
         "type" : "artist",
         "uri" : "spotify:artist:710FHFQeXKC6dZGCxt7kQh"
@@ -2425,7 +2425,7 @@ const trackData = {
           "spotify" : "https://open.spotify.com/artist/6RmijobcphddxSNtsBHjF0"
         },
         "href" : "https://api.spotify.com/v1/artists/6RmijobcphddxSNtsBHjF0",
-        "id" : "6RmijobcphddxSNtsBHjF0",
+        "id" : "01e2lCvLZ4fLUIRy68nptH",
         "name" : "Simon Posford",
         "type" : "artist",
         "uri" : "spotify:artist:6RmijobcphddxSNtsBHjF0"
@@ -4698,7 +4698,7 @@ const trackData = {
             "spotify" : "https://open.spotify.com/artist/46iJ1VD4HKFnqjISGqlZkV"
           },
           "href" : "https://api.spotify.com/v1/artists/46iJ1VD4HKFnqjISGqlZkV",
-          "id" : "46iJ1VD4HKFnqjISGqlZkV",
+          "id" : "09b5OcuIELTdD7FfzQzcdB",
           "name" : "Covet",
           "type" : "artist",
           "uri" : "spotify:artist:46iJ1VD4HKFnqjISGqlZkV"

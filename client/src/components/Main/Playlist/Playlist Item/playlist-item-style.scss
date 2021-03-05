@@ -1,0 +1,21 @@
+%focus{
+  padding: 0.06rem 0.13rem;
+  font-size: 1.1rem;
+}
+
+.playlist-item-container{
+  color: white;
+  padding: 0.11rem;
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+  display: block;
+    &:hover{
+      @extend %focus;
+    }
+    &.selected{
+      @extend %focus;
+      background-color: aqua;
+    }
+}
+
