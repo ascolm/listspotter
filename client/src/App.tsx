@@ -17,8 +17,7 @@ function App() {
             <Main/>
           </Route>
           <Route path="/">
-            <Main/> {/* DISABLED LOGIN FOR TESTING, REMOVE THIS LINE & UNCOMMENT BELOW */}
-            {/* <Login /> */}
+            <Login />
           </Route>
         </Switch>
     </Router>

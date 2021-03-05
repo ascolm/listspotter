@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { TrackItem, Artist } from '../../interfaces/spotifyObjects';
 import { GenreDb } from '../../interfaces/genreObjects';
 import Genres from './Genres/genres-index';
-import { getTokens } from '../../apiService';
+import { getTokens, createPlaylist } from '../../apiService';
 import { artistsMock, tracksMock, genresMock } from '../../devtools/dataMocks';
 import './main-style.scss';
 import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, getArtistsFromGenreList, filterSelectedGenres } from './main-helpers';
@@ -23,23 +23,23 @@ const Main: React.FC<Props> = (props) => {
   let [genres, setGenres] = useState<GenreDb>(genresMock); // WAS {}
 
   // **FETCHING DATA DISABLED FOR TESTING - UNCOMMENT BELOW
-  // const code = searchParams.get('code');
+  const code = searchParams.get('code');
 
-  // useEffect(() => {
-  //   if (!code) return;
-  //
-  //   const fetchData = async () => {
-  //     await getTokens(code);
-  //     if (tracks.length === 0) fetchTracksWithOffset(code, setTracks);
-  //     if (artists.length === 0) {
-  //       fetchArtistsWithOffset(code, setArtists).then((genres) => {
-  //         setGenres(genres)
-  //       });
-  //     }
-  //   }
-  //
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    if (!code) return;
+
+    const fetchData = async () => {
+      await getTokens(code);
+      // if (tracks.length === 0) fetchTracksWithOffset(code, setTracks);
+      // if (artists.length === 0) {
+      //   fetchArtistsWithOffset(code, setArtists).then((genres) => {
+      //     setGenres(genres)
+      //   });
+      // }
+    }
+
+    fetchData();
+  }, []);
   //
   // **DISABLED END
 
@@ -56,6 +56,12 @@ const Main: React.FC<Props> = (props) => {
     setGenres(newGenreDb);
   }
 
+  async function createPlaylistHandler (playlistName: string, trackURIs: string[]) {
+    if (!code) return;
+    const playlistID = await createPlaylist(code, playlistName, trackURIs);
+    console.log(playlistID);
+  }
+
   return (
     <>
       <h1>Main'e hoşgeldiniz aq.</h1>
@@ -65,7 +71,7 @@ const Main: React.FC<Props> = (props) => {
       <Playlist tracks={tracks
         .filter((trackItem) => {
           return trackItem.track.artists.some((trackArtist) => artists.findIndex((artist) => artist.id === trackArtist.id) !== -1);
-        })}/>
+        })} createHandler={createPlaylistHandler}/>
 
 
       {/* ** DISABLED FOR TESTING - CHECKS FETCH / UNCOMMENT OR REMOVE LATER

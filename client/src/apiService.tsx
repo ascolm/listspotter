@@ -34,10 +34,10 @@ export const getArtists = async (code: string, nextUrl: string | undefined) => {
   return artists;
 };
 
-export const createPlaylist = async (playlistName: string, trackURIs: string[]) => {
+export const createPlaylist = async (code: string, playlistName: string, trackURIs: string[]) => {
   const response = await fetch(baseUrl + '/create', {
     method: 'POST',
-    body: JSON.stringify({playlistName, trackURIs}),
+    body: JSON.stringify({code, playlistName, trackURIs}),
     headers: {
       'Content-Type': 'application/json'
     }

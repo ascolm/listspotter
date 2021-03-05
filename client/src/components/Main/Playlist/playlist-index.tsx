@@ -3,17 +3,20 @@ import { useState } from 'react';
 import './playlist-style.scss';
 import PlaylistItem from './Playlist Item/playlist-item-index';
 import { TrackItem } from '../../../interfaces/spotifyObjects';
+import { createPlaylist } from '../../../apiService';
 
 export interface Props {
-  tracks: TrackItem[]
+  tracks: TrackItem[],
+  createHandler: (playlistName: string, trackURIs: string[]) => void;
 }
 
-const Playlist: React.FC<Props> = ({ tracks }) => {
+const Playlist: React.FC<Props> = ({ tracks, createHandler }) => {
   let [nameField, setNameField] = useState('');
 
   function submitHandler (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(nameField);
+    const trackURIs = tracks.map((track) => track.track.uri);
+    createHandler(nameField, trackURIs);
   }
 
   return (

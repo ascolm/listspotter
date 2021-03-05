@@ -14,7 +14,7 @@ const queryParams: QueryParams = {
   redirect_uri: 'http://localhost:3000/main',
   state: 'bayburt',
   // scope: 'user-library-read user-follow-modify'
-  scope: 'user-library-read user-follow-read user-follow-modify'
+  scope: 'user-library-read user-follow-read user-follow-modify playlist-modify-public'
 }
 
 function buildQueryUrl (url: string, params: QueryParams) : string {

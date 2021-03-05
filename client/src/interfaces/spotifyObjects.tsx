@@ -6,7 +6,8 @@ export interface Track {
   id: string,
   name: string,
   artists: SimplifiedArtist[],
-  album: Album
+  album: Album,
+  uri: string
 }
 
 export interface TrackItem {
