@@ -5,7 +5,7 @@
 export interface Track {
   id: string,
   name: string,
-  artists: Artist[],
+  artists: SimplifiedArtist[],
   album: Album
 }
 
@@ -30,7 +30,12 @@ export interface ArtistData{
 export interface Artist{
   id: string,
   name: string,
-  genres?: string[]
+  genres: string[]
+}
+
+export interface SimplifiedArtist{
+  id: string,
+  name: string
 }
 
 export interface Album{

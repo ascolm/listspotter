@@ -1,0 +1,13 @@
+.genres-container{
+  height: 40rem;
+  width: 20rem;
+  border-radius: 5%;
+  background-color: black;
+  color: white;
+  padding: 2rem;
+  overflow-y: scroll
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
