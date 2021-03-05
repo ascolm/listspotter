@@ -1,4 +1,5 @@
 import { TrackData, TrackItem, ArtistData, Artist } from '../../interfaces/spotifyObjects';
+import { GenreDb } from '../../interfaces/genreObjects';
 import { getTracks, getArtists } from '../../apiService';
 // TODO: Refactor into a standard fetch template
 
@@ -41,10 +42,6 @@ export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<R
     fetchArtistsAsync(code, nextUrl);
   })
   return artistPromise;
-}
-
-export interface GenreDb {
-  [key: string]: Artist[]
 }
 
 export function generateGenres (artists: Artist[]) {

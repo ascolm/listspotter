@@ -2,8 +2,9 @@ import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { TrackItem, Artist } from '../../interfaces/spotifyObjects';
+import { GenreDb } from '../../interfaces/genreObjects';
 import { getTokens } from '../../apiService';
-import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, GenreDb, sortGenres } from './main-helpers';
+import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, sortGenres } from './main-helpers';
 
 export interface Props {
 }
