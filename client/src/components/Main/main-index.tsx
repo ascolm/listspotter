@@ -66,7 +66,7 @@ const Main: React.FC<Props> = (props) => {
     <>
       <h1>Main'e hoşgeldiniz aq.</h1>
     <div className='main-container'>
-      <Genres genreList={genres} selectHandler={selectGenreHandler}/>
+      <Genres genreList={genres} displayedArtists={artists} selectHandler={selectGenreHandler}/>
       <Artists artistList={artists}/>
       <Playlist tracks={tracks
         .filter((trackItem) => {

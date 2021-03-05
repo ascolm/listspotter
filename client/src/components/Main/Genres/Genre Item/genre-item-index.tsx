@@ -3,7 +3,7 @@ import * as React from 'react';
 
 export interface Props {
   genreName: string,
-  artistCount: number,
+  artistCount: number | '',
   selected: boolean,
   selectHandler: (genreName: string) => void
 }
@@ -16,7 +16,7 @@ const GenreItem: React.FC<Props> = ({ genreName, artistCount, selected, selectHa
 
   return (
     <a className={'genre-item-container' + (selected ? ' selected' : '')} onClick={clickHandler}>
-      {genreName} : {artistCount}
+      {genreName} {selected ? '' : ': ' + artistCount}
     </a>
   );
 }
