@@ -65,7 +65,7 @@ const Main: React.FC<Props> = (props) => {
 
   function toggleArtistHandler (artistId: string) {
     const updatedArtists = artistToggleUpdate(artistId, artists);
-    console.log(updatedArtists);
+    console.log(updatedArtists.filter((a) => a.id === artistId));
     setArtists(updatedArtists);
   }
 
@@ -79,7 +79,7 @@ const Main: React.FC<Props> = (props) => {
     <>
       <h1>Main'e hoşgeldiniz aq.</h1>
     <div className='main-container'>
-      <Genres genreList={genres} displayedArtists={artists.filter((artist) => artist.selected)} selectHandler={selectGenreHandler}/>
+      <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler}/>
 
       {/* // Display selected artists & artists deselected manually by user */}
       <Artists artistList={artists.filter((artist) => (!artist.selected && artist.userModified) || artist.selected)} toggleHandler={toggleArtistHandler}/>

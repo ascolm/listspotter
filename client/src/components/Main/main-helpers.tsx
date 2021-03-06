@@ -91,6 +91,7 @@ export function markGenreArtists (artists: Artist[], selectedGenres: GenreDb) {
     // if (updatedArtist.userModified) updatedArtist.userModified = false;
 
     // If not manually disabled by user, update based on genre
+    // TODO: instead of user modified, create a manuallyDisabled boolean (later on may create a manuallyAdded for extra additions)
     if (!(updatedArtist.userModified && !updatedArtist.selected)) {
       updatedArtist.userModified = false;
       if (artistsFromSelected.some((artistFromSelected) => artistFromSelected.id === artist.id)) {

@@ -9,11 +9,11 @@ import SearchBar from 'components/common/Searchbar/searchbar-index';
 
 export interface Props {
   genreList: GenreDb,
-  displayedArtists: Artist[],
+  artists: Artist[],
   selectHandler: (genreName: string) => void;
 }
 
-const Genres: React.FC<Props> = ({genreList, displayedArtists, selectHandler}) => {
+const Genres: React.FC<Props> = ({genreList, artists, selectHandler}) => {
   let [searchValue, setSearchValue] = useState('');
 
   return (
@@ -25,8 +25,8 @@ const Genres: React.FC<Props> = ({genreList, displayedArtists, selectHandler}) =
       - For each genre, the artist count shows only the number of artists in that genre that the user has not selected so far.
         For example, say "Rock" has 5 artists, and "Modern Rock" has 3 artists, which are also under "Rock". If the user selects "Modern Rock" first, those 3 artists will be on display. On the left hand side, "Rock" genre will now show an artist count of 2, because the other 3 has already been chosen with the "Modern Rock" tag. */}
 
-      {getSortedGenreKeys(searchValue ? getMatchingGenres(searchValue, genreList) : genreList, displayedArtists).map((genreName) => {
-          return <GenreItem key={genreName} genreName={genreName} artistCount={countUnselected(genreList, genreName, displayedArtists)} selectHandler={selectHandler} selected={genreList[genreName].selected}/>
+      {getSortedGenreKeys(searchValue ? getMatchingGenres(searchValue, genreList) : genreList, artists.filter((artist) => artist.selected)).map((genreName) => {
+          return <GenreItem key={genreName} genreName={genreName} artistCount={countUnselected(genreList, genreName, artists)} selectHandler={selectHandler} selected={genreList[genreName].selected}/>
         })}
     </div>
   );
