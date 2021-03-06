@@ -5,6 +5,7 @@ import GenreItem from './Genre Item/genre-item-index';
 import { GenreDb } from '../../../interfaces/genreObjects';
 import { Artist } from '../../../interfaces/spotifyObjects';
 import { getSortedGenreKeys, getMatchingGenres, countUnselected } from './genres-helpers';
+import SearchBar from '../../common/Searchbar/searchbar-index';
 
 export interface Props {
   genreList: GenreDb,
@@ -17,14 +18,7 @@ const Genres: React.FC<Props> = ({genreList, displayedArtists, selectHandler}) =
 
   return (
     <div className='genres-container'>
-      {/* TODO: SPLIT SEARCHBAR INTO SEPARATE COMPONENT */}
-      <div className='searchbar'>
-        <input type='text' className='genres-search' placeholder='Search genres' value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
-
-        {searchValue &&
-        <a onClick={() => setSearchValue('')}><i className="fas fa-times"></i></a>
-        }
-      </div>
+      <SearchBar placeholder='Search genres' searchValue={searchValue} setSearchValue={setSearchValue} />
 
       {getSortedGenreKeys(searchValue ? getMatchingGenres(searchValue, genreList) : genreList, displayedArtists).map((genreName) => {
           return <GenreItem genreName={genreName} artistCount={countUnselected(genreList, genreName, displayedArtists)} selectHandler={selectHandler} selected={genreList[genreName].selected}/>

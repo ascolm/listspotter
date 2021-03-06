@@ -18,9 +18,9 @@ const Main: React.FC<Props> = (props) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  let [tracks, setTracks] = useState<TrackItem[]>(tracksMock); // WAS []
-  let [artists, setArtists] = useState<Artist[]>(artistsMock); // WAS []
-  let [genres, setGenres] = useState<GenreDb>(genresMock); // WAS {}
+  let [tracks, setTracks] = useState<TrackItem[]>(tracksMock); // WAS [] - SWITCHED TO MOCK FOR TESTING
+  let [artists, setArtists] = useState<Artist[]>(artistsMock); // WAS [] - SWITCHED TO MOCK FOR TESTING
+  let [genres, setGenres] = useState<GenreDb>(genresMock); // WAS {} - SWITCHED TO MOCK FOR TESTING
 
   // **FETCHING DATA DISABLED FOR TESTING - UNCOMMENT BELOW
   const code = searchParams.get('code');

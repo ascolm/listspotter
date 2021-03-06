@@ -8,10 +8,10 @@ export interface Props {
 
 const Artists: React.FC<Props> = ({ artistList }) => {
   return (
+    // SORT ARTISTS BY ALPHABETICAL ORDER
     <div className='artists-container'>
-      {artistList.sort((a, b) => {
-        return a.name < b.name ? -1 : 1
-      }).map((artist) => <ArtistItem artist={artist}/>)}
+      {artistList.sort((a, b) => a.name < b.name ? -1 : 1)
+      .map((artist) => <ArtistItem artist={artist}/>)}
     </div>
   );
 }
