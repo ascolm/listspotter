@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import './playlist-style.scss';
 import PlaylistItem from './Playlist Item/playlist-item-index';
-import { TrackItem } from '../../../interfaces/spotifyObjects';
+import { TrackItem } from 'interfaces/spotifyObjects';
 
 export interface Props {
   tracks: TrackItem[],

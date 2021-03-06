@@ -1,5 +1,5 @@
 import './artists-style.scss';
-import { Artist } from '../../../interfaces/spotifyObjects';
+import { Artist } from 'interfaces/spotifyObjects';
 import ArtistItem from './Artist Item/artist-item-index';
 
 export interface Props {

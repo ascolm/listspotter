@@ -2,10 +2,10 @@ import * as React from 'react';
 import { useState } from 'react';
 import './genres-style.scss';
 import GenreItem from './Genre Item/genre-item-index';
-import { GenreDb } from '../../../interfaces/genreObjects';
-import { Artist } from '../../../interfaces/spotifyObjects';
+import { GenreDb } from 'interfaces/genreObjects';
+import { Artist } from 'interfaces/spotifyObjects';
 import { getSortedGenreKeys, getMatchingGenres, countUnselected } from './genres-helpers';
-import SearchBar from '../../common/Searchbar/searchbar-index';
+import SearchBar from 'components/common/Searchbar/searchbar-index';
 
 export interface Props {
   genreList: GenreDb,

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { TrackItem, Artist } from '../../interfaces/spotifyObjects';
-import { GenreDb } from '../../interfaces/genreObjects';
+import { TrackItem, Artist } from 'interfaces/spotifyObjects';
+import { GenreDb } from 'interfaces/genreObjects';
 import Genres from './Genres/genres-index';
-import { getTokens, createPlaylist } from '../../apiService';
-import { artistsMock, tracksMock, genresMock } from '../../devtools/dataMocks';
+import { getTokens, createPlaylist } from 'apiService';
+import { artistsMock, tracksMock, genresMock } from 'devtools/dataMocks';
 import './main-style.scss';
 import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, getArtistsFromGenreList, filterSelectedGenres } from './main-helpers';
 import Artists from './Artists/artists-index';

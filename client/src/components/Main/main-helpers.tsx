@@ -1,6 +1,6 @@
-import { TrackData, TrackItem, ArtistData, Artist } from '../../interfaces/spotifyObjects';
-import { GenreDb } from '../../interfaces/genreObjects';
-import { getTracks, getArtists } from '../../apiService';
+import { TrackData, TrackItem, ArtistData, Artist } from 'interfaces/spotifyObjects';
+import { GenreDb } from 'interfaces/genreObjects';
+import { getTracks, getArtists } from 'apiService';
 // TODO: Refactor into a standard fetch template
 
 export function fetchTracksWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<TrackItem[]>>, offset = 0, offsetIncrement = 50) {

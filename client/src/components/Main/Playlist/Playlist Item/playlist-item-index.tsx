@@ -1,5 +1,5 @@
 import './playlist-item-style.scss';
-import { TrackItem } from '../../../../interfaces/spotifyObjects'
+import { TrackItem } from 'interfaces/spotifyObjects'
 
 export interface Props {
   track: TrackItem

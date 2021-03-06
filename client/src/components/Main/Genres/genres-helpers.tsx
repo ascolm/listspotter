@@ -1,5 +1,5 @@
-import { GenreDb } from '../../../interfaces/genreObjects';
-import { Artist } from '../../../interfaces/spotifyObjects';
+import { GenreDb } from 'interfaces/genreObjects';
+import { Artist } from 'interfaces/spotifyObjects';
 
 export function getSortedGenreKeys (genres: GenreDb, selectedArtists: Artist[]) {
   const sortedKeys = Object.keys(genres).sort((a, b) => {
