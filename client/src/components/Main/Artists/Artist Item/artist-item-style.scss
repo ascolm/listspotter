@@ -7,7 +7,6 @@
   color: white;
   padding: 0.11rem;
   border-radius: 3px;
-  cursor: pointer;
   width: 50%;
   margin: 10px 0;
   user-select: none;
@@ -18,17 +17,21 @@
   justify-content: center;
   align-items: center;
   border: 1.1px solid transparent;
-    p{
-      margin: 0;
-      padding: 0;
+  p{
+    margin: 0;
+    padding: 0;
+  }
+  img{
+    cursor: pointer;
+    height: 85px;
+    width: 85px;
+    border-radius: 100%;
+    &:hover{
+      border: 1px solid white;
     }
-    img{
-      height: 85px;
-      width: 85px;
-      border-radius: 100%;
-      &:hover{
-        border: 1px solid white;
-      }
-    }
+  }
+  &.user-disabled{
+    opacity: 0.4;
+  }
 }
 

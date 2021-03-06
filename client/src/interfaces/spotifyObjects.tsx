@@ -33,7 +33,8 @@ export interface Artist{
   name: string,
   genres: string[],
   images: Image[],
-  selected?: boolean  // REMOVE ? AFTER TESTING
+  selected?: boolean,
+  userModified?: boolean  // REMOVE ? AFTER TESTING
 }
 
 interface Image{

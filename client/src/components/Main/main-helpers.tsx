@@ -104,3 +104,16 @@ export function filterSelectedGenres (list: GenreDb) {
     return acc;
   }, {});
 };
+
+export function artistToggleUpdate (artistId: string, artistList: Artist[]) {
+  return artistList.map((artist) => {
+    if (artist.id === artistId) {
+      let updatedArtist = Object.assign({}, artist);
+      updatedArtist.selected = !updatedArtist.selected;
+      updatedArtist.userModified = true;
+      return updatedArtist;
+    } else {
+      return artist;
+    }
+  });
+}

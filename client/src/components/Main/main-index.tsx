@@ -7,7 +7,14 @@ import Genres from './Genres/genres-index';
 import { getTokens, createPlaylist } from 'apiService';
 import { artistsMock, tracksMock, genresMock } from 'devtools/dataMocks';
 import './main-style.scss';
-import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, markGenreArtists, filterSelectedGenres } from './main-helpers';
+import {
+  fetchTracksWithOffset,
+  fetchArtistsWithOffset,
+  generateGenres,
+  markGenreArtists,
+  filterSelectedGenres,
+  artistToggleUpdate
+ } from './main-helpers';
 import Artists from './Artists/artists-index';
 import Playlist from './Playlist/playlist-index';
 
@@ -56,6 +63,12 @@ const Main: React.FC<Props> = (props) => {
     setGenres(newGenreDb);
   }
 
+  function toggleArtistHandler (artistId: string) {
+    const updatedArtists = artistToggleUpdate(artistId, artists);
+    console.log(updatedArtists);
+    setArtists(updatedArtists);
+  }
+
   async function createPlaylistHandler (playlistName: string, trackURIs: string[]) {
     if (!code) return;
     const playlistID = await createPlaylist(code, playlistName, trackURIs);
@@ -67,7 +80,9 @@ const Main: React.FC<Props> = (props) => {
       <h1>Main'e hoşgeldiniz aq.</h1>
     <div className='main-container'>
       <Genres genreList={genres} displayedArtists={artists.filter((artist) => artist.selected)} selectHandler={selectGenreHandler}/>
-      <Artists artistList={artists.filter((artist) => artist.selected)}/>
+
+      {/* // Display selected artists & artists deselected manually by user */}
+      <Artists artistList={artists.filter((artist) => (!artist.selected && artist.userModified) || artist.selected)} toggleHandler={toggleArtistHandler}/>
       <Playlist tracks={tracks
         .filter((trackItem) => {
           return trackItem.track.artists.some((trackArtist) => artists.filter((artist) => artist.selected).findIndex((artist) => artist.id === trackArtist.id) !== -1);
