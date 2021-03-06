@@ -23,7 +23,7 @@ const Playlist: React.FC<Props> = ({ tracks, createHandler }) => {
       <form action="submit" onSubmit={submitHandler}>
       <input type='text' className='playlist-title' placeholder='Playlist Name' onChange={(e) => setNameField(e.target.value)}/>
       </form>
-      {tracks.map((track) => <PlaylistItem track={track}/>)}
+      {tracks.map((track) => <PlaylistItem track={track} key={track.track.id}/>)}
   </div>
   );
 }

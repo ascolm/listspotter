@@ -26,7 +26,7 @@ const Genres: React.FC<Props> = ({genreList, displayedArtists, selectHandler}) =
         For example, say "Rock" has 5 artists, and "Modern Rock" has 3 artists, which are also under "Rock". If the user selects "Modern Rock" first, those 3 artists will be on display. On the left hand side, "Rock" genre will now show an artist count of 2, because the other 3 has already been chosen with the "Modern Rock" tag. */}
 
       {getSortedGenreKeys(searchValue ? getMatchingGenres(searchValue, genreList) : genreList, displayedArtists).map((genreName) => {
-          return <GenreItem genreName={genreName} artistCount={countUnselected(genreList, genreName, displayedArtists)} selectHandler={selectHandler} selected={genreList[genreName].selected}/>
+          return <GenreItem key={genreName} genreName={genreName} artistCount={countUnselected(genreList, genreName, displayedArtists)} selectHandler={selectHandler} selected={genreList[genreName].selected}/>
         })}
     </div>
   );
