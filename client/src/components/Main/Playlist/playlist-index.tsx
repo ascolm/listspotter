@@ -3,7 +3,6 @@ import { useState } from 'react';
 import './playlist-style.scss';
 import PlaylistItem from './Playlist Item/playlist-item-index';
 import { TrackItem } from '../../../interfaces/spotifyObjects';
-import { createPlaylist } from '../../../apiService';
 
 export interface Props {
   tracks: TrackItem[],
