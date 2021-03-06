@@ -26,9 +26,14 @@ export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<R
     async function fetchArtistsAsync (code: string, nextUrl: string | undefined) {
       const artistData: ArtistData = await getArtists(code, nextUrl);
       nextUrl = artistData.artists.next;
+      // TODO: ADD SELECTED: FALSE HERE, THEN IN MAIN INDEX, ONLY PASS THE ARTISTS WITH SELECTED-TRUE TO ARTISTS COMPONENT, UPDATE GENRE SELECT EVENT TO MARK ARTISTS AS SELECTED (GETARTISTSFROMGENRELIST BELOW WILL COPY THE WHOLE OBJECT AND ONLY CHANGE SELECTED VALUES)
+
+      const newArtists = artistData.artists.items.map((artistObj) => {
+        return {...artistObj, selected: false}
+      });
 
       await setState((prevArtists) => {
-        let updatedArtists = [...prevArtists, ...artistData.artists.items]
+        let updatedArtists = [...prevArtists, ...newArtists]
         if (!nextUrl) genres = generateGenres(updatedArtists);
         return updatedArtists;
       });
@@ -59,22 +64,43 @@ export function generateGenres (artists: Artist[]) {
   return genreDb;
 };
 
-export function getArtistsFromGenreList (list: GenreDb) {
-  const artists: Artist[] = [];
-  Object.values(list).forEach((genre) => {
+// export function getArtistsFromGenreList (list: GenreDb) {
+//   const artists: Artist[] = [];
+//   Object.values(list).forEach((genre) => {
+//     genre.artists.forEach((genreArtist) => {
+//       if (!artists.some((artist) => artist.id === genreArtist.id)) {
+//         artists.push(genreArtist);
+//       }
+//     });
+//   })
+//   return artists;
+// }
+
+export function markGenreArtists (artists: Artist[], selectedGenres: GenreDb) {
+  console.log('selected genres:');
+  console.log(selectedGenres);
+
+  const updatedArtists = artists.map((artist) => {
+    const updatedArtist = artist;
+    updatedArtist.selected = false;
+    return updatedArtist;
+  });
+
+  Object.values(selectedGenres).forEach((genre) => {
     genre.artists.forEach((genreArtist) => {
-      if (!artists.some((artist) => artist.id === genreArtist.id)) {
-        artists.push(genreArtist);
-      }
-    });
-  })
-  return artists;
-}
+        const artistIndex = updatedArtists.findIndex(artist => artist.id === genreArtist.id);
+        updatedArtists[artistIndex].selected = true;
+    })
+  });
+
+  return updatedArtists;
+
+};
 
 export function filterSelectedGenres (list: GenreDb) {
   return Object.entries(list).filter(([key, value]) => value.selected)
-    .reduce<GenreDb>((acc, [key, value]) => {
-      acc[key] = value
-      return acc;
-    }, {});
+  .reduce<GenreDb>((acc, [key, value]) => {
+    acc[key] = value
+    return acc;
+  }, {});
 };

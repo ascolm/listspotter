@@ -11,7 +11,7 @@ const Artists: React.FC<Props> = ({ artistList }) => {
     // SORT ARTISTS BY ALPHABETICAL ORDER
     <div className='artists-container'>
       {artistList.sort((a, b) => a.name < b.name ? -1 : 1)
-      .map((artist) => <ArtistItem artist={artist}/>)}
+      .map((artist) => <ArtistItem artist={artist} key={artist.id}/>)}
     </div>
   );
 }

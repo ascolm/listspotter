@@ -1,4 +1,4 @@
-import { Artist, TrackItem } from '../interfaces/spotifyObjects'
+import { Artist, TrackItem, ArtistData } from '../interfaces/spotifyObjects'
 import { GenreDb } from '../interfaces/genreObjects'
 import { generateGenres } from '../components/Main/main-helpers'
 
@@ -5122,7 +5122,12 @@ const trackData = {
   "total" : 4031
 }
 
+function addSelectedProperty (data: ArtistData) {
+  return data.artists.items.map((artist) => {
+    return {...artist, selected: false}
+  });
+}
 
-export const artistsMock: Artist[] = artistData.artists.items;
+export const artistsMock: Artist[] = addSelectedProperty(artistData);
 export const tracksMock: TrackItem[] = trackData.items;
 export const genresMock: GenreDb = generateGenres(artistsMock);

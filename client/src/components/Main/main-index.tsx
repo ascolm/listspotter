@@ -7,7 +7,7 @@ import Genres from './Genres/genres-index';
 import { getTokens, createPlaylist } from 'apiService';
 import { artistsMock, tracksMock, genresMock } from 'devtools/dataMocks';
 import './main-style.scss';
-import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, getArtistsFromGenreList, filterSelectedGenres } from './main-helpers';
+import { fetchTracksWithOffset, fetchArtistsWithOffset, generateGenres, markGenreArtists, filterSelectedGenres } from './main-helpers';
 import Artists from './Artists/artists-index';
 import Playlist from './Playlist/playlist-index';
 
@@ -45,7 +45,7 @@ const Main: React.FC<Props> = (props) => {
 
   useEffect(() => {
     const selectedGenres = filterSelectedGenres(genres);
-    const updatedArtists = getArtistsFromGenreList(selectedGenres);
+    const updatedArtists = markGenreArtists(artists, selectedGenres);
     setArtists(updatedArtists);
   }, [genres]);
 
@@ -66,11 +66,11 @@ const Main: React.FC<Props> = (props) => {
     <>
       <h1>Main'e hoşgeldiniz aq.</h1>
     <div className='main-container'>
-      <Genres genreList={genres} displayedArtists={artists} selectHandler={selectGenreHandler}/>
-      <Artists artistList={artists}/>
+      <Genres genreList={genres} displayedArtists={artists.filter((artist) => artist.selected)} selectHandler={selectGenreHandler}/>
+      <Artists artistList={artists.filter((artist) => artist.selected)}/>
       <Playlist tracks={tracks
         .filter((trackItem) => {
-          return trackItem.track.artists.some((trackArtist) => artists.findIndex((artist) => artist.id === trackArtist.id) !== -1);
+          return trackItem.track.artists.some((trackArtist) => artists.filter((artist) => artist.selected).findIndex((artist) => artist.id === trackArtist.id) !== -1);
         })} createHandler={createPlaylistHandler}/>
 
 

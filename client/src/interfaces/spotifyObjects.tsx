@@ -32,7 +32,8 @@ export interface Artist{
   id: string,
   name: string,
   genres: string[],
-  images: Image[]
+  images: Image[],
+  selected?: boolean  // REMOVE ? AFTER TESTING
 }
 
 interface Image{
