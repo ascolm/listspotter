@@ -10,16 +10,14 @@ exports.requestToken = (code, next) => {
     method: 'POST',
     url: spotifyTokenUrl,
     headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
     data: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${clientID}&client_secret=${clientSecret}`
   })
-  .then((tokenResponse) => {
-    console.log('tokenresponse in gettokens:')
-    console.log(tokenResponse.data);
-    return tokenResponse.data;
-  })
-  .catch(next);
+    .then((tokenResponse) => {
+      return tokenResponse.data;
+    })
+    .catch(next);
 };
 
 exports.requestTracks = (spotifyTracksUrl, tokens, offset) => {
@@ -36,7 +34,7 @@ exports.requestTracks = (spotifyTracksUrl, tokens, offset) => {
 exports.requestArtists = (spotifyArtistsUrl, nextUrl, tokens) => {
   return axios.request({
     method: 'GET',
-    url: nextUrl || spotifyArtistsUrl + `?type=artist&limit=50`,
+    url: nextUrl || spotifyArtistsUrl + '?type=artist&limit=50',
     headers: {
       'Authorization': `Bearer ${tokens['access_token']}`,
       'Content-Type': 'application/json',
