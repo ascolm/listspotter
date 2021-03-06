@@ -77,24 +77,33 @@ export function generateGenres (artists: Artist[]) {
 // }
 
 export function markGenreArtists (artists: Artist[], selectedGenres: GenreDb) {
-  console.log('selected genres:');
-  console.log(selectedGenres);
+  const artistsFromSelected: Artist[] = [];
+  Object.values(selectedGenres).forEach((genre) => {
+    genre.artists.forEach((genreArtist) => {
+      if(!artistsFromSelected.some((artist) => artist.id === genreArtist.id)) {
+        artistsFromSelected.push(genreArtist);
+      }
+    });
+  });
 
   const updatedArtists = artists.map((artist) => {
     const updatedArtist = artist;
-    updatedArtist.selected = false;
+    // if (updatedArtist.userModified) updatedArtist.userModified = false;
+
+    // If not manually disabled by user, update based on genre
+    if (!(updatedArtist.userModified && !updatedArtist.selected)) {
+      updatedArtist.userModified = false;
+      if (artistsFromSelected.some((artistFromSelected) => artistFromSelected.id === artist.id)) {
+        updatedArtist.selected = true;
+      } else {
+        updatedArtist.selected = false;
+      }
+    }
+
     return updatedArtist;
   });
 
-  Object.values(selectedGenres).forEach((genre) => {
-    genre.artists.forEach((genreArtist) => {
-        const artistIndex = updatedArtists.findIndex(artist => artist.id === genreArtist.id);
-        updatedArtists[artistIndex].selected = true;
-    })
-  });
-
   return updatedArtists;
-
 };
 
 export function filterSelectedGenres (list: GenreDb) {
