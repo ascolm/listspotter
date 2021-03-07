@@ -3,20 +3,20 @@ import { GenreDb } from 'interfaces/genreObjects';
 import { getTracks, getArtists } from 'apiService';
 // TODO: Refactor into a standard fetch template
 
-export function fetchTracksWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<TrackItem[]>>, offset = 0, offsetIncrement = 50) {
+// export function fetchTracksWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<TrackItem[]>>, offset = 0, offsetIncrement = 50) {
 
-  async function fetchTracksAsync (code: string, offset: number) {
-    const trackData: TrackData = await getTracks(code, offset);
-    await setState((prevTracks) => [...prevTracks, ...trackData.items]);
+//   async function fetchTracksAsync (code: string, offset: number) {
+//     const trackData: TrackData = await getTracks(code);
+//     await setState((prevTracks) => [...prevTracks, ...trackData.items]);
 
-    if (trackData.next) {
-      offset += offsetIncrement
-      fetchTracksAsync (code, offset);
-    }
-  };
+//     if (trackData.next) {
+//       offset += offsetIncrement
+//       fetchTracksAsync (code, offset);
+//     }
+//   };
 
-  fetchTracksAsync(code, offset);
-}
+//   fetchTracksAsync(code, offset);
+// }
 
 export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<Artist[]>>) {
   const artistPromise = new Promise<GenreDb> ((resolve, reject) => {

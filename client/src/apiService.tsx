@@ -10,16 +10,15 @@ export const getTokens = async (code: string) => {
   });
 };
 
-export const getTracks = async (code: string, offset: number) => {
+export const getTracks = async (code: string) => {
   const response = await fetch(baseUrl + '/tracks', {
     method: 'POST',
-    body: JSON.stringify({code, offset}),
+    body: JSON.stringify({code}),
     headers: {
       'Content-Type': 'application/json'
     }
   });
-  const tracks = await response.json();
-  return tracks;
+  return await response.json();
 };
 
 export const getArtists = async (code: string, nextUrl: string | undefined) => {

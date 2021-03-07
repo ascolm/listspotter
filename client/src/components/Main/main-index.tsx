@@ -8,7 +8,6 @@ import { getTokens, createPlaylist } from 'apiService';
 import { artistsMock, tracksMock, genresMock } from 'devtools/dataMocks';
 import './main-style.scss';
 import {
-  fetchTracksWithOffset,
   fetchArtistsWithOffset,
   generateGenres,
   markGenreArtists,
@@ -36,6 +35,8 @@ const Main: React.FC<Props> = (props) => {
     if (!code) return;
 
     const fetchData = async () => {
+      // *** UPDATE THIS PART FROM TEST
+
       // await getTokens(code);
       // if (tracks.length === 0) fetchTracksWithOffset(code, setTracks);
       // if (artists.length === 0) {

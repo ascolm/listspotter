@@ -1,4 +1,7 @@
+controller
+
 const axios = require('axios');
+const { renderSync } = require('node-sass');
 const modeller = require('../modeller/modeller');
 const { requestWhileQueued } = require('./controller-helpers');
 
@@ -9,6 +12,8 @@ const spotifyUserUrl = baseUrl + '/me';
 const spotifyCreatePlaylistUrl = baseUrl + '/users';
 const spotifySaveTracksUrl = baseUrl + '/playlists';
 const saveTrackRequestLimit = 100; // max number of tracks allowed in a single "save tracks to playlist" request in spotify
+const offsetIncrement = 50; // max number of tracks allowed in a single "get saved tracks" request in spotify
+const msBetweenTrackRequests = 250;
 
 // TODO: TOKEN TO BE PER USER SESSION RATHER THAN ONE FOR THE WHOLE SERVER: GET USER ID AFTER RECEIVING AUTH TOKEN, SAVE AS ID TOKEN PAIR, SEND BACK USER ID TO CLIENT FOR USE IN SUBSEQUENT REQUESTS
 let tokens ='';
@@ -24,18 +29,60 @@ exports.getTokens = async (req, res, next) => {
 };
 
 exports.getTracks = async (req, res, next) => {
-  const {code, offset} = req.body;
+  const {code} = req.body;
+  let initialOffset = 0;
+  let trackData = [];
 
   if (!tokens) {
     tokens = await modeller.requestToken(code, next);
   }
 
-  modeller.requestTracks(spotifyTracksUrl, tokens, offset)
-    .then((trackResponse) => {
-      res.statusCode = 200;
-      res.send(trackResponse.data);
-    })
-    .catch(next);
+  function timeOutPromise () {
+    return new Promise((resolve) => setTimeout(() => resolve(), msBetweenTrackRequests));
+  };
+
+  async function fetchTracksAsync (offset) {
+    let trackBufferResponse;
+
+    try{
+      trackBufferResponse = await modeller.requestTracks(spotifyTracksUrl, tokens, offset);
+    } catch (err) {
+      console.log('inner error 😎')
+      console.log(err.response.status); // 404
+      if(err.response.status === 404){
+        await timeOutPromise();
+        await fetchTracksAsync (offset);
+        return;
+      }
+    }
+
+    trackData = [...trackData, ...trackBufferResponse.data.items];
+
+    console.log('received tracks for offset:', offset);
+    if (trackBufferResponse.data.next) {
+      offset += offsetIncrement;
+      await fetchTracksAsync (offset)
+    }
+  };
+
+  try {
+    await fetchTracksAsync(initialOffset);
+    console.log('sending ' + trackData.length + ' tracks')
+    res.status = 200;
+    res.send(trackData);
+  } catch (err) {
+    console.log('outer error 😎')
+    console.log('something went wrong while fetching tracks');
+    console.log(err);
+    res.sendStatus(500);
+  }
+
+  // modeller.requestTracks(spotifyTracksUrl, tokens, offset)
+  //   .then((trackResponse) => {
+  //     res.statusCode = 200;
+  //     res.send(trackResponse.data);
+  //   })
+  //   .catch(next);
 };
 
 exports.getArtists = async (req, res, next) => {
