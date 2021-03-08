@@ -33,14 +33,16 @@ const Playlist: React.FC<Props> = ({ tracks, createHandler, loaded }) => {
   return (
     <div className={'playlist-container' + (loaded ? ' loaded':'')}>
       <p className={'loading-text' + (loaded ? ' loaded':'')}>Loading your tracks...</p>
-      <form action="submit" onSubmit={submitHandler}>
-      <input type='text' className={'playlist-title' + (loaded ? ' loaded':'')} placeholder='Playlist Name' onChange={(e) => setNameField(e.target.value)}/>
+      <form action="submit" onSubmit={submitHandler} className='create-playlist'>
+        <input type='text' className={'playlist-title' + (loaded ? ' loaded':'')} placeholder='Playlist Name' onChange={(e) => setNameField(e.target.value)}/>
+        <a className={'button-create' + (loaded ? ' loaded':'')} type='submit'><i className="fas fa-plus-circle"></i></a>
+        {/* <a className='button-create'>CREATE PLAYLIST</a> */}
       </form>
 
       {loaded &&
         <table className='track-table'>
           <thead>
-            <tr className='playlist-headers'>
+            <tr className={'playlist-headers' + (loaded ? ' loaded':'')}>
               <th>TITLE</th>
               <th>ARTIST</th>
               <th>ALBUM</th>
@@ -48,7 +50,7 @@ const Playlist: React.FC<Props> = ({ tracks, createHandler, loaded }) => {
               <th>LENGTH</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='track-list'>
             {tracks.map((track) => <PlaylistItem track={track} key={track.track.id} disabled={disabledTrackIds.includes(track.track.id)} toggleHandler={toggleTrackHandler}/>)}
           </tbody>
         </table>
