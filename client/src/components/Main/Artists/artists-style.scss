@@ -1,15 +1,19 @@
 .artists-container{
-  height: 100%;
+  height: 95%;
   width: 55%;
   border-radius: 20px;
   position: relative;
-  left: -20px;
+  left: -3%; // BU UNFOLDDA GELİCEK BAŞTA SIFIR
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
   background-color: rgba(0, 0, 0, 0.97);
   padding: 2rem;
-  overflow-y: scroll
+  overflow-y: scroll;
+}
+
+.choose-genre-message{
+  color: rgba(128, 128, 128, 0.692);
 }
 
 ::-webkit-scrollbar{

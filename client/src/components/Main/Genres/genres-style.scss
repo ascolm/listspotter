@@ -5,6 +5,14 @@
   background-color: black;
   padding: 2rem;
   overflow-y: scroll;
+  z-index: 1;
+  left: 45%;
+  position: relative;
+  transition: left 2s;
+  flex-shrink: 0;
+  &.loaded{
+    left: 0%;
+  }
 }
 
 ::-webkit-scrollbar{

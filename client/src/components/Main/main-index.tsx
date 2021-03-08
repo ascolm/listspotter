@@ -28,7 +28,7 @@ const Main: React.FC<Props> = (props) => {
 
   let [tracks, setTracks] = useState<TrackItem[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
   let [artists, setArtists] = useState<Artist[]>(artistsMock); // WAS [] - SWITCHED TO MOCK FOR TESTING
-  let [genres, setGenres] = useState<GenreDb>(genresMock); // WAS {} - SWITCHED TO MOCK FOR TESTING
+  let [genres, setGenres] = useState<GenreDb>({}); // WAS {} - SWITCHED TO MOCK FOR TESTING
   let [displayedTracks, setDisplayedTracks] = useState<TrackItem[]>([]);
 
   const code = searchParams.get('code');
@@ -38,19 +38,22 @@ const Main: React.FC<Props> = (props) => {
 
     // const fetchData = async () => {
     //   await getTokens(code);
+    //
     //   if (tracks.length === 0) {
     //    const trackList = getTracks(code).then((trackList) => {
     //      console.log(trackList.length + ' tracks received');
     //      setTracks(trackList);
     //    });
     //   }
+    // TODO: SEND ARTISTS IN ONE REQ FROM SERVER
     //   if (artists.length === 0) {
     //     fetchArtistsWithOffset(code, setArtists).then((genres) => {
     //       setGenres(genres)
     //     });
     //   }
     // }
-    setTimeout(() => setTracks(tracksMock), 2000);
+    setTimeout(() => setTracks(tracksMock), 3000);
+    setTimeout(() => setGenres(genresMock), 1000);
     // fetchData();
   }, []);
 
@@ -83,8 +86,8 @@ const Main: React.FC<Props> = (props) => {
 
       {/* // Display selected artists & artists deselected manually by user */}
       <div className="genre-artist-wrapper">
-        <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler}/>
-        <Artists artistList={artists.filter((artist) => artist.selected)} toggleHandler={toggleArtistHandler}/>
+        <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler} loaded={Object.keys(genres).length > 0}/>
+        <Artists artistList={artists.filter((artist) => artist.selected)} loaded={Object.keys(genres).length > 0} toggleHandler={toggleArtistHandler}/>
       </div>
 
       <div className="playlist-wrapper">

@@ -11,15 +11,16 @@ export interface Props {
   genreList: GenreDb,
   artists: Artist[],
   selectHandler: (genreName: string) => void;
+  loaded: boolean;
 }
 
-const Genres: React.FC<Props> = ({genreList, artists, selectHandler}) => {
+const Genres: React.FC<Props> = ({genreList, artists, selectHandler, loaded}) => {
   let [searchValue, setSearchValue] = useState('');
 
   return (
 
-    <div className='genres-container'>
-      <SearchBar placeholder='Search genres' searchValue={searchValue} setSearchValue={setSearchValue} />
+    <div className={'genres-container' + (loaded ? ' loaded':'')}>
+      <SearchBar placeholder='Search genres' searchValue={searchValue} setSearchValue={setSearchValue}/>
       {/* - Genres will be sorted based on how many artists they contain (descending). Selected genres are always on top (getSortedGenreKeys)
       - If there is a search value entered in the searchbar, filter only genres whose names match with the search value       (getMatchingGenres)
       - For each genre, the artist count shows only the number of artists in that genre that the user has not selected so far.
