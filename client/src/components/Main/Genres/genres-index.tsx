@@ -19,14 +19,18 @@ const Genres: React.FC<Props> = ({genreList, artists, selectHandler, loaded}) =>
 
   return (
 
-    <div className={'genres-container' + (loaded ? ' loaded':'')}>
+    <div className={'genres-wrapper' + (loaded ? ' loaded':'')}>
       {loaded ?
         <>
+        <div className='genre-search'>
           <SearchBar placeholder='Search genres' searchValue={searchValue} setSearchValue={setSearchValue}/>
+        </div>
 
-          {getSortedGenreKeys(searchValue ? getMatchingGenres(searchValue, genreList) : genreList, artists.filter((artist) => artist.selected)).map((genreName) => {
-              return <GenreItem key={genreName} genreName={genreName} artistCount={countUnselected(genreList, genreName, artists)} selectHandler={selectHandler} selected={genreList[genreName].selected}/>
-            })}
+        <div className='genres-container'>
+        {getSortedGenreKeys(searchValue ? getMatchingGenres(searchValue, genreList) : genreList, artists.filter((artist) => artist.selected)).map((genreName) => {
+            return <GenreItem key={genreName} genreName={genreName} artistCount={countUnselected(genreList, genreName, artists)} selectHandler={selectHandler} selected={genreList[genreName].selected}/>
+          })}
+        </div>
         </>
         :
         <p className='loading-genres-message'>Loading your genres...</p>

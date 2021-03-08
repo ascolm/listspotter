@@ -27,7 +27,6 @@ const Main: React.FC = () => {
   let [tracks, setTracks] = useState<TrackItem[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
   let [artists, setArtists] = useState<Artist[]>(artistsMock); // WAS [] - SWITCHED TO MOCK FOR TESTING
   let [genres, setGenres] = useState<GenreDb>({}); // WAS {} - SWITCHED TO MOCK FOR TESTING
-  let [displayedTracks, setDisplayedTracks] = useState<TrackItem[]>([]);
 
   const code = searchParams.get('code');
 
@@ -36,14 +35,14 @@ const Main: React.FC = () => {
 
     // const fetchData = async () => {
     //   await getTokens(code);
-    //
+
     //   if (tracks.length === 0) {
     //    const trackList = getTracks(code).then((trackList) => {
     //      console.log(trackList.length + ' tracks received');
     //      setTracks(trackList);
     //    });
     //   }
-    // TODO: SEND ARTISTS IN ONE REQ FROM SERVER
+    // // TODO: SEND ARTISTS IN ONE REQ FROM SERVER
     //   if (artists.length === 0) {
     //     fetchArtistsWithOffset(code, setArtists).then((genres) => {
     //       setGenres(genres)
