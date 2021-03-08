@@ -8,7 +8,7 @@ const spotifyTracksUrl = baseUrl + '/me/tracks';
 const spotifyArtistsUrl = baseUrl + '/me/following';
 const spotifyUserUrl = baseUrl + '/me';
 const spotifyCreatePlaylistUrl = baseUrl + '/users';
-const spotifySaveTracksUrl = baseUrl + '/playlists';
+const spotifyPlaylistUrl = baseUrl + '/playlists';
 const saveTrackRequestLimit = 100; // max number of tracks allowed in a single "save tracks to playlist" request in spotify
 const offsetIncrement = 50; // max number of tracks allowed in a single "get saved tracks" request in spotify
 const msBetweenTrackRequests = 250;
@@ -74,13 +74,6 @@ exports.getTracks = async (req, res, next) => {
     console.log(err);
     res.sendStatus(500);
   }
-
-  // modeller.requestTracks(spotifyTracksUrl, tokens, offset)
-  //   .then((trackResponse) => {
-  //     res.statusCode = 200;
-  //     res.send(trackResponse.data);
-  //   })
-  //   .catch(next);
 };
 
 exports.getArtists = async (req, res, next) => {
@@ -98,6 +91,23 @@ exports.getArtists = async (req, res, next) => {
     .catch((err) => console.log(err.response.data));
 };
 
+exports.getPlaylistCover = async (req, res, next) => {
+  const {code, playlistId} = req.body;
+
+  if (!tokens) {
+    tokens = await modeller.requestToken(code, next);
+  }
+
+  modeller.requestPlaylistCover(spotifyPlaylistUrl, playlistId, tokens)
+    .then((coverResponse) => {
+      res.statusCode = 200;
+      console.log(coverResponse);
+      res.send(coverResponse.data);
+    })
+    .catch((err) => console.log(err.response.data));
+};
+
+
 exports.createPlaylist = async (req, res, next) => {
   const {code, playlistName, trackURIs} = req.body;
 
@@ -109,28 +119,15 @@ exports.createPlaylist = async (req, res, next) => {
   const userID = userResponse.data.id;
 
   const createPlaylistResponse = await modeller.requestCreatePlaylist(spotifyCreatePlaylistUrl, playlistName, userID, tokens);
-  const playlistID = createPlaylistResponse.data.id;
+  const playlistData = createPlaylistResponse.data;
 
   function addTracks (trackArr) {
-    return modeller.requestAddTracks(spotifySaveTracksUrl, playlistID, trackArr, tokens);
+    return modeller.requestAddTracks(spotifyPlaylistUrl, playlistData.id, trackArr, tokens);
   }
-
-
-  // let trackQueue = trackURIs.slice();
-  // while (trackQueue.length > 0) {
-  //   if (trackQueue.length < saveTrackRequestLimit) {
-  //     await addTracks(trackQueue);
-  //     trackQueue = [];
-  //   } else {
-  //     let tracksToQuery = trackQueue.splice(0, saveTrackRequestLimit);
-  //     await addTracks(tracksToQuery);
-  //   }
-  // }
-
 
   // Spotify has a track limit per request, so below we check if multiple requests are necessary (TrackQueue is all the tracks to be added in a queue form, with multiple tracks "shifting" per request.)
   requestWhileQueued(trackURIs, saveTrackRequestLimit, addTracks);
 
   res.status(200);
-  res.send(JSON.stringify(playlistID));
+  res.send(JSON.stringify(playlistData));
 };

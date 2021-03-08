@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { TrackItem, Artist } from 'interfaces/spotifyObjects';
+import { TrackItem, Artist, PlaylistData, PlaylistCover } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import Genres from './Genres/genres-index';
-import { getTokens, createPlaylist, getTracks } from 'apiService';
+import { getTokens, createPlaylist, getTracks, getPlaylistCover } from 'apiService';
 import { artistsMock, tracksMock, genresMock } from 'devtools/dataMocks';
 import './main-style.scss';
 import {
@@ -19,6 +19,7 @@ import {
 import Artists from './Artists/artists-index';
 import Playlist from './Playlist/playlist-index';
 import icon from './Spotify_Icon_RGB_Green.png';
+import PlaylistCreatedModal from './Modal/modal-index';
 
 const Main: React.FC = () => {
   const location = useLocation();
@@ -27,14 +28,24 @@ const Main: React.FC = () => {
   let [tracks, setTracks] = useState<TrackItem[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
   let [artists, setArtists] = useState<Artist[]>(artistsMock); // WAS [] - SWITCHED TO MOCK FOR TESTING
   let [genres, setGenres] = useState<GenreDb>({}); // WAS {} - SWITCHED TO MOCK FOR TESTING
+  let [createdPlaylist, setCreatedPlaylist] = useState<any>({});
+  const [modalIsOpen,setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal(){
+    setIsOpen(false);
+  }
 
   const code = searchParams.get('code');
 
   useEffect(() => {
-    // if (!code) return;
+    if (!code) return;
 
-    // const fetchData = async () => {
-    //   await getTokens(code);
+    const fetchData = async () => {
+      await getTokens(code);
 
     //   if (tracks.length === 0) {
     //    const trackList = getTracks(code).then((trackList) => {
@@ -48,10 +59,10 @@ const Main: React.FC = () => {
     //       setGenres(genres)
     //     });
     //   }
-    // }
+    }
     setTimeout(() => setTracks(tracksMock), 3000);
     setTimeout(() => setGenres(genresMock), 1000);
-    // fetchData();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -60,6 +71,8 @@ const Main: React.FC = () => {
     setArtists(updatedArtists);
   }, [genres]);
 
+
+  // TODO: MOVE HANDLERS TO SEPARATE FILE
   function selectGenreHandler (genreName: string) {
     // TODO: RESORTING BASED ON MATCH
     const newGenreDb = Object.assign({}, genres);
@@ -74,16 +87,30 @@ const Main: React.FC = () => {
 
   async function createPlaylistHandler (playlistName: string, trackURIs: string[]) {
     if (!code) return;
-    const playlistID = await createPlaylist(code, playlistName, trackURIs);
-    console.log(playlistID);
+    const playlistData: PlaylistData = await createPlaylist(code, playlistName, trackURIs);
+    const timeoutPromise = new Promise((resolve, reject) => setTimeout(() => resolve(''), 500));
+    await timeoutPromise;
+    const playlistCover: PlaylistCover[] = await getPlaylistCover(code, playlistData.id);
+    playlistData.cover = playlistCover[0];
+    console.log(playlistData);
+    setCreatedPlaylist(playlistData);
   }
+
+  useEffect(() => {
+    if (Object.keys(createdPlaylist).length > 0) {
+      openModal();
+    }
+  }, [createdPlaylist])
 
   return (
     <div className='main-container'>
 
+      <PlaylistCreatedModal isOpen={modalIsOpen} onRequestClose={closeModal} playlist={createdPlaylist}/>
+
       <div className='title'>
         <h1>Listspotter.</h1>
         <p>Powered by <img src={icon} className='spotify-icon' alt="Spotify icon"/></p>
+        <button onClick={openModal}>modal</button>
       </div>
 
       {/* // Display selected artists & artists deselected manually by user */}

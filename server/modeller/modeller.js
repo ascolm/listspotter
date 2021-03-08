@@ -54,6 +54,18 @@ exports.requestUser = (spotifyUserUrl, tokens) => {
   });
 };
 
+exports.requestPlaylistCover = (spotifyPlaylistUrl, playlistId, tokens) => {
+  return axios.request({
+    method: 'GET',
+    url: spotifyPlaylistUrl + `/${playlistId}/images`,
+    headers: {
+      'Authorization': `Bearer ${tokens['access_token']}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    },
+  });
+};
+
 exports.requestCreatePlaylist = (spotifyCreatePlaylistUrl, playlistName, userID, tokens) => {
   return axios.request({
     method: 'POST',

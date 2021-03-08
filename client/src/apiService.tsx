@@ -43,6 +43,18 @@ export const createPlaylist = async (code: string, playlistName: string, trackUR
       'Content-Type': 'application/json'
     }
   });
-  const playlistID = await response.json();
-  return playlistID;
+  const playlistData = await response.json();
+  return playlistData;
+};
+
+export const getPlaylistCover = async (code: string, playlistId: string) => {
+  const response = await fetch(baseUrl + '/cover', {
+    method: 'POST',
+    body: JSON.stringify({code, playlistId}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const playlistData = await response.json();
+  return playlistData;
 };

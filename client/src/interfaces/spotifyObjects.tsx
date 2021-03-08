@@ -11,6 +11,19 @@ export interface Track {
   duration_ms: number
 }
 
+export interface PlaylistData {
+  href: string,
+  uri: string,
+  id: string,
+  cover?: PlaylistCover
+}
+
+export interface PlaylistCover {
+  width: number,
+  height: number,
+  url: string
+}
+
 export interface TrackItem {
   added_at: string,
   track: Track,
