@@ -36,7 +36,23 @@ const Playlist: React.FC<Props> = ({ tracks, createHandler, loaded }) => {
       <form action="submit" onSubmit={submitHandler}>
       <input type='text' className={'playlist-title' + (loaded ? ' loaded':'')} placeholder='Playlist Name' onChange={(e) => setNameField(e.target.value)}/>
       </form>
-      {tracks.map((track) => <PlaylistItem track={track} key={track.track.id} disabled={disabledTrackIds.includes(track.track.id)} toggleHandler={toggleTrackHandler}/>)}
+
+      {loaded &&
+        <table className='track-table'>
+          <thead>
+            <tr className='playlist-headers'>
+              <th>TITLE</th>
+              <th>ARTIST</th>
+              <th>ALBUM</th>
+              <th>ADDED</th>
+              <th>LENGTH</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tracks.map((track) => <PlaylistItem track={track} key={track.track.id} disabled={disabledTrackIds.includes(track.track.id)} toggleHandler={toggleTrackHandler}/>)}
+          </tbody>
+        </table>
+      }
   </div>
   );
 }

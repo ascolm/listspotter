@@ -28,6 +28,8 @@
       display: none;
       border-bottom: 1px solid white;
       color: white;
+      margin-bottom: 25px;
+      padding: 5px 0;
       transition: width 3s;
         &:focus{
           outline: none;
@@ -40,9 +42,20 @@
     &.loaded{
       width: 100%;
       display: block;
+      align-items: unset;
+      justify-content: unset;
     }
   }
 
+.playlist-headers{
+  color: rgb(63, 63, 63);
+}
+
+.track-table{
+  text-align: center;
+  width: 100%;
+  table-layout: fixed;
+}
 
 ::-webkit-scrollbar{
   display: none;
