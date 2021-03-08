@@ -15,7 +15,7 @@
     }
     &.selected{
       @extend %focus;
-      background-color: aqua;
+      color: var(--spotify-green);
     }
 }
 

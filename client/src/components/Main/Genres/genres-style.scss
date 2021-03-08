@@ -2,7 +2,6 @@
   height: 100%;
   width: 50%;
   border-radius: 20px;
-  background-color: black;
   padding: 2rem;
   overflow-y: scroll;
   z-index: 1;
@@ -13,6 +12,7 @@
   &.loaded{
     left: 0%;
   }
+  background-color: var(--spotify-black);
 }
 
 ::-webkit-scrollbar{
