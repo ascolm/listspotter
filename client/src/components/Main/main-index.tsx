@@ -80,26 +80,17 @@ const Main: React.FC<Props> = (props) => {
 
   return (
     <div className='main-container'>
-      <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler}/>
 
       {/* // Display selected artists & artists deselected manually by user */}
-      <Artists artistList={artists.filter((artist) => artist.selected)} toggleHandler={toggleArtistHandler}/>
-
-      <div className="playlist-wrapper">
-      {<Playlist tracks={getSelectedTracks(artists, tracks)} loaded={tracks.length > 0} createHandler={createPlaylistHandler}/>}
+      <div className="genre-artist-wrapper">
+        <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler}/>
+        <Artists artistList={artists.filter((artist) => artist.selected)} toggleHandler={toggleArtistHandler}/>
       </div>
 
+      <div className="playlist-wrapper">
+        {<Playlist tracks={getSelectedTracks(artists, tracks)} loaded={tracks.length > 0} createHandler={createPlaylistHandler}/>}
+      </div>
 
-      {/* ** DISABLED FOR TESTING - CHECKS FETCH / UNCOMMENT OR REMOVE LATER
-      {searchParams.get('code') ?
-        <div>
-          <p>Loaded {tracks.length} songs!</p>
-          { Object.keys(genres).length > 0 && sortGenres(genres).map((genreKey) => <p>{genreKey}:{genres[genreKey].length}</p>)}
-          {artists.map((artist) => <p>{artist.name}</p>)}
-        </div>
-      :
-      <p>Login unsuccessful (redirect)</p> // TODO: add redirect, cleaner alert
-      } ** DISABLED END */}
     </div>
   );
 }
