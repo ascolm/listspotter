@@ -4,12 +4,15 @@ import { useState, useEffect } from 'react';
 import { TrackItem, Artist } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import Genres from './Genres/genres-index';
-import { getTokens, createPlaylist } from 'apiService';
+import { getTokens, createPlaylist, getTracks } from 'apiService';
 import { artistsMock, tracksMock, genresMock } from 'devtools/dataMocks';
 import './main-style.scss';
 import {
+  // fetchTracksWithOffset,
   fetchArtistsWithOffset,
   generateGenres,
+  trackToggleUpdate,
+  getSelectedTracks,
   markGenreArtists,
   filterSelectedGenres,
   artistToggleUpdate
@@ -24,32 +27,33 @@ const Main: React.FC<Props> = (props) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  let [tracks, setTracks] = useState<TrackItem[]>(tracksMock); // WAS [] - SWITCHED TO MOCK FOR TESTING
-  let [artists, setArtists] = useState<Artist[]>(artistsMock); // WAS [] - SWITCHED TO MOCK FOR TESTING
-  let [genres, setGenres] = useState<GenreDb>(genresMock); // WAS {} - SWITCHED TO MOCK FOR TESTING
+  let [tracks, setTracks] = useState<TrackItem[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
+  let [artists, setArtists] = useState<Artist[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
+  let [genres, setGenres] = useState<GenreDb>({}); // WAS {} - SWITCHED TO MOCK FOR TESTING
+  let [displayedTracks, setDisplayedTracks] = useState<TrackItem[]>([]);
 
-  // **FETCHING DATA DISABLED FOR TESTING - UNCOMMENT BELOW
   const code = searchParams.get('code');
 
   useEffect(() => {
     if (!code) return;
 
     const fetchData = async () => {
-      // *** UPDATE THIS PART FROM TEST
-
-      // await getTokens(code);
-      // if (tracks.length === 0) fetchTracksWithOffset(code, setTracks);
-      // if (artists.length === 0) {
-      //   fetchArtistsWithOffset(code, setArtists).then((genres) => {
-      //     setGenres(genres)
-      //   });
-      // }
+      await getTokens(code);
+      if (tracks.length === 0) {
+       const trackList = getTracks(code).then((trackList) => {
+         console.log(trackList.length + ' tracks received');
+         setTracks(trackList);
+       });
+      }
+      if (artists.length === 0) {
+        fetchArtistsWithOffset(code, setArtists).then((genres) => {
+          setGenres(genres)
+        });
+      }
     }
 
     fetchData();
   }, []);
-  //
-  // **DISABLED END
 
   useEffect(() => {
     const selectedGenres = filterSelectedGenres(genres);
@@ -66,8 +70,12 @@ const Main: React.FC<Props> = (props) => {
 
   function toggleArtistHandler (artistId: string) {
     const updatedArtists = artistToggleUpdate(artistId, artists);
-    console.log(updatedArtists.filter((a) => a.id === artistId));
     setArtists(updatedArtists);
+  }
+
+  function toggleTrackHandler (trackId : string) {
+    const updatedTracks = trackToggleUpdate(trackId, tracks);
+    setTracks(updatedTracks);
   }
 
   async function createPlaylistHandler (playlistName: string, trackURIs: string[]) {
@@ -83,11 +91,8 @@ const Main: React.FC<Props> = (props) => {
       <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler}/>
 
       {/* // Display selected artists & artists deselected manually by user */}
-      <Artists artistList={artists.filter((artist) => (!artist.selected && artist.userModified) || artist.selected)} toggleHandler={toggleArtistHandler}/>
-      <Playlist tracks={tracks
-        .filter((trackItem) => {
-          return trackItem.track.artists.some((trackArtist) => artists.filter((artist) => artist.selected).findIndex((artist) => artist.id === trackArtist.id) !== -1);
-        })} createHandler={createPlaylistHandler}/>
+      <Artists artistList={artists.filter((artist) => artist.selected)} toggleHandler={toggleArtistHandler}/>
+      <Playlist tracks={getSelectedTracks(artists, tracks)} createHandler={createPlaylistHandler} toggleHandler={toggleTrackHandler}/>
 
 
       {/* ** DISABLED FOR TESTING - CHECKS FETCH / UNCOMMENT OR REMOVE LATER

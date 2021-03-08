@@ -22,6 +22,8 @@ export const getTracks = async (code: string) => {
 };
 
 export const getArtists = async (code: string, nextUrl: string | undefined) => {
+  // TODO: CACHE IMAGES
+
   const response = await fetch(baseUrl + '/artists', {
     method: 'POST',
     body: JSON.stringify({code, nextUrl}),

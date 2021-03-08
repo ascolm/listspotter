@@ -12,7 +12,8 @@ export interface Track {
 
 export interface TrackItem {
   added_at: string,
-  track: Track
+  track: Track,
+  userDisabled?: boolean
 }
 
 export interface TrackData {
@@ -33,8 +34,8 @@ export interface Artist{
   name: string,
   genres: string[],
   images: Image[],
-  selected?: boolean,
-  userModified?: boolean  // REMOVE ? AFTER TESTING
+  selected?: boolean, // REMOVE ? AFTER TESTING
+  userDisabled?: boolean
 }
 
 interface Image{

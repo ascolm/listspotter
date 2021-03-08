@@ -37,16 +37,13 @@ export function genreResort (genreName: string, db: GenreDb) {
 }
 
 export function countUnselected (genreList: GenreDb, genreName: string, artists: Artist[]) {
-  console.log('genreList passed')
-  console.log(genreList)
-
   const genreArtists = genreList[genreName].artists;
   const selectedArtists = artists.filter((artist) => artist.selected);
 
   const isSelected = (genreArtist: Artist) => selectedArtists.some((selectedArtist) => selectedArtist.id === genreArtist.id);
   const userDisabled = (genreArtist: Artist) => {
     const artistInArtists = artists.find((artist) => artist.id === genreArtist.id);
-    return (artistInArtists?.userModified && !artistInArtists.selected);
+    return artistInArtists?.userDisabled;
   };
 
   return genreArtists.filter((genreArtist) => !isSelected(genreArtist) && !userDisabled(genreArtist)).length;

@@ -17,5 +17,8 @@
       @extend %focus;
       background-color: aqua;
     }
+    &.user-disabled{
+      opacity: 0.4;
+    }
 }
 

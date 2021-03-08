@@ -10,7 +10,7 @@ export interface Props {
 const ArtistItem: React.FC<Props> = ({ artist, toggleHandler }) => {
 
   return (
-    <a className={'artist-item-container' + (artist.userModified && !artist.selected ? ' user-disabled':'') }>
+    <a className={'artist-item-container' + (artist.userDisabled ? ' user-disabled':'') }>
       {artist.images[0] && <img src={artist.images[0].url} alt={'Image of artist ' + artist.name} onClick={() => toggleHandler(artist.id)}/>}
       <p>{artist.name}</p>
     </a>

@@ -6,15 +6,16 @@ import { TrackItem } from 'interfaces/spotifyObjects';
 
 export interface Props {
   tracks: TrackItem[],
-  createHandler: (playlistName: string, trackURIs: string[]) => void;
+  createHandler: (playlistName: string, trackURIs: string[]) => void,
+  toggleHandler: (trackId: string) => void
 }
 
-const Playlist: React.FC<Props> = ({ tracks, createHandler }) => {
+const Playlist: React.FC<Props> = ({ tracks, createHandler, toggleHandler }) => {
   let [nameField, setNameField] = useState('');
 
   function submitHandler (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const trackURIs = tracks.map((track) => track.track.uri);
+    const trackURIs = tracks.filter((track) => !track.userDisabled).map((track) => track.track.uri);
     createHandler(nameField, trackURIs);
   }
 
@@ -23,7 +24,7 @@ const Playlist: React.FC<Props> = ({ tracks, createHandler }) => {
       <form action="submit" onSubmit={submitHandler}>
       <input type='text' className='playlist-title' placeholder='Playlist Name' onChange={(e) => setNameField(e.target.value)}/>
       </form>
-      {tracks.map((track) => <PlaylistItem track={track} key={track.track.id}/>)}
+      {tracks.map((track) => <PlaylistItem track={track} key={track.track.id} toggleHandler={toggleHandler}/>)}
   </div>
   );
 }

@@ -3,21 +3,6 @@ import { GenreDb } from 'interfaces/genreObjects';
 import { getTracks, getArtists } from 'apiService';
 // TODO: Refactor into a standard fetch template
 
-// export function fetchTracksWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<TrackItem[]>>, offset = 0, offsetIncrement = 50) {
-
-//   async function fetchTracksAsync (code: string, offset: number) {
-//     const trackData: TrackData = await getTracks(code);
-//     await setState((prevTracks) => [...prevTracks, ...trackData.items]);
-
-//     if (trackData.next) {
-//       offset += offsetIncrement
-//       fetchTracksAsync (code, offset);
-//     }
-//   };
-
-//   fetchTracksAsync(code, offset);
-// }
-
 export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<Artist[]>>) {
   const artistPromise = new Promise<GenreDb> ((resolve, reject) => {
     let nextUrl;
@@ -64,47 +49,17 @@ export function generateGenres (artists: Artist[]) {
   return genreDb;
 };
 
-// export function getArtistsFromGenreList (list: GenreDb) {
-//   const artists: Artist[] = [];
-//   Object.values(list).forEach((genre) => {
-//     genre.artists.forEach((genreArtist) => {
-//       if (!artists.some((artist) => artist.id === genreArtist.id)) {
-//         artists.push(genreArtist);
-//       }
-//     });
-//   })
-//   return artists;
-// }
-
 export function markGenreArtists (artists: Artist[], selectedGenres: GenreDb) {
-  const artistsFromSelected: Artist[] = [];
-  Object.values(selectedGenres).forEach((genre) => {
-    genre.artists.forEach((genreArtist) => {
-      if(!artistsFromSelected.some((artist) => artist.id === genreArtist.id)) {
-        artistsFromSelected.push(genreArtist);
-      }
-    });
-  });
-
-  const updatedArtists = artists.map((artist) => {
-    const updatedArtist = artist;
-    // if (updatedArtist.userModified) updatedArtist.userModified = false;
-
-    // If not manually disabled by user, update based on genre
-    // TODO: instead of user modified, create a manuallyDisabled boolean (later on may create a manuallyAdded for extra additions)
-    if (!(updatedArtist.userModified && !updatedArtist.selected)) {
-      updatedArtist.userModified = false;
-      if (artistsFromSelected.some((artistFromSelected) => artistFromSelected.id === artist.id)) {
-        updatedArtist.selected = true;
-      } else {
-        updatedArtist.selected = false;
+  return artists.map((artist) => {
+    for (let i = 0; i < artist.genres.length; i++) {
+      if (Object.keys(selectedGenres).includes(artist.genres[i])) {
+        artist.selected = true;
+        return artist;
       }
     }
-
-    return updatedArtist;
-  });
-
-  return updatedArtists;
+    artist.selected = false;
+    return artist;
+  })
 };
 
 export function filterSelectedGenres (list: GenreDb) {
@@ -119,11 +74,31 @@ export function artistToggleUpdate (artistId: string, artistList: Artist[]) {
   return artistList.map((artist) => {
     if (artist.id === artistId) {
       let updatedArtist = Object.assign({}, artist);
-      updatedArtist.selected = !updatedArtist.selected;
-      updatedArtist.userModified = true;
+      updatedArtist.userDisabled = !updatedArtist.userDisabled;
       return updatedArtist;
     } else {
       return artist;
     }
   });
+}
+
+export function trackToggleUpdate (trackId: string, trackList: TrackItem[]) {
+  return trackList.map((trackItem) => {
+    if (trackItem.track.id === trackId) {
+      let updatedTrack = Object.assign({}, trackItem);
+      updatedTrack.userDisabled = !updatedTrack.userDisabled;
+      return updatedTrack;
+    } else {
+      return trackItem;
+    }
+  });
+}
+
+export function getSelectedTracks (artists: Artist[], tracks: TrackItem[]) {
+  const selectedArtists = artists.filter((artist) => artist.selected && !artist.userDisabled);
+
+  return tracks.filter((trackItem) => {
+    return trackItem.track.artists.some((trackArtist) => selectedArtists.findIndex((artist) => artist.id === trackArtist.id) !== -1);
+  })
+
 }
