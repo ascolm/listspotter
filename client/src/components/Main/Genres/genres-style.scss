@@ -8,11 +8,19 @@
   left: 45%;
   position: relative;
   transition: left 2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-shrink: 0;
   &.loaded{
+    display: block;
     left: 0%;
   }
   background-color: var(--spotify-black);
+}
+
+.loading-genres-message{
+  color: grey;
 }
 
 ::-webkit-scrollbar{
