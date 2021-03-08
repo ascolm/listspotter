@@ -18,11 +18,9 @@ import {
  } from './main-helpers';
 import Artists from './Artists/artists-index';
 import Playlist from './Playlist/playlist-index';
+import icon from './Spotify_Icon_RGB_Green.png';
 
-export interface Props {
-}
-
-const Main: React.FC<Props> = (props) => {
+const Main: React.FC = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
@@ -83,6 +81,11 @@ const Main: React.FC<Props> = (props) => {
 
   return (
     <div className='main-container'>
+
+      <div className='title'>
+        <h1>Listspotter.</h1>
+        <p>Powered by <img src={icon} className='spotify-icon' alt="Spotify icon"/></p>
+      </div>
 
       {/* // Display selected artists & artists deselected manually by user */}
       <div className="genre-artist-wrapper">

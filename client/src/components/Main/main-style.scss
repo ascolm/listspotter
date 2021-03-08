@@ -3,6 +3,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
+    .title{
+      color: var(--spotify-white);
+      position: absolute;
+      top: 0;
+      left: 1.5rem;
+      h1{
+        font-size: 1.5rem;
+        margin-bottom: 0;
+      }
+      p{
+        font-size: 0.7rem;
+        margin: 0;
+      }
+    }
+}
+
+.spotify-icon{
+  vertical-align: middle;
+  object-fit: cover;
+  height: 1rem;
+  margin: 7px 0;
 }
 
 .playlist-wrapper{
