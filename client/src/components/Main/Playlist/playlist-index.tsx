@@ -8,9 +8,10 @@ import { TrackItem } from 'interfaces/spotifyObjects';
 export interface Props {
   tracks: TrackItem[],
   createHandler: (playlistName: string, trackURIs: string[]) => void,
+  loaded: boolean
 }
 
-const Playlist: React.FC<Props> = ({ tracks, createHandler }) => {
+const Playlist: React.FC<Props> = ({ tracks, createHandler, loaded }) => {
   let [nameField, setNameField] = useState('');
   let [disabledTrackIds, setDisabledTrackIds] = useState<string[]>([]); // If tracks passed from parent change, playlist re renders and applies disabled tracks. If the user disables a song, it does not bubble back to parent (so other components' re-render is prevented)
 
@@ -30,9 +31,10 @@ const Playlist: React.FC<Props> = ({ tracks, createHandler }) => {
   }
 
   return (
-    <div className='playlist-container'>
+    <div className={'playlist-container' + (loaded ? ' loaded':'')}>
+      <p className={'loading-text' + (loaded ? ' loaded':'')}>Loading your tracks...</p>
       <form action="submit" onSubmit={submitHandler}>
-      <input type='text' className='playlist-title' placeholder='Playlist Name' onChange={(e) => setNameField(e.target.value)}/>
+      <input type='text' className={'playlist-title' + (loaded ? ' loaded':'')} placeholder='Playlist Name' onChange={(e) => setNameField(e.target.value)}/>
       </form>
       {tracks.map((track) => <PlaylistItem track={track} key={track.track.id} disabled={disabledTrackIds.includes(track.track.id)} toggleHandler={toggleTrackHandler}/>)}
   </div>

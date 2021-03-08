@@ -1,22 +1,48 @@
 .playlist-container{
-  height: 40rem;
-  width: 20rem;
+  height: 100%;
+  width: 30%;
   border-radius: 20px;
   background-color: black;
   margin-left: 50px;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: width 1s;
   overflow-y: scroll;
+    .loading-text{
+      color: grey;
+      height: 2rem;
+      width: 80%;
+      margin: auto 10%;
+      &.loaded{
+        display: none;
+      }
+    }
     .playlist-title{
       background-color: transparent;
       border: none;
+      width: 0%;
       margin-bottom: 5px;
+      display: none;
       border-bottom: 1px solid white;
       color: white;
+      transition: width 3s;
         &:focus{
           outline: none;
         }
+        &.loaded{
+          display: block;
+          width: 20%;
+        }
     }
-}
+    &.loaded{
+      width: 100%;
+      display: block;
+    }
+  }
+
 
 ::-webkit-scrollbar{
   display: none;

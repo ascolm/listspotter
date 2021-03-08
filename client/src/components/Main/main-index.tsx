@@ -27,31 +27,31 @@ const Main: React.FC<Props> = (props) => {
   const searchParams = new URLSearchParams(location.search);
 
   let [tracks, setTracks] = useState<TrackItem[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
-  let [artists, setArtists] = useState<Artist[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
-  let [genres, setGenres] = useState<GenreDb>({}); // WAS {} - SWITCHED TO MOCK FOR TESTING
+  let [artists, setArtists] = useState<Artist[]>(artistsMock); // WAS [] - SWITCHED TO MOCK FOR TESTING
+  let [genres, setGenres] = useState<GenreDb>(genresMock); // WAS {} - SWITCHED TO MOCK FOR TESTING
   let [displayedTracks, setDisplayedTracks] = useState<TrackItem[]>([]);
 
   const code = searchParams.get('code');
 
   useEffect(() => {
-    if (!code) return;
+    // if (!code) return;
 
-    const fetchData = async () => {
-      await getTokens(code);
-      if (tracks.length === 0) {
-       const trackList = getTracks(code).then((trackList) => {
-         console.log(trackList.length + ' tracks received');
-         setTracks(trackList);
-       });
-      }
-      if (artists.length === 0) {
-        fetchArtistsWithOffset(code, setArtists).then((genres) => {
-          setGenres(genres)
-        });
-      }
-    }
-
-    fetchData();
+    // const fetchData = async () => {
+    //   await getTokens(code);
+    //   if (tracks.length === 0) {
+    //    const trackList = getTracks(code).then((trackList) => {
+    //      console.log(trackList.length + ' tracks received');
+    //      setTracks(trackList);
+    //    });
+    //   }
+    //   if (artists.length === 0) {
+    //     fetchArtistsWithOffset(code, setArtists).then((genres) => {
+    //       setGenres(genres)
+    //     });
+    //   }
+    // }
+    setTimeout(() => setTracks(tracksMock), 2000);
+    // fetchData();
   }, []);
 
   useEffect(() => {
@@ -79,14 +79,15 @@ const Main: React.FC<Props> = (props) => {
   }
 
   return (
-    <>
-      <h1>Main'e hoşgeldiniz aq.</h1>
     <div className='main-container'>
       <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler}/>
 
       {/* // Display selected artists & artists deselected manually by user */}
       <Artists artistList={artists.filter((artist) => artist.selected)} toggleHandler={toggleArtistHandler}/>
-      <Playlist tracks={getSelectedTracks(artists, tracks)} createHandler={createPlaylistHandler}/>
+
+      <div className="playlist-wrapper">
+      {<Playlist tracks={getSelectedTracks(artists, tracks)} loaded={tracks.length > 0} createHandler={createPlaylistHandler}/>}
+      </div>
 
 
       {/* ** DISABLED FOR TESTING - CHECKS FETCH / UNCOMMENT OR REMOVE LATER
@@ -100,7 +101,6 @@ const Main: React.FC<Props> = (props) => {
       <p>Login unsuccessful (redirect)</p> // TODO: add redirect, cleaner alert
       } ** DISABLED END */}
     </div>
-    </>
   );
 }
 

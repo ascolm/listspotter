@@ -2,10 +2,12 @@
   height: 40rem;
   width: 20rem;
   border-radius: 20px;
+  position: relative;
+  left: -20px;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.97);
   padding: 2rem;
   overflow-y: scroll
 }
