@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root{
+  --spotify-black: #191414;
+  --spotify-green: #1DB954;
+  --spotify-white: #FFFFFF;
+}
+
+a{
+  text-decoration: none;
+}
+a:-webkit-any-link{
+  color: inherit;
+}
