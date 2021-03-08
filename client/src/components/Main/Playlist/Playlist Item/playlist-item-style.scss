@@ -16,10 +16,16 @@
     }
     &.selected{
       @extend %focus;
-      background-color: aqua;
     }
     &.user-disabled{
       opacity: 0.4;
+    }
+    td{
+      overflow: scroll;
+      white-space: nowrap;
+    }
+    tr{
+      border-bottom: 1px solid white;
     }
 }
 
