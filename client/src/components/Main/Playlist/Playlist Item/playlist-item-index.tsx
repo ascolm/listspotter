@@ -1,5 +1,9 @@
 import './playlist-item-style.scss';
-import { TrackItem } from 'interfaces/spotifyObjects'
+import { TrackItem } from 'interfaces/spotifyObjects';
+import { convertMsToMinsAndSecs } from './playlist-item-helpers';
+import moment from 'moment';
+
+
 
 export interface Props {
   track: TrackItem,
@@ -13,8 +17,8 @@ const PlaylistItem: React.FC<Props> = ({ track, disabled, toggleHandler }) => {
         <td>{track.track.name}</td>
         <td>{track.track.artists[0].name}</td>
         <td>{track.track.album.name}</td>
-        <td>{track.added_at}</td>
-        <td>{track.track.duration_ms}</td>
+        <td>{moment(track.added_at).fromNow()}</td>
+        <td>{convertMsToMinsAndSecs(track.track.duration_ms)}</td>
       </tr>
   );
 }
