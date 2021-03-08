@@ -82,18 +82,6 @@ export function artistToggleUpdate (artistId: string, artistList: Artist[]) {
   });
 }
 
-export function trackToggleUpdate (trackId: string, trackList: TrackItem[]) {
-  return trackList.map((trackItem) => {
-    if (trackItem.track.id === trackId) {
-      let updatedTrack = Object.assign({}, trackItem);
-      updatedTrack.userDisabled = !updatedTrack.userDisabled;
-      return updatedTrack;
-    } else {
-      return trackItem;
-    }
-  });
-}
-
 export function getSelectedTracks (artists: Artist[], tracks: TrackItem[]) {
   const selectedArtists = artists.filter((artist) => artist.selected && !artist.userDisabled);
 

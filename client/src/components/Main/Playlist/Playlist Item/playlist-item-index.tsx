@@ -3,12 +3,13 @@ import { TrackItem } from 'interfaces/spotifyObjects'
 
 export interface Props {
   track: TrackItem,
-  toggleHandler: (trackId: string) => void
+  toggleHandler: (trackId: string) => void,
+  disabled: boolean
 }
 
-const PlaylistItem: React.FC<Props> = ({ track, toggleHandler }) => {
+const PlaylistItem: React.FC<Props> = ({ track, disabled, toggleHandler }) => {
   return (
-    <a className={'playlist-item-container' + (track.userDisabled ? ' user-disabled':'')} onClick = {() => toggleHandler(track.track.id)}>
+    <a className={'playlist-item-container' + (disabled ? ' user-disabled':'')} onClick = {() => toggleHandler(track.track.id)}>
       {track.track.name}
   </a>
   );

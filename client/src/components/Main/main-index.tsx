@@ -11,7 +11,6 @@ import {
   // fetchTracksWithOffset,
   fetchArtistsWithOffset,
   generateGenres,
-  trackToggleUpdate,
   getSelectedTracks,
   markGenreArtists,
   filterSelectedGenres,
@@ -73,11 +72,6 @@ const Main: React.FC<Props> = (props) => {
     setArtists(updatedArtists);
   }
 
-  function toggleTrackHandler (trackId : string) {
-    const updatedTracks = trackToggleUpdate(trackId, tracks);
-    setTracks(updatedTracks);
-  }
-
   async function createPlaylistHandler (playlistName: string, trackURIs: string[]) {
     if (!code) return;
     const playlistID = await createPlaylist(code, playlistName, trackURIs);
@@ -92,7 +86,7 @@ const Main: React.FC<Props> = (props) => {
 
       {/* // Display selected artists & artists deselected manually by user */}
       <Artists artistList={artists.filter((artist) => artist.selected)} toggleHandler={toggleArtistHandler}/>
-      <Playlist tracks={getSelectedTracks(artists, tracks)} createHandler={createPlaylistHandler} toggleHandler={toggleTrackHandler}/>
+      <Playlist tracks={getSelectedTracks(artists, tracks)} createHandler={createPlaylistHandler}/>
 
 
       {/* ** DISABLED FOR TESTING - CHECKS FETCH / UNCOMMENT OR REMOVE LATER
