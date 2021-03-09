@@ -37,8 +37,14 @@
   margin: 1.2rem 2rem 0 2rem;
 }
 
+.genre-loading-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .loading-genres-message{
-  color: grey;
+  color: var(--ui-grey);
 }
 
 ::-webkit-scrollbar{

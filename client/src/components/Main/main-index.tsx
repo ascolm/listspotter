@@ -7,6 +7,7 @@ import Genres from './Genres/genres-index';
 import { getTokens, createPlaylist, getTracks, getPlaylistCover } from 'apiService';
 import { artistsMock, tracksMock, genresMock, playlistMock } from 'devtools/dataMocks';
 import './main-style.scss';
+import { WaveSpinner } from "react-spinners-kit";
 import {
   // fetchTracksWithOffset,
   fetchArtistsWithOffset,
@@ -107,7 +108,7 @@ const Main: React.FC = () => {
     <div className='main-container'>
 
       <PlaylistCreatedModal isOpen={modalIsOpen} onRequestClose={closeModal} playlist={createdPlaylist}/>
-
+      {/* default spinner color #686769 */}
       <div className='title'>
         <h1>Listspotter.</h1>
         <p>Powered by <img src={icon} className='spotify-icon' alt="Spotify icon"/></p>

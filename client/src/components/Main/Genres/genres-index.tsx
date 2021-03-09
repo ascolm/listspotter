@@ -5,6 +5,7 @@ import GenreItem from './Genre Item/genre-item-index';
 import { GenreDb } from 'interfaces/genreObjects';
 import { Artist } from 'interfaces/spotifyObjects';
 import { getSortedGenreKeys, getMatchingGenres, countUnselected } from './genres-helpers';
+import { WaveSpinner } from 'react-spinners-kit';
 import SearchBar from 'components/common/Searchbar/searchbar-index';
 
 export interface Props {
@@ -33,7 +34,10 @@ const Genres: React.FC<Props> = ({genreList, artists, selectHandler, loaded}) =>
         </div>
         </>
         :
-        <p className='loading-genres-message'>Loading your genres...</p>
+        <div className='genre-loading-container'>
+          <WaveSpinner size={30} color="var(--spotify-white)" loading={!loaded}/>
+          <p className='loading-genres-message'>Loading your genres...</p>
+        </div>
       }
       {/* - Genres will be sorted based on how many artists they contain (descending). Selected genres are always on top (getSortedGenreKeys)
       - If there is a search value entered in the searchbar, filter only genres whose names match with the search value       (getMatchingGenres)

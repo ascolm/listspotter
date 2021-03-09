@@ -4,6 +4,7 @@ import './playlist-style.scss';
 import PlaylistItem from './Playlist Item/playlist-item-index';
 import { trackToggleUpdate } from './playlist-helpers';
 import { TrackItem } from 'interfaces/spotifyObjects';
+import { WaveSpinner } from 'react-spinners-kit';
 
 export interface Props {
   tracks: TrackItem[],
@@ -33,12 +34,16 @@ const Playlist: React.FC<Props> = ({ tracks, createHandler, loaded }) => {
 
   return (
     <div className={'playlist-container' + (loaded ? ' loaded':'')}>
-      <p className={'loading-text' + (loaded ? ' loaded':'')}>Loading your tracks...</p>
+
+      <div className='loading-screen'>
+        <WaveSpinner size={30} color="var(--spotify-white)" loading={!loaded}/>
+        <p className={'loading-text' + (loaded ? ' loaded':'')}>Loading your tracks...</p>
+      </div>
       <form action="submit" onSubmit={submitHandler} className='create-playlist'>
         <input type='text' className={'playlist-title' + (loaded ? ' loaded':'')} placeholder='Playlist Name' value={nameField} onChange={(e) => setNameField(e.target.value)}/>
         <button className={'button-create' + (loaded ? ' loaded':'')} onClick={()=>submitHandler}><i className="fas fa-plus-circle"></i></button>
-        {/* <a className='button-create'>CREATE PLAYLIST</a> */}
       </form>
+
 
       {loaded &&
         <table className='track-table'>

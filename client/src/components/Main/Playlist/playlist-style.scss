@@ -11,13 +11,18 @@
   justify-content: center;
   transition: width 2s;
   overflow-y: scroll;
-    .loading-text{
-      color: grey;
-      height: 2rem;
-      width: 80%;
-      margin: auto 10%;
-      &.loaded{
-        display: none;
+    .loading-screen{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .loading-text{
+        color: var(--ui-grey);
+        margin-top: 1rem;
+        height: 2rem;
+        &.loaded{
+          display: none;
+        }
       }
     }
     .playlist-title{
