@@ -49,6 +49,7 @@ const Playlist: React.FC<Props> = ({ tracks, createHandler, loaded }) => {
 
 
       {loaded &&
+      <div className='table-wrapper'>
         <table className='track-table'>
           <thead>
             <tr className={'playlist-headers' + (loaded ? ' loaded':'')}>
@@ -63,6 +64,7 @@ const Playlist: React.FC<Props> = ({ tracks, createHandler, loaded }) => {
             {tracks.map((track) => <PlaylistItem track={track} key={track.track.id} disabled={disabledTrackIds.includes(track.track.id)} toggleHandler={toggleTrackHandler}/>)}
           </tbody>
         </table>
+      </div>
       }
   </div>
   );

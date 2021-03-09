@@ -1,6 +1,6 @@
 .playlist-container{
   height: 100%;
-  width: 30%;
+  width: 35%;
   border-radius: 20px;
   background-color: var(--spotify-black);
   margin-left: 50px;
@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: center;
   transition: width 2s;
-  overflow-y: scroll;
+  // overflow-y: hidden;
     .loading-screen{
       display: flex;
       flex-direction: column;
@@ -53,12 +53,31 @@
     .track-table{
       text-align: center;
       width: 100%;
+      height: 100%;
+      border-collapse: separate;
       table-layout: fixed;
       animation: fadeIn 3s forwards;
       .playlist-headers{
         color: rgb(63, 63, 63);
+        th{
+          background-color: var(--spotify-black);
+          position: sticky;
+          margin: 0;
+          padding: 0;
+          top: 0;
+          border-bottom: 1px solid rgba(63, 63, 63, 0.466);
+          padding-bottom: 0.2rem;
+        }
       }
     }
+
+    .table-wrapper{
+      overflow-y: scroll;
+      height: 95%;
+      position: relative;
+    }
+
+
     @keyframes fadeIn {
       from {opacity: 0;}
       to {opacity: 1;}
