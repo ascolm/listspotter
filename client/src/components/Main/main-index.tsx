@@ -28,7 +28,7 @@ const Main: React.FC = () => {
   const coverGenerationWaitTime = 500; // Spotify takes a while to generate playlist cover image after playlist is created, so
 
   let [tracks, setTracks] = useState<TrackItem[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
-  let [artists, setArtists] = useState<Artist[]>(artistsMock); // WAS [] - SWITCHED TO MOCK FOR TESTING
+  let [artists, setArtists] = useState<Artist[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
   let [genres, setGenres] = useState<GenreDb>({}); // WAS {} - SWITCHED TO MOCK FOR TESTING
   let [createdPlaylist, setCreatedPlaylist] = useState<any>({});
   const [modalIsOpen,setIsOpen] = React.useState(false);
@@ -49,21 +49,21 @@ const Main: React.FC = () => {
     const fetchData = async () => {
       await getTokens(code);
 
-    //   if (tracks.length === 0) {
-    //    const trackList = getTracks(code).then((trackList) => {
-    //      console.log(trackList.length + ' tracks received');
-    //      setTracks(trackList);
-    //    });
-    //   }
-    // // TODO: SEND ARTISTS IN ONE REQ FROM SERVER
-    //   if (artists.length === 0) {
-    //     fetchArtistsWithOffset(code, setArtists).then((genres) => {
-    //       setGenres(genres)
-    //     });
-    //   }
+      if (tracks.length === 0) {
+       const trackList = getTracks(code).then((trackList) => {
+         console.log(trackList.length + ' tracks received');
+         setTracks(trackList);
+       });
+      }
+    // TODO: SEND ARTISTS IN ONE REQ FROM SERVER
+      if (artists.length === 0) {
+        fetchArtistsWithOffset(code, setArtists).then((genres) => {
+          setGenres(genres)
+        });
+      }
     }
-    setTimeout(() => setTracks(tracksMock), 3000);
-    setTimeout(() => setGenres(genresMock), 1000);
+    // setTimeout(() => setTracks(tracksMock), 3000);
+    // setTimeout(() => setGenres(genresMock), 1000);
     fetchData();
   }, []);
 
@@ -89,13 +89,11 @@ const Main: React.FC = () => {
 
   async function createPlaylistHandler (playlistName: string, trackURIs: string[]) {
     if (!code) return;
-    // ** DISABLED FOR TESTING
-
-    // const playlistData: PlaylistData = await createPlaylist(code, playlistName, trackURIs);
-    // await new Promise((resolve, reject) => setTimeout(() => resolve(''), coverGenerationWaitTime));
-    // const playlistCover: PlaylistCover[] = await getPlaylistCover(code, playlistData.id);
-    // playlistData.cover = playlistCover[0];
-    setCreatedPlaylist(playlistMock);
+    const playlistData: PlaylistData = await createPlaylist(code, playlistName, trackURIs);
+    await new Promise((resolve, reject) => setTimeout(() => resolve(''), coverGenerationWaitTime));
+    const playlistCover: PlaylistCover[] = await getPlaylistCover(code, playlistData.id);
+    playlistData.cover = playlistCover[0];
+    setCreatedPlaylist(playlistData);
   }
 
   useEffect(() => {
