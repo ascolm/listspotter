@@ -1,14 +1,13 @@
 .artists-container{
   height: 95%;
-  width: 55%;
+  width: 60%;
   border-radius: 20px;
   position: relative;
   left: -3%; // BU UNFOLDDA GELİCEK BAŞTA SIFIR
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-start;
   background-color: rgba(0, 0, 0, 0.97);
-  padding: 2rem;
+  padding: 2rem 0.5rem 1rem 2rem;
   overflow-y: scroll;
   background-color: var(--ui-1);
 }

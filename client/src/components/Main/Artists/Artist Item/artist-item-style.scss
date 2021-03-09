@@ -1,36 +1,33 @@
-%focus{
-  padding: 0.06rem 0.13rem;
-  font-size: 1.1rem;
-}
-
 .artist-item-container{
   color: white;
   padding: 0.11rem;
   border-radius: 3px;
   width: 50%;
-  margin: 15px 0;
+  margin: 0.5rem 0;
   user-select: none;
   font-size: 0.8rem;
   display: flex;
   flex-direction: column;
-  flex-grow: 0;
-  justify-content: center;
+  justify-content: flex-start;
+  align-content: space-between;
   align-items: center;
   text-align: center;
   border: 1.1px solid transparent;
   p{
-    margin: 0;
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
     padding: 0;
   }
   img{
     cursor: pointer;
-    height: 85px;
-    width: 85px;
+    height: 75px;
+    width: 75px;
     border-radius: 100%;
     &:hover{
       border: 1px solid white;
     }
   }
+
   &.user-disabled{
     opacity: 0.4;
   }

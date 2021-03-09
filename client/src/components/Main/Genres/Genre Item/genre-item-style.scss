@@ -1,12 +1,12 @@
 %focus{
-  padding: 0.06rem 0.13rem;
-  font-size: 1.1rem;
+  opacity: 0.7;
 }
 
 .genre-item-container{
   color: white;
   padding: 0.11rem;
   border-radius: 3px;
+  font-size: 0.9rem;
   cursor: pointer;
   user-select: none;
   display: block;
@@ -14,8 +14,8 @@
       @extend %focus;
     }
     &.selected{
-      @extend %focus;
       color: var(--spotify-green);
+      font-weight: bold;
     }
     .artist-count{
       color: grey;

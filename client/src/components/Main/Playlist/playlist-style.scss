@@ -29,11 +29,10 @@
       background-color: transparent;
       border: none;
       width: 0%;
-      margin-bottom: 5px;
       display: none;
       border-bottom: 1px solid white;
       color: white;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
       padding: 5px 0;
       transition: width 3s;
         &:focus{
@@ -66,7 +65,7 @@
     }
 
     .button-create{
-      margin-bottom: 25px;
+      margin-bottom: 15px;
       padding: 0;
       background-color: transparent;
       border: none;
@@ -88,7 +87,7 @@
     }
 
     .save-loader{
-      margin-bottom: 25px;
+      margin-bottom: 15px;
       padding: 0;
       line-height: 0;
       margin-left: 0.5rem;
