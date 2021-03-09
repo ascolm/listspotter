@@ -11,9 +11,10 @@ const customStyles = {
     marginRight: '-50%',
     'border-radius': '20px',
     'background-color': 'var(--spotify-black)',
-    height: '50%',
+    height: '35%',
+    padding: 0,
     opacity: 1,
-    width: '50%',
+    width: '45%',
     transform: 'translate(-50%, -50%)'
   },
   overlay: {zIndex: 2}
@@ -28,16 +29,23 @@ export interface Props {
 const PlaylistCreatedModal: React.FC<Props> = ({ isOpen, playlist, onRequestClose }) => {
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
-      <div className='modal-container'>
-        <div className='created-message'>
-          <h1>Glorious Victory!</h1>
-          <p>Your playlist is created and waiting for you in your Spotify account!</p>
-          <p>Here is the link:</p>
+      {
+        playlist.id &&
+        <div className='modal-wrapper'>
+          <div className='modal-container'>
+            <div className='created-message'>
+              <h1>Glorious Victory!</h1>
+              <p>Your playlist is created and waiting for you in your Spotify account.</p>
+              <a href={playlist.uri}>Open in Spotify</a>
+              <a href={playlist.external_urls.spotify} target='_blank'>Open in browser</a>
+            </div>
+            <div className='playlist-info'>
+              {playlist.cover && <img src={playlist.cover.url} alt="Playlist Image" className='cover-image'/>}
+              <p>{playlist.name}</p>
+            </div>
+          </div>
         </div>
-        <div>
-          {playlist.cover && <img src={playlist.cover.url} alt="Playlist Image" className='cover-image'/>}
-        </div>
-      </div>
+      }
     </Modal>
   );
 }

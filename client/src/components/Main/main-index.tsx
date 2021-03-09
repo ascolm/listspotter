@@ -5,7 +5,7 @@ import { TrackItem, Artist, PlaylistData, PlaylistCover } from 'interfaces/spoti
 import { GenreDb } from 'interfaces/genreObjects';
 import Genres from './Genres/genres-index';
 import { getTokens, createPlaylist, getTracks, getPlaylistCover } from 'apiService';
-import { artistsMock, tracksMock, genresMock } from 'devtools/dataMocks';
+import { artistsMock, tracksMock, genresMock, playlistMock } from 'devtools/dataMocks';
 import './main-style.scss';
 import {
   // fetchTracksWithOffset,
@@ -24,6 +24,7 @@ import PlaylistCreatedModal from './Modal/modal-index';
 const Main: React.FC = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const coverGenerationWaitTime = 500; // Spotify takes a while to generate playlist cover image after playlist is created, so
 
   let [tracks, setTracks] = useState<TrackItem[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
   let [artists, setArtists] = useState<Artist[]>(artistsMock); // WAS [] - SWITCHED TO MOCK FOR TESTING
@@ -87,13 +88,14 @@ const Main: React.FC = () => {
 
   async function createPlaylistHandler (playlistName: string, trackURIs: string[]) {
     if (!code) return;
-    const playlistData: PlaylistData = await createPlaylist(code, playlistName, trackURIs);
-    const timeoutPromise = new Promise((resolve, reject) => setTimeout(() => resolve(''), 500));
-    await timeoutPromise;
-    const playlistCover: PlaylistCover[] = await getPlaylistCover(code, playlistData.id);
-    playlistData.cover = playlistCover[0];
-    console.log(playlistData);
-    setCreatedPlaylist(playlistData);
+    // ** DISABLED FOR TESTING
+
+    const playlistData =
+    // const playlistData: PlaylistData = await createPlaylist(code, playlistName, trackURIs);
+    // await new Promise((resolve, reject) => setTimeout(() => resolve(''), coverGenerationWaitTime));
+    // const playlistCover: PlaylistCover[] = await getPlaylistCover(code, playlistData.id);
+    // playlistData.cover = playlistCover[0];
+    setCreatedPlaylist(playlistMock);
   }
 
   useEffect(() => {
@@ -110,7 +112,6 @@ const Main: React.FC = () => {
       <div className='title'>
         <h1>Listspotter.</h1>
         <p>Powered by <img src={icon} className='spotify-icon' alt="Spotify icon"/></p>
-        <button onClick={openModal}>modal</button>
       </div>
 
       {/* // Display selected artists & artists deselected manually by user */}

@@ -28,14 +28,15 @@ const Playlist: React.FC<Props> = ({ tracks, createHandler, loaded }) => {
     e.preventDefault();
     const trackURIs = tracks.filter((track) => !disabledTrackIds.some((disabledId) => disabledId === track.track.id)).map((track) => track.track.uri);
     createHandler(nameField, trackURIs);
+    setNameField('');
   }
 
   return (
     <div className={'playlist-container' + (loaded ? ' loaded':'')}>
       <p className={'loading-text' + (loaded ? ' loaded':'')}>Loading your tracks...</p>
       <form action="submit" onSubmit={submitHandler} className='create-playlist'>
-        <input type='text' className={'playlist-title' + (loaded ? ' loaded':'')} placeholder='Playlist Name' onChange={(e) => setNameField(e.target.value)}/>
-        <a className={'button-create' + (loaded ? ' loaded':'')} type='submit'><i className="fas fa-plus-circle"></i></a>
+        <input type='text' className={'playlist-title' + (loaded ? ' loaded':'')} placeholder='Playlist Name' value={nameField} onChange={(e) => setNameField(e.target.value)}/>
+        <button className={'button-create' + (loaded ? ' loaded':'')} onClick={()=>submitHandler}><i className="fas fa-plus-circle"></i></button>
         {/* <a className='button-create'>CREATE PLAYLIST</a> */}
       </form>
 

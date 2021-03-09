@@ -62,6 +62,10 @@
 
     .button-create{
       margin-bottom: 25px;
+      padding: 0;
+      background-color: transparent;
+      border: none;
+      line-height: 0;
       margin-left: 0.5rem;
       color: var(--spotify-green);
       opacity: 0;
@@ -72,6 +76,9 @@
       }
       &.loaded{
         opacity: 1;
+      }
+      &:focus{
+        outline: inherit;
       }
     }
 

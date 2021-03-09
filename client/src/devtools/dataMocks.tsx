@@ -1,4 +1,4 @@
-import { Artist, TrackItem, ArtistData } from '../interfaces/spotifyObjects'
+import { Artist, TrackItem, ArtistData, PlaylistData } from '../interfaces/spotifyObjects'
 import { GenreDb } from '../interfaces/genreObjects'
 import { generateGenres } from '../components/Main/main-helpers'
 
@@ -5122,6 +5122,53 @@ const trackData = {
   "total" : 4031
 }
 
+export const playlistData = {
+  data: {
+    "collaborative": false,
+    "description": null,
+    "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/4dOnMwNcYPJqIG4z4bZlTf"
+    },
+    "followers": {
+        "href": null,
+        "total": 0
+    },
+    "href": "https://api.spotify.com/v1/playlists/4dOnMwNcYPJqIG4z4bZlTf",
+    "id": "7d2D2S200NyUE5KYs80PwO",
+    "images": [],
+    "name": "My New Playlist",
+    "owner": {
+        "external_urls": {
+            "spotify": "http://open.spotify.com/user/thelinmichael"
+        },
+        "href": "https://api.spotify.com/v1/users/thelinmichael",
+        "id": "thelinmichael",
+        "type": "user",
+        "uri": "spotify:user:thelinmichael"
+    },
+    "cover":
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab67616d0000b2739db63254bf5a8be73bbaed21",
+        "width": 640
+      }
+    ,
+    "public": false,
+    "snapshot_id": "s0o3TSuYnRLl2jch+oA4OEbKwq/fNxhGBkSPnvhZdmWjNV0q3uCAWuGIhEx8SHIx",
+    "tracks": {
+        "href": "https://api.spotify.com/v1/users/thelinmichael/playlists/7d2D2S200NyUE5KYs80PwO/tracks",
+        "items": [],
+        "limit": 100,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total": 0
+    },
+    "type": "playlist",
+    "uri": "spotify:playlist:4dOnMwNcYPJqIG4z4bZlTf"
+  }
+}
+
 function addSelectedProperty (data: ArtistData) {
   return data.artists.items.map((artist) => {
     return {...artist, selected: false}
@@ -5130,4 +5177,5 @@ function addSelectedProperty (data: ArtistData) {
 
 export const artistsMock: Artist[] = addSelectedProperty(artistData);
 export const tracksMock: TrackItem[] = trackData.items;
+export const playlistMock: PlaylistData = playlistData.data;
 export const genresMock: GenreDb = generateGenres(artistsMock);

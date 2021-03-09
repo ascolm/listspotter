@@ -13,7 +13,9 @@ export interface Track {
 
 export interface PlaylistData {
   href: string,
+  external_urls: {spotify: string},
   uri: string,
+  name: string,
   id: string,
   cover?: PlaylistCover
 }
