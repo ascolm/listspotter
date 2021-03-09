@@ -11,10 +11,8 @@ const customStyles = {
     marginRight: '-50%',
     'border-radius': '20px',
     'background-color': 'var(--spotify-black)',
-    height: '35%',
-    padding: 0,
+    padding: '4%',
     opacity: 1,
-    width: '45%',
     transform: 'translate(-50%, -50%)'
   },
   overlay: {zIndex: 2}
