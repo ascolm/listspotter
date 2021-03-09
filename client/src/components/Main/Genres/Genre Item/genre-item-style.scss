@@ -17,5 +17,9 @@
       @extend %focus;
       color: var(--spotify-green);
     }
+    .artist-count{
+      color: grey;
+      font-size: 0.6rem;
+    }
 }
 

@@ -90,7 +90,6 @@ const Main: React.FC = () => {
     if (!code) return;
     // ** DISABLED FOR TESTING
 
-    const playlistData =
     // const playlistData: PlaylistData = await createPlaylist(code, playlistName, trackURIs);
     // await new Promise((resolve, reject) => setTimeout(() => resolve(''), coverGenerationWaitTime));
     // const playlistCover: PlaylistCover[] = await getPlaylistCover(code, playlistData.id);
