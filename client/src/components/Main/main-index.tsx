@@ -7,7 +7,6 @@ import Genres from './Genres/genres-index';
 import { getTokens, createPlaylist, getTracks, getPlaylistCover } from 'apiService';
 import { artistsMock, tracksMock, genresMock, playlistMock } from 'devtools/dataMocks';
 import './main-style.scss';
-import { WaveSpinner } from "react-spinners-kit";
 import {
   // fetchTracksWithOffset,
   fetchArtistsWithOffset,

@@ -87,13 +87,18 @@
       }
     }
 
+    .save-loader{
+      margin-bottom: 25px;
+      padding: 0;
+      line-height: 0;
+      margin-left: 0.5rem;
+    }
+
     .create-playlist{
       display: flex;
       align-items: center;
     }
   }
-
-
 
 ::-webkit-scrollbar{
   display: none;
