@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
-const config_1 = require("../config");
+const config_js_1 = require("../config.js");
 const spotifyTokenUrl = "https://accounts.spotify.com/api/token";
 const redirectUri = "http://localhost:3000/main";
 // TODO: REFACTOR WITH A REQUEST TEMPLATE
@@ -16,7 +16,7 @@ const requestToken = (code, next) => {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
         },
-        data: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${config_1.clientID}&client_secret=${config_1.clientSecret}`,
+        data: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${config_js_1.clientID}&client_secret=${config_js_1.clientSecret}`,
     })
         .then((tokenResponse) => {
         return tokenResponse.data;
