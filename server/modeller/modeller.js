@@ -3,17 +3,17 @@ const { clientID, clientSecret } = require('../config');
 const spotifyTokenUrl = 'https://accounts.spotify.com/api/token';
 const redirectUri = 'http://localhost:3000/main';
 
-
 // TODO: REFACTOR WITH A REQUEST TEMPLATE
 exports.requestToken = (code, next) => {
-  return axios.request({
-    method: 'POST',
-    url: spotifyTokenUrl,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    data: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${clientID}&client_secret=${clientSecret}`
-  })
+  return axios
+    .request({
+      method: 'POST',
+      url: spotifyTokenUrl,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${clientID}&client_secret=${clientSecret}`,
+    })
     .then((tokenResponse) => {
       return tokenResponse.data;
     })
@@ -25,8 +25,8 @@ exports.requestTracks = (spotifyTracksUrl, tokens, offset) => {
     method: 'GET',
     url: spotifyTracksUrl + `?offset=${offset}&limit=50`,
     headers: {
-      'Authorization': `Bearer ${tokens['access_token']}`,
-      'Content-Type': 'application/x-www-form-urlencoded'
+      Authorization: `Bearer ${tokens['access_token']}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
 };
@@ -36,9 +36,9 @@ exports.requestArtists = (spotifyArtistsUrl, nextUrl, tokens) => {
     method: 'GET',
     url: nextUrl || spotifyArtistsUrl + '?type=artist&limit=50',
     headers: {
-      'Authorization': `Bearer ${tokens['access_token']}`,
+      Authorization: `Bearer ${tokens['access_token']}`,
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      Accept: 'application/json',
     },
   });
 };
@@ -48,8 +48,8 @@ exports.requestUser = (spotifyUserUrl, tokens) => {
     method: 'GET',
     url: spotifyUserUrl,
     headers: {
-      'Authorization': `Bearer ${tokens['access_token']}`,
-      'Content-Type': 'application/x-www-form-urlencoded'
+      Authorization: `Bearer ${tokens['access_token']}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
 };
@@ -59,35 +59,45 @@ exports.requestPlaylistCover = (spotifyPlaylistUrl, playlistId, tokens) => {
     method: 'GET',
     url: spotifyPlaylistUrl + `/${playlistId}/images`,
     headers: {
-      'Authorization': `Bearer ${tokens['access_token']}`,
+      Authorization: `Bearer ${tokens['access_token']}`,
       'Content-Type': 'application/json',
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
   });
 };
 
-exports.requestCreatePlaylist = (spotifyCreatePlaylistUrl, playlistName, userID, tokens) => {
+exports.requestCreatePlaylist = (
+  spotifyCreatePlaylistUrl,
+  playlistName,
+  userID,
+  tokens,
+) => {
   return axios.request({
     method: 'POST',
     url: spotifyCreatePlaylistUrl + `/${userID}/playlists`,
     headers: {
-      'Authorization': `Bearer ${tokens['access_token']}`,
-      'Content-Type': 'application/json'
+      Authorization: `Bearer ${tokens['access_token']}`,
+      'Content-Type': 'application/json',
     },
-    data: {name: playlistName}
+    data: { name: playlistName },
   });
 };
 
-exports.requestAddTracks = (spotifySaveTracksUrl, playlistID, trackArr, tokens) => {
+exports.requestAddTracks = (
+  spotifySaveTracksUrl,
+  playlistID,
+  trackArr,
+  tokens,
+) => {
   return axios.request({
     method: 'POST',
     url: spotifySaveTracksUrl + `/${playlistID}/tracks`,
     headers: {
-      'Authorization': `Bearer ${tokens['access_token']}`,
-      'Content-Type': 'application/json'
+      Authorization: `Bearer ${tokens['access_token']}`,
+      'Content-Type': 'application/json',
     },
     data: {
-      uris: trackArr
-    }
+      uris: trackArr,
+    },
   });
 };
