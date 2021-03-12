@@ -25,7 +25,7 @@ const requestToken = (code: string, next: NextFunction) => {
 const requestTracks = (
   spotifyTracksUrl: string,
   tokens: any,
-  offset: string
+  offset: number
 ) => {
   return axios.request({
     method: "GET",
