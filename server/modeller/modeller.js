@@ -1,5 +1,5 @@
-const axios = require('axios');
-const { clientID, clientSecret } = require('../config');
+import axios from 'axios';
+import { clientID, clientSecret } from '../config.js';
 const spotifyTokenUrl = 'https://accounts.spotify.com/api/token';
 const redirectUri = 'http://localhost:3000/main';
 

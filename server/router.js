@@ -1,6 +1,6 @@
-const { Router } = require('express');
+import { Router } from 'express';
 const router = Router();
-const controller = require('./controller/controller');
+import controller from './controller/controller.js';
 
 router.post('/tracks', controller.getTracks);
 router.post('/tokens', controller.getTokens);

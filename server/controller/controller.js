@@ -1,7 +1,7 @@
-const axios = require('axios');
-const { renderSync } = require('node-sass');
-const modeller = require('../modeller/modeller');
-const { requestWhileQueued } = require('./controller-helpers');
+import axios from 'axios';
+import { renderSync } from 'node-sass';
+import modeller from '../modeller/modeller.js';
+import { requestWhileQueued } from './controller-helpers.js';
 
 const baseUrl = 'https://api.spotify.com/v1';
 const spotifyTracksUrl = baseUrl + '/me/tracks';

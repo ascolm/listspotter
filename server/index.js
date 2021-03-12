@@ -1,8 +1,8 @@
 // DEPENDENCIES
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const router = require('./router');
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import router from './router.js';
 
 // SERVER CONFIG
 const app = express();
