@@ -2,7 +2,7 @@
   "name": "listspotter",
   "version": "1.0.0",
   "description": "A Spotify API based app that allows you to create a playlist from all your saved songs in Spotify, based on their genres.",
-  "main": "index.js",
+  "main": "index",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
