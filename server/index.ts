@@ -1,11 +1,11 @@
 // DEPENDENCIES
-import express from "express";
+import express, {Application} from "express";
 import morgan from "morgan";
 import cors from "cors";
 import router from "./router";
 
 // SERVER CONFIG
-const app = express();
+const app : Application = express();
 const port = 3001;
 const host = "127.0.0.1";
 

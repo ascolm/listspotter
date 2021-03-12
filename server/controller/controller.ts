@@ -1,7 +1,9 @@
+import { Request, Response, NextFunction } from 'express';
 import axios from "axios";
 import { renderSync } from "node-sass";
 import modeller from "../modeller/modeller";
 import { requestWhileQueued } from "./controller-helpers";
+
 
 const baseUrl = "https://api.spotify.com/v1";
 const spotifyTracksUrl = baseUrl + "/me/tracks";
@@ -20,29 +22,29 @@ let tokens = "";
 // TODO: REFACTOR AXIOS REQUESTS INTO MODELLER
 // TODO: separate gettokens/checktokens part as a middleware to be passed through in each request
 
-exports.getTokens = async (req, res, next) => {
+export const getTokens = async (req: Request, res: Response, next: NextFunction ) => {
   const { code } = req.body;
   tokens = await modeller.requestToken(code, next);
   res.sendStatus(200);
 };
 
-exports.getTracks = async (req, res, next) => {
+export const getTracks = async (req: Request, res: Response, next: NextFunction) => {
   const { code } = req.body;
   let initialOffset = 0;
-  let trackData = [];
+  let trackData: any[] = [];
 
   if (!tokens) {
     tokens = await modeller.requestToken(code, next);
   }
 
   function timeOutPromise() {
-    return new Promise((resolve) =>
+    return new Promise<void>((resolve) =>
       setTimeout(() => resolve(), msBetweenTrackRequests)
     );
   }
 
-  async function fetchTracksAsync(offset) {
-    let trackBufferResponse;
+  async function fetchTracksAsync(offset: number) {
+    let trackBufferResponse: any;
 
     try {
       trackBufferResponse = await modeller.requestTracks(
@@ -72,7 +74,7 @@ exports.getTracks = async (req, res, next) => {
   try {
     await fetchTracksAsync(initialOffset);
     console.log("sending " + trackData.length + " tracks");
-    res.status = 200;
+    res.status(200);
     res.send(trackData);
   } catch (err) {
     console.log("outer error 😎");
@@ -82,7 +84,7 @@ exports.getTracks = async (req, res, next) => {
   }
 };
 
-exports.getArtists = async (req, res, next) => {
+export const getArtists = async (req: Request, res: Response, next: NextFunction) => {
   const { code, offset, nextUrl } = req.body;
 
   if (!tokens) {
@@ -98,7 +100,7 @@ exports.getArtists = async (req, res, next) => {
     .catch((err) => console.log(err.response.data));
 };
 
-exports.getPlaylistCover = async (req, res, next) => {
+export const getPlaylistCover = async (req: Request, res: Response, next: NextFunction) => {
   const { code, playlistId } = req.body;
 
   if (!tokens) {
@@ -115,7 +117,7 @@ exports.getPlaylistCover = async (req, res, next) => {
     .catch((err) => console.log(err.response.data));
 };
 
-exports.createPlaylist = async (req, res, next) => {
+export const createPlaylist = async (req: Request, res: Response, next: NextFunction) => {
   const { code, playlistName, trackURIs } = req.body;
 
   if (!tokens) {
@@ -133,7 +135,7 @@ exports.createPlaylist = async (req, res, next) => {
   );
   const playlistData = createPlaylistResponse.data;
 
-  function addTracks(trackArr) {
+  function addTracks(trackArr: []) {
     return modeller.requestAddTracks(
       spotifyPlaylistUrl,
       playlistData.id,

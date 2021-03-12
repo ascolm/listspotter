@@ -1,5 +1,5 @@
 import axios from "axios";
-import { clientID, clientSecret } from "../config";
+import config from "../config";
 const spotifyTokenUrl = "https://accounts.spotify.com/api/token";
 const redirectUri = "http://localhost:3000/main";
 
@@ -12,7 +12,7 @@ const requestToken = (code, next) => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      data: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${clientID}&client_secret=${clientSecret}`,
+      data: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${config.clientID}&client_secret=${config.clientSecret}`,
     })
     .then((tokenResponse) => {
       return tokenResponse.data;

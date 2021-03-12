@@ -1,4 +1,4 @@
-exports.requestWhileQueued = async (initialQueue, limit, handler) => {
+export const requestWhileQueued = async (initialQueue: any[], limit: number, handler: Function) => {
 
   let queueArr = initialQueue.slice();
 

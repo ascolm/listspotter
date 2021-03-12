@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createPlaylist = exports.getPlaylistCover = exports.getArtists = exports.getTracks = exports.getTokens = void 0;
 const modeller_1 = __importDefault(require("../modeller/modeller"));
 const controller_helpers_1 = require("./controller-helpers");
 const baseUrl = "https://api.spotify.com/v1";
@@ -28,12 +29,13 @@ let tokens = "";
 // TODO: CHECK ERROR HANDLING IN CATCH METHODS // CREATE CUSTOM HANDLER MIDDLEWARE
 // TODO: REFACTOR AXIOS REQUESTS INTO MODELLER
 // TODO: separate gettokens/checktokens part as a middleware to be passed through in each request
-exports.getTokens = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const getTokens = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { code } = req.body;
     tokens = yield modeller_1.default.requestToken(code, next);
     res.sendStatus(200);
 });
-exports.getTracks = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getTokens = getTokens;
+const getTracks = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { code } = req.body;
     let initialOffset = 0;
     let trackData = [];
@@ -69,7 +71,7 @@ exports.getTracks = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     try {
         yield fetchTracksAsync(initialOffset);
         console.log("sending " + trackData.length + " tracks");
-        res.status = 200;
+        res.status(200);
         res.send(trackData);
     }
     catch (err) {
@@ -79,7 +81,8 @@ exports.getTracks = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         res.sendStatus(500);
     }
 });
-exports.getArtists = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getTracks = getTracks;
+const getArtists = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { code, offset, nextUrl } = req.body;
     if (!tokens) {
         tokens = yield modeller_1.default.requestToken(code, next);
@@ -92,7 +95,8 @@ exports.getArtists = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     })
         .catch((err) => console.log(err.response.data));
 });
-exports.getPlaylistCover = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getArtists = getArtists;
+const getPlaylistCover = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { code, playlistId } = req.body;
     if (!tokens) {
         tokens = yield modeller_1.default.requestToken(code, next);
@@ -106,7 +110,8 @@ exports.getPlaylistCover = (req, res, next) => __awaiter(void 0, void 0, void 0,
     })
         .catch((err) => console.log(err.response.data));
 });
-exports.createPlaylist = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getPlaylistCover = getPlaylistCover;
+const createPlaylist = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { code, playlistName, trackURIs } = req.body;
     if (!tokens) {
         tokens = yield modeller_1.default.requestToken(code, next);
@@ -123,3 +128,4 @@ exports.createPlaylist = (req, res, next) => __awaiter(void 0, void 0, void 0, f
     res.status(200);
     res.send(JSON.stringify(playlistData));
 });
+exports.createPlaylist = createPlaylist;

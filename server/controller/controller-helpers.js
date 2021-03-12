@@ -8,7 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-exports.requestWhileQueued = (initialQueue, limit, handler) => __awaiter(void 0, void 0, void 0, function* () {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.requestWhileQueued = void 0;
+const requestWhileQueued = (initialQueue, limit, handler) => __awaiter(void 0, void 0, void 0, function* () {
     let queueArr = initialQueue.slice();
     while (queueArr.length > 0) {
         if (queueArr.length < limit) {
@@ -21,3 +23,4 @@ exports.requestWhileQueued = (initialQueue, limit, handler) => __awaiter(void 0,
         }
     }
 });
+exports.requestWhileQueued = requestWhileQueued;
