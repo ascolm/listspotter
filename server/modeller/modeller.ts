@@ -1,10 +1,12 @@
 import axios from "axios";
 import config from "../config";
+
 const spotifyTokenUrl = "https://accounts.spotify.com/api/token";
 const redirectUri = "http://localhost:3000/main";
+import { NextFunction } from "express";
 
 // TODO: REFACTOR WITH A REQUEST TEMPLATE
-const requestToken = (code, next) => {
+const requestToken = (code: string, next: NextFunction) => {
   return axios
     .request({
       method: "POST",
@@ -20,7 +22,11 @@ const requestToken = (code, next) => {
     .catch(next);
 };
 
-const requestTracks = (spotifyTracksUrl, tokens, offset) => {
+const requestTracks = (
+  spotifyTracksUrl: string,
+  tokens: any,
+  offset: string
+) => {
   return axios.request({
     method: "GET",
     url: spotifyTracksUrl + `?offset=${offset}&limit=50`,
@@ -31,7 +37,11 @@ const requestTracks = (spotifyTracksUrl, tokens, offset) => {
   });
 };
 
-const requestArtists = (spotifyArtistsUrl, nextUrl, tokens) => {
+const requestArtists = (
+  spotifyArtistsUrl: string,
+  nextUrl: string,
+  tokens: any
+) => {
   return axios.request({
     method: "GET",
     url: nextUrl || spotifyArtistsUrl + "?type=artist&limit=50",
@@ -43,7 +53,7 @@ const requestArtists = (spotifyArtistsUrl, nextUrl, tokens) => {
   });
 };
 
-const requestUser = (spotifyUserUrl, tokens) => {
+const requestUser = (spotifyUserUrl: string, tokens: any) => {
   return axios.request({
     method: "GET",
     url: spotifyUserUrl,
@@ -54,7 +64,11 @@ const requestUser = (spotifyUserUrl, tokens) => {
   });
 };
 
-const requestPlaylistCover = (spotifyPlaylistUrl, playlistId, tokens) => {
+const requestPlaylistCover = (
+  spotifyPlaylistUrl: string,
+  playlistId: string,
+  tokens: any
+) => {
   return axios.request({
     method: "GET",
     url: spotifyPlaylistUrl + `/${playlistId}/images`,
@@ -67,10 +81,10 @@ const requestPlaylistCover = (spotifyPlaylistUrl, playlistId, tokens) => {
 };
 
 const requestCreatePlaylist = (
-  spotifyCreatePlaylistUrl,
-  playlistName,
-  userID,
-  tokens
+  spotifyCreatePlaylistUrl: string,
+  playlistName: string,
+  userID: string,
+  tokens: any
 ) => {
   return axios.request({
     method: "POST",
@@ -84,10 +98,10 @@ const requestCreatePlaylist = (
 };
 
 const requestAddTracks = (
-  spotifySaveTracksUrl,
-  playlistID,
-  trackArr,
-  tokens
+  spotifySaveTracksUrl: string,
+  playlistID: string,
+  trackArr: string[],
+  tokens: any
 ) => {
   return axios.request({
     method: "POST",
