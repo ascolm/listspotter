@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { cleanup, render, screen } from '@testing-library/react';
 import ArtistItem from '../artist-item-index';
-import { artistToggleUpdate } from 'components/Main/main-helpers';
-import { isExportDeclaration } from 'typescript';
 import { singleArtist } from '../../../../../devtools/dataMocks';
 
 describe('Artist Item', () => {
@@ -31,7 +29,6 @@ describe('Artist Item', () => {
     singleArtist.userDisabled = true;
     render(<ArtistItem artist={singleArtist} />);
     const artist = screen.getByTestId('artist_item_aTag');
-    console.log(artist);
     expect(artist).toHaveClass('user-disabled');
   });
 });
