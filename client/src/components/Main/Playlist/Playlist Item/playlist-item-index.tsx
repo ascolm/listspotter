@@ -15,6 +15,7 @@ export interface Props {
 const PlaylistItem: React.FC<Props> = ({ track, disabled, toggleHandler }) => {
   return (
     <tr
+      data-testid={'playlist_item_trTag'}
       className={'playlist-item-container' + (disabled ? ' user-disabled' : '')}
       onClick={() => toggleHandler(track.track.id)}
     >
