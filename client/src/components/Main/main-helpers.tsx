@@ -29,8 +29,10 @@ export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<R
         resolve(genres);
       }
     };
+
     fetchArtistsAsync(code, nextUrl);
   })
+  
   return artistPromise;
 }
 

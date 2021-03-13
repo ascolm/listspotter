@@ -49,7 +49,7 @@ const Main: React.FC = () => {
       await getTokens(code);
 
       if (tracks.length === 0) {
-       const trackList = getTracks(code).then((trackList) => {
+        getTracks(code).then((trackList) => {
          console.log(trackList.length + ' tracks received');
          setTracks(trackList);
        });
