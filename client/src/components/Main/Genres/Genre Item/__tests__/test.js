@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import GenreItem from '../genre-item-index';
 
 describe('Genre Item', () => {
@@ -19,11 +19,20 @@ describe('Genre Item', () => {
     const artistCount = 3;
     render(<GenreItem artistCount={artistCount} />);
     const count = screen.getByText('+3 artists');
-    console.log(count);
+    expect(count).toBeInTheDocument();
   });
 
   it('only renders genre name when selected', () => {
     const genreName = 'punk rock';
-    render(<GenreItem genreName={genreName} selected={true} />);
+    const artistCount = 3;
+    render(
+      <GenreItem
+        genreName={genreName}
+        artistCount={artistCount}
+        selected={true}
+      />
+    );
+    const count = screen.queryByText('+3 artists');
+    expect(count).toBeNull();
   });
 });
