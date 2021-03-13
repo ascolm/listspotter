@@ -1,11 +1,26 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { TrackItem, Artist, PlaylistData, PlaylistCover } from 'interfaces/spotifyObjects';
+import {
+  TrackItem,
+  Artist,
+  PlaylistData,
+  PlaylistCover,
+} from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import Genres from './Genres/genres-index';
-import { getTokens, createPlaylist, getTracks, getPlaylistCover } from 'apiService';
-import { artistsMock, tracksMock, genresMock, playlistMock } from 'devtools/dataMocks';
+import {
+  getTokens,
+  createPlaylist,
+  getTracks,
+  getPlaylistCover,
+} from 'apiService';
+import {
+  artistsMock,
+  tracksMock,
+  genresMock,
+  playlistMock,
+} from 'devtools/dataMocks';
 import './main-style.scss';
 import {
   // fetchTracksWithOffset,
@@ -14,8 +29,8 @@ import {
   getSelectedTracks,
   markGenreArtists,
   filterSelectedGenres,
-  artistToggleUpdate
- } from './main-helpers';
+  artistToggleUpdate,
+} from './main-helpers';
 import Artists from './Artists/artists-index';
 import Playlist from './Playlist/playlist-index';
 import icon from './Spotify_Icon_RGB_Green.png';
@@ -30,13 +45,13 @@ const Main: React.FC = () => {
   let [artists, setArtists] = useState<Artist[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
   let [genres, setGenres] = useState<GenreDb>({}); // WAS {} - SWITCHED TO MOCK FOR TESTING
   let [createdPlaylist, setCreatedPlaylist] = useState<any>({});
-  const [modalIsOpen,setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
     setIsOpen(true);
   }
 
-  function closeModal(){
+  function closeModal() {
     setIsOpen(false);
   }
 
@@ -50,17 +65,17 @@ const Main: React.FC = () => {
 
       if (tracks.length === 0) {
         getTracks(code).then((trackList) => {
-         console.log(trackList.length + ' tracks received');
-         setTracks(trackList);
-       });
-      }
-    // TODO: SEND ARTISTS IN ONE REQ FROM SERVER
-      if (artists.length === 0) {
-        fetchArtistsWithOffset(code, setArtists).then((genres) => {
-          setGenres(genres)
+          console.log(trackList.length + ' tracks received');
+          setTracks(trackList);
         });
       }
-    }
+      // TODO: SEND ARTISTS IN ONE REQ FROM SERVER
+      if (artists.length === 0) {
+        fetchArtistsWithOffset(code, setArtists).then((genres) => {
+          setGenres(genres);
+        });
+      }
+    };
     // setTimeout(() => setTracks(tracksMock), 3000);
     // setTimeout(() => setGenres(genresMock), 1000);
     fetchData();
@@ -72,25 +87,36 @@ const Main: React.FC = () => {
     setArtists(updatedArtists);
   }, [genres]);
 
-
   // TODO: MOVE HANDLERS TO SEPARATE FILE
-  function selectGenreHandler (genreName: string) {
+  function selectGenreHandler(genreName: string) {
     // TODO: RESORTING BASED ON MATCH
     const newGenreDb = Object.assign({}, genres);
     newGenreDb[genreName].selected = !newGenreDb[genreName].selected;
     setGenres(newGenreDb);
   }
 
-  function toggleArtistHandler (artistId: string) {
+  function toggleArtistHandler(artistId: string) {
     const updatedArtists = artistToggleUpdate(artistId, artists);
     setArtists(updatedArtists);
   }
 
-  async function createPlaylistHandler (playlistName: string, trackURIs: string[]) {
+  async function createPlaylistHandler(
+    playlistName: string,
+    trackURIs: string[]
+  ) {
     if (!code) return;
-    const playlistData: PlaylistData = await createPlaylist(code, playlistName, trackURIs);
-    await new Promise((resolve, reject) => setTimeout(() => resolve(''), coverGenerationWaitTime));
-    const playlistCover: PlaylistCover[] = await getPlaylistCover(code, playlistData.id);
+    const playlistData: PlaylistData = await createPlaylist(
+      code,
+      playlistName,
+      trackURIs
+    );
+    await new Promise((resolve, reject) =>
+      setTimeout(() => resolve(''), coverGenerationWaitTime)
+    );
+    const playlistCover: PlaylistCover[] = await getPlaylistCover(
+      code,
+      playlistData.id
+    );
     playlistData.cover = playlistCover[0];
     setCreatedPlaylist(playlistData);
   }
@@ -99,30 +125,50 @@ const Main: React.FC = () => {
     if (Object.keys(createdPlaylist).length > 0) {
       openModal();
     }
-  }, [createdPlaylist])
+  }, [createdPlaylist]);
 
   return (
-    <div className='main-container'>
-
-      <PlaylistCreatedModal isOpen={modalIsOpen} onRequestClose={closeModal} playlist={createdPlaylist}/>
+    <div className="main-container">
+      <PlaylistCreatedModal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        playlist={createdPlaylist}
+      />
       {/* default spinner color #686769 */}
-      <div className='title'>
+      <div className="title">
         <h1>Listspotter.</h1>
-        <p>Powered by <img src={icon} className='spotify-icon' alt="Spotify icon"/></p>
+        <p>
+          Powered by{' '}
+          <img src={icon} className="spotify-icon" alt="Spotify icon" />
+        </p>
       </div>
 
       {/* // Display selected artists & artists deselected manually by user */}
       <div className="genre-artist-wrapper">
-        <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler} loaded={Object.keys(genres).length > 0}/>
-        <Artists artistList={artists.filter((artist) => artist.selected)} loaded={Object.keys(genres).length > 0} toggleHandler={toggleArtistHandler}/>
+        <Genres
+          genreList={genres}
+          artists={artists}
+          selectHandler={selectGenreHandler}
+          loaded={Object.keys(genres).length > 0}
+        />
+        <Artists
+          artistList={artists.filter((artist) => artist.selected)}
+          loaded={Object.keys(genres).length > 0}
+          toggleHandler={toggleArtistHandler}
+        />
       </div>
 
       <div className="playlist-wrapper">
-        {<Playlist tracks={getSelectedTracks(artists, tracks)} loaded={tracks.length > 0} createHandler={createPlaylistHandler}/>}
+        {
+          <Playlist
+            tracks={getSelectedTracks(artists, tracks)}
+            loaded={tracks.length > 0}
+            createHandler={createPlaylistHandler}
+          />
+        }
       </div>
-
     </div>
   );
-}
+};
 
 export default Main;
