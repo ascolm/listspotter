@@ -56,6 +56,7 @@ describe('Playlist', () => {
 
   it('should call the handler function when button is clicked', async () => {
     const createHandler = jest.fn();
+
     render(
       <Playlist
         createHandler={createHandler}
@@ -69,6 +70,7 @@ describe('Playlist', () => {
     fireEvent.click(button);
 
     expect(createHandler).toHaveBeenCalledTimes(1);
+
     await waitForElementToBeRemoved(() =>
       screen.getByTestId('playlist_test_loader')
     );
