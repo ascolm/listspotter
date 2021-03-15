@@ -7,7 +7,7 @@ import { artistsMock } from '../../../../devtools/dataMocks';
 import { getSortedGenreKeys } from '../genres-helpers';
 
 describe('Genres', () => {
-  it('renders loading container when genres are being loaded', () => {
+  it('renders loading message when genres are being loaded', () => {
     render(<Genres loaded={false} />);
     const message = screen.getByText('Loading your genres...');
     expect(message).toBeInTheDocument();
