@@ -23028,3 +23028,114 @@ export const singleTrack = {
     uri: 'spotify:track:2sEmZge5ZfzrFrDGFJbkyP',
   },
 };
+
+export const artistList = [
+  {
+    external_urls: {
+      spotify: 'https://open.spotify.com/artist/01e2lCvLZ4fLUIRy68nptH',
+    },
+    followers: {
+      href: null,
+      total: 104032,
+    },
+    genres: ['deep euro house', 'tropical house'],
+    href: 'https://api.spotify.com/v1/artists/01e2lCvLZ4fLUIRy68nptH',
+    id: '01e2lCvLZ4fLUIRy68nptH',
+    images: [
+      {
+        height: 640,
+        url: 'https://i.scdn.co/image/7d60ad2505e9a6922973d98fcc958a5742d1e3fc',
+        width: 640,
+      },
+      {
+        height: 320,
+        url: 'https://i.scdn.co/image/d369947205e298b4928880de4609251c74a1bd37',
+        width: 320,
+      },
+      {
+        height: 160,
+        url: 'https://i.scdn.co/image/bf0e990893ac10537df9e7006b6fa530fcfd9152',
+        width: 160,
+      },
+    ],
+    name: 'Wankelmut',
+    popularity: 62,
+    type: 'artist',
+    uri: 'spotify:artist:01e2lCvLZ4fLUIRy68nptH',
+  },
+  {
+    external_urls: {
+      spotify: 'https://open.spotify.com/artist/02IFYoziC7CpQRK8fbehUY',
+    },
+    followers: {
+      href: null,
+      total: 69677,
+    },
+    genres: ['bosnian indie', 'yugoslav rock'],
+    href: 'https://api.spotify.com/v1/artists/02IFYoziC7CpQRK8fbehUY',
+    id: '02IFYoziC7CpQRK8fbehUY',
+    images: [
+      {
+        height: 640,
+        url: 'https://i.scdn.co/image/4d4d3364e73ae54728222ae56bbbe0d12b0e5b5c',
+        width: 640,
+      },
+      {
+        height: 320,
+        url: 'https://i.scdn.co/image/26063266e6057cf23d349febddd436bf24a3c2d6',
+        width: 320,
+      },
+      {
+        height: 160,
+        url: 'https://i.scdn.co/image/009eed443cdac4a909face78e92a45a9c74db7d4',
+        width: 160,
+      },
+    ],
+    name: 'Dubioza kolektiv',
+    popularity: 48,
+    type: 'artist',
+    uri: 'spotify:artist:02IFYoziC7CpQRK8fbehUY',
+  },
+  {
+    external_urls: {
+      spotify: 'https://open.spotify.com/artist/09b5OcuIELTdD7FfzQzcdB',
+    },
+    followers: {
+      href: null,
+      total: 75811,
+    },
+    genres: [
+      'folk metal',
+      'italian folk metal',
+      'italian metal',
+      'italian power metal',
+      'melodic metal',
+      'neo classical metal',
+      'power metal',
+      'tolkien metal',
+    ],
+    href: 'https://api.spotify.com/v1/artists/09b5OcuIELTdD7FfzQzcdB',
+    id: '09b5OcuIELTdD7FfzQzcdB',
+    images: [
+      {
+        height: 640,
+        url: 'https://i.scdn.co/image/fea03b617083289dcb5d699ac4dd06795f5fa1b2',
+        width: 640,
+      },
+      {
+        height: 320,
+        url: 'https://i.scdn.co/image/5efd756ab2de73c9203efd4712e96c1f60c77a4b',
+        width: 320,
+      },
+      {
+        height: 160,
+        url: 'https://i.scdn.co/image/9e5fd667763f8c399e11e2898913e6217be928b6',
+        width: 160,
+      },
+    ],
+    name: 'Elvenking',
+    popularity: 47,
+    type: 'artist',
+    uri: 'spotify:artist:09b5OcuIELTdD7FfzQzcdB',
+  },
+];
