@@ -1,7 +1,7 @@
-import * as React from "react";
-import { queryUrl } from "./login-queryParams";
-import "./login-style.scss";
-import logo from "./Spotify_Logo_RGB_Green.png";
+import * as React from 'react';
+import { queryUrl } from './login-queryParams';
+import './login-style.scss';
+import logo from './Spotify_Logo_RGB_Green.png';
 
 // import { useState, useEffect } from 'react';
 
@@ -13,7 +13,7 @@ const Login: React.FC<Props> = () => {
       <div className="login-content">
         <h1>Listspotter.</h1>
         <p>
-          Create playlists from your saved songs in{" "}
+          Create playlists from your saved songs in{' '}
           <img className="spotify-logo" src={logo} alt="" /> using intuitive
           genre filters.
         </p>

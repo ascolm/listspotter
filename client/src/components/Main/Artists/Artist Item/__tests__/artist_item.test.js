@@ -6,7 +6,9 @@ import { singleArtist } from '../../../../../devtools/dataMocks';
 
 describe('Artist Item', () => {
   it('appears on screen', () => {
-    render(<ArtistItem artist={singleArtist} />);
+    const { container } = render(<ArtistItem artist={singleArtist} />);
+    const tag = container.querySelector('a');
+    expect(tag).toBeInTheDocument();
   });
 
   it('displays the artist name', () => {

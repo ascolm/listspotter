@@ -5,7 +5,9 @@ import GenreItem from '../genre-item-index';
 
 describe('Genre Item', () => {
   it('appears on screen', () => {
-    render(<GenreItem />);
+    const { container } = render(<GenreItem />);
+    const tag = container.querySelector('a');
+    expect(tag).toBeInTheDocument();
   });
 
   it('renders the right name', () => {
