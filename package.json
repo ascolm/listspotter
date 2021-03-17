@@ -18,6 +18,7 @@
   "homepage": "https://github.com/ascolm/listspotter#readme",
   "devDependencies": {
     "commitizen": "^4.2.3",
+    "cypress": "^6.7.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.21.0",
     "eslint-config-standard": "^16.0.2",
