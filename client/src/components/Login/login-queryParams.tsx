@@ -1,4 +1,4 @@
-const baseUrl = "https://accounts.spotify.com/authorize";
+const baseUrl = 'https://accounts.spotify.com/authorize';
 
 interface QueryParams {
   client_id: string;
@@ -9,13 +9,13 @@ interface QueryParams {
 }
 
 const queryParams: QueryParams = {
-  client_id: "8bc6f1323c3a4081bc3416b632218513",
-  response_type: "code",
-  redirect_uri: "http://localhost:3000/main",
-  state: "bayburt",
+  client_id: 'd49ee10b034843b1aabd579ac1901e42',
+  response_type: 'code',
+  redirect_uri: 'http://localhost:3000/main',
+  state: 'bayburt',
   // scope: 'user-library-read user-follow-modify'
   scope:
-    "user-library-read user-follow-read user-follow-modify playlist-modify-public",
+    'user-library-read user-follow-read user-follow-modify playlist-modify-public',
 };
 
 function buildQueryUrl(url: string, params: QueryParams): string {

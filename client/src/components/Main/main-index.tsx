@@ -65,6 +65,7 @@ const Main: React.FC = () => {
 
       if (tracks.length === 0) {
         getTracks(code).then((trackList) => {
+          console.log(trackList);
           console.log(trackList.length + ' tracks received');
           setTracks(trackList);
         });
