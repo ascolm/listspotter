@@ -4,6 +4,13 @@ Web app that creates playlists from your saved songs in Spotify using intuitive 
 # UI
 ![Screenshot 2021-04-03 at 09 57 36](https://user-images.githubusercontent.com/59074533/113473692-07e42f00-9463-11eb-9e94-21bb5db26f5f.png)
 
+# Teck Stack
+
+- [Jest](https://jestjs.io/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Cypress](https://www.cypress.io/)
+- [TypeScript](https://www.typescriptlang.org/)
+
 # Contributors ✨
 
 Github's and LinkedIn's linked below!
