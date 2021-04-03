@@ -7,6 +7,7 @@ Web app that creates playlists from your saved songs in Spotify using intuitive 
 # Contributors ✨
 
 Github's and LinkedIn's linked below!
+Original project credits go to [Mert Ascioglu](https://github.com/ascolm)
 
 <table>
   <tr>
