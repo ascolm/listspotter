@@ -10,9 +10,9 @@ With Listspotter it is quick and easy to have a coherent playlist out of the son
 ![listspotterSS5](https://user-images.githubusercontent.com/65975591/113475362-6c0fee80-9475-11eb-981a-da925b7308ef.png)
 
 ## Getting Started
-Listspotter uses Spotify Web API and as such, you will need to register your app in Spotify's Dashboard [here.](https://developer.spotify.com/dashboard/login). After registration you should have a client ID, a client secret and have your redirect URL entered in project settings (the URL that Spotify will redirect your user to after login - default would be the port used by your local React app). In case needed, you can find additional information [here.] (https://developer.spotify.com/documentation/general/guides/authorization-guide/). Note that this project uses Authorization Code Flow.
+Listspotter uses Spotify Web API and as such, you will need to register your app in Spotify's Dashboard [here.](https://developer.spotify.com/dashboard/login). After registration you should have a client ID, a client secret and have your redirect URL entered in project settings (the URL that Spotify will redirect your user to after login - default would be the port used by your local React app). In case needed, you can find additional information [here.](https://developer.spotify.com/documentation/general/guides/authorization-guide/). Note that this project uses Authorization Code Flow.
 
-After you register with Spotify, follow the steps below for setup:
+After you register with Spotify, follow these steps below to get started:
 
 1. Clone the repo
 ```
@@ -33,14 +33,32 @@ module.exports = {
 };
 ```
 
-4. You can run your server using nodemon to watch for changes:
+4. Under "src" folder in your client, add a config.js file that exports your client ID and redirect_uri (ignore this file on Git too).
+```
+module.exports = {
+  clientId: // YOUR CLIENT ID HERE
+  redirectUri: // YOUR REDIRECT URI
+};
+```
+
+5. You can run your server using nodemon to watch for changes:
 ```
 cd server
 nodemon
 ```
 
-
-5. Navigate to client folder and launch the React app:
+6. Navigate to client folder and launch the React app:
 ```
+cd ../client
 npm start
 ```
+
+## Tech Stack
+### Front End
+- [TypeScript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org/)
+- [Sass](https://sass-lang.com/)
+
+### Back End
+- [Express](http://expressjs.com/)
+- [Spotify Web API](https://developer.spotify.com/documentation/web-api/)
