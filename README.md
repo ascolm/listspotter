@@ -10,7 +10,7 @@ With Listspotter it is quick and easy to have a coherent playlist out of the son
 ![listspotterSS5](https://user-images.githubusercontent.com/65975591/113475362-6c0fee80-9475-11eb-981a-da925b7308ef.png)
 
 ## Getting Started
-Listspotter uses Spotify Web API and as such, you will need to register your app in Spotify's Dashboard [here.](https://developer.spotify.com/dashboard/login). After registration you should have a client ID, a client secret and have your redirect URL entered in project settings (the URL that Spotify will redirect your user to after login - default would be the port used by your local React app). In case needed, you can find additional information [here.](https://developer.spotify.com/documentation/general/guides/authorization-guide/). Note that this project uses Authorization Code Flow.
+Listspotter uses Spotify Web API and as such, you will need to register your app in Spotify's Dashboard [here.](https://developer.spotify.com/dashboard/login) After registration you should have a client ID, a client secret and have your redirect URL entered in project settings (the URL that Spotify will redirect your user to after login - default would be the port used by your local React app) In case needed, you can find additional information [here.](https://developer.spotify.com/documentation/general/guides/authorization-guide/) Note that this project uses Authorization Code Flow.
 
 After you register with Spotify, follow these steps below to get started:
 
