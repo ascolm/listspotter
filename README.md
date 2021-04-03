@@ -25,19 +25,22 @@ cd listspotter
 npm install
 ```
 
-3. Directly under the "server" folder, add a config.js file that exports your client ID and client secret key (make sure you ignore this file on git!!).
+3. Directly under the "server" folder, add a config.js file that exports your client ID, client secret key, redirect uri and Spotify's token link (make sure you ignore this file on git!!).
 ```
 module.exports = {
-  clientID: // YOUR CLIENT ID HERE
-  clientSecret: // YOUR CLIENT SECRET HERE
+  clientID: // YOUR CLIENT ID HERE,
+  clientSecret: // YOUR CLIENT SECRET HERE,
+  redirectUri: // YOUR REDIRECT URI HERE,
+  spotifyTokenUrl: 'https://accounts.spotify.com/api/token'
 };
 ```
 
-4. Under "src" folder in your client, add a config.js file that exports your client ID and redirect_uri (ignore this file on Git too).
+4. Under "src" folder in your client, add a config.js file that exports your client ID, redirect uri and server url(ignore this file on Git too).
 ```
 module.exports = {
-  clientId: // YOUR CLIENT ID HERE
-  redirectUri: // YOUR REDIRECT URI
+  clientId: // YOUR CLIENT ID HERE,
+  redirectUri: // YOUR REDIRECT URI,
+  serverBaseUrl: // SERVER URL HERE, ex: 'http://localhost:3001'
 };
 ```
 

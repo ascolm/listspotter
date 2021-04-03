@@ -39,11 +39,6 @@ const Genres: React.FC<Props> = ({genreList, artists, selectHandler, loaded}) =>
           <p className='loading-genres-message'>Loading your genres...</p>
         </div>
       }
-      {/* - Genres will be sorted based on how many artists they contain (descending). Selected genres are always on top (getSortedGenreKeys)
-      - If there is a search value entered in the searchbar, filter only genres whose names match with the search value       (getMatchingGenres)
-      - For each genre, the artist count shows only the number of artists in that genre that the user has not selected so far.
-        For example, say "Rock" has 5 artists, and "Modern Rock" has 3 artists, which are also under "Rock". If the user selects "Modern Rock" first, those 3 artists will be on display. On the left hand side, "Rock" genre will now show an artist count of 2, because the other 3 has already been chosen with the "Modern Rock" tag. */}
-
     </div>
   );
 }

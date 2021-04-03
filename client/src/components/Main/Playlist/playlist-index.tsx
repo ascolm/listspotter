@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './playlist-style.scss';
 import PlaylistItem from './Playlist Item/playlist-item-index';
-import { trackToggleUpdate } from './playlist-helpers';
 import { TrackItem } from 'interfaces/spotifyObjects';
 import { WaveSpinner, CircleSpinner } from 'react-spinners-kit';
 
@@ -14,7 +13,7 @@ export interface Props {
 
 const Playlist: React.FC<Props> = ({ tracks, createHandler, loaded }) => {
   let [nameField, setNameField] = useState('');
-  let [disabledTrackIds, setDisabledTrackIds] = useState<string[]>([]); // If tracks passed from parent change, playlist re renders and applies disabled tracks. If the user disables a song, it does not bubble back to parent (so other components' re-render is prevented)
+  let [disabledTrackIds, setDisabledTrackIds] = useState<string[]>([]);
   let [savingPlaylist, setSavingPlaylist] = useState<boolean>(false);
 
   function toggleTrackHandler (trackId : string) {

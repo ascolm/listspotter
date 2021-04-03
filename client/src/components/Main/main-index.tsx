@@ -5,12 +5,9 @@ import { TrackItem, Artist, PlaylistData, PlaylistCover } from 'interfaces/spoti
 import { GenreDb } from 'interfaces/genreObjects';
 import Genres from './Genres/genres-index';
 import { getTokens, createPlaylist, getTracks, getPlaylistCover } from 'apiService';
-import { artistsMock, tracksMock, genresMock, playlistMock } from 'devtools/dataMocks';
 import './main-style.scss';
 import {
-  // fetchTracksWithOffset,
   fetchArtistsWithOffset,
-  generateGenres,
   getSelectedTracks,
   markGenreArtists,
   filterSelectedGenres,
@@ -24,11 +21,11 @@ import PlaylistCreatedModal from './Modal/modal-index';
 const Main: React.FC = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const coverGenerationWaitTime = 500; // Spotify takes a while to generate playlist cover image after playlist is created, so
+  const coverGenerationWaitTime = 500; // Spotify takes a while to generate playlist cover image after playlist is created
 
-  let [tracks, setTracks] = useState<TrackItem[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
-  let [artists, setArtists] = useState<Artist[]>([]); // WAS [] - SWITCHED TO MOCK FOR TESTING
-  let [genres, setGenres] = useState<GenreDb>({}); // WAS {} - SWITCHED TO MOCK FOR TESTING
+  let [tracks, setTracks] = useState<TrackItem[]>([]);
+  let [artists, setArtists] = useState<Artist[]>([]);
+  let [genres, setGenres] = useState<GenreDb>({});
   let [createdPlaylist, setCreatedPlaylist] = useState<any>({});
   const [modalIsOpen,setIsOpen] = React.useState(false);
 
@@ -54,15 +51,12 @@ const Main: React.FC = () => {
          setTracks(trackList);
        });
       }
-    // TODO: SEND ARTISTS IN ONE REQ FROM SERVER
       if (artists.length === 0) {
         fetchArtistsWithOffset(code, setArtists).then((genres) => {
           setGenres(genres)
         });
       }
     }
-    // setTimeout(() => setTracks(tracksMock), 3000);
-    // setTimeout(() => setGenres(genresMock), 1000);
     fetchData();
   }, []);
 
@@ -73,9 +67,7 @@ const Main: React.FC = () => {
   }, [genres]);
 
 
-  // TODO: MOVE HANDLERS TO SEPARATE FILE
   function selectGenreHandler (genreName: string) {
-    // TODO: RESORTING BASED ON MATCH
     const newGenreDb = Object.assign({}, genres);
     newGenreDb[genreName].selected = !newGenreDb[genreName].selected;
     setGenres(newGenreDb);
@@ -105,13 +97,11 @@ const Main: React.FC = () => {
     <div className='main-container'>
 
       <PlaylistCreatedModal isOpen={modalIsOpen} onRequestClose={closeModal} playlist={createdPlaylist}/>
-      {/* default spinner color #686769 */}
       <div className='title'>
         <h1>Listspotter.</h1>
         <p>Powered by <img src={icon} className='spotify-icon' alt="Spotify icon"/></p>
       </div>
 
-      {/* // Display selected artists & artists deselected manually by user */}
       <div className="genre-artist-wrapper">
         <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler} loaded={Object.keys(genres).length > 0}/>
         <Artists artistList={artists.filter((artist) => artist.selected)} loaded={Object.keys(genres).length > 0} toggleHandler={toggleArtistHandler}/>

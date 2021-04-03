@@ -3,8 +3,6 @@ import { TrackItem } from 'interfaces/spotifyObjects';
 import { convertMsToMinsAndSecs, joinArtistNames } from './playlist-item-helpers';
 import moment from 'moment';
 
-
-
 export interface Props {
   track: TrackItem,
   toggleHandler: (trackId: string) => void,

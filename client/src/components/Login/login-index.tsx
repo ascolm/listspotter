@@ -3,13 +3,7 @@ import { queryUrl } from './login-queryParams';
 import './login-style.scss';
 import logo from './Spotify_Logo_RGB_Green.png';
 
-// import { useState, useEffect } from 'react';
-
-
-export interface Props {
-}
-
-const Login: React.FC<Props> = () => {
+const Login: React.FC = () => {
   return (
     <div className="login-container">
       <div className="login-content">

@@ -1,6 +1,5 @@
 import './genre-item-style.scss';
 import * as React from 'react';
-import { spawn } from 'node:child_process';
 
 export interface Props {
   genreName: string,

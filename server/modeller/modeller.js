@@ -1,10 +1,6 @@
 const axios = require('axios');
-const { clientID, clientSecret } = require('../config');
-const spotifyTokenUrl = 'https://accounts.spotify.com/api/token';
-const redirectUri = 'http://localhost:3000/main';
+const { clientID, clientSecret, redirectUri, spotifyTokenUrl } = require('../config');
 
-
-// TODO: REFACTOR WITH A REQUEST TEMPLATE
 exports.requestToken = (code, next) => {
   return axios.request({
     method: 'POST',

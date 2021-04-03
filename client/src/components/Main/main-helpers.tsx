@@ -1,17 +1,15 @@
-import { TrackData, TrackItem, ArtistData, Artist } from 'interfaces/spotifyObjects';
+import { TrackItem, ArtistData, Artist } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
-import { getTracks, getArtists } from 'apiService';
-// TODO: Refactor into a standard fetch template
+import { getArtists } from 'apiService';
 
 export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<Artist[]>>) {
-  const artistPromise = new Promise<GenreDb> ((resolve, reject) => {
+  const artistPromise = new Promise<GenreDb> ((resolve) => {
     let nextUrl;
     let genres: GenreDb;
 
     async function fetchArtistsAsync (code: string, nextUrl: string | undefined) {
       const artistData: ArtistData = await getArtists(code, nextUrl);
       nextUrl = artistData.artists.next;
-      // TODO: ADD SELECTED: FALSE HERE, THEN IN MAIN INDEX, ONLY PASS THE ARTISTS WITH SELECTED-TRUE TO ARTISTS COMPONENT, UPDATE GENRE SELECT EVENT TO MARK ARTISTS AS SELECTED (GETARTISTSFROMGENRELIST BELOW WILL COPY THE WHOLE OBJECT AND ONLY CHANGE SELECTED VALUES)
 
       const newArtists = artistData.artists.items.map((artistObj) => {
         return {...artistObj, selected: false}

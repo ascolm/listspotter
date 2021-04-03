@@ -1,4 +1,3 @@
-import React from 'react';
 import Login from './components/Login/login-index';
 import Main from './components/Main/main-index';
 import './App.css';

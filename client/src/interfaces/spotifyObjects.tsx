@@ -1,7 +1,3 @@
-// Type '{ external_urls: { spotify: string; }; href: string; id: string; name: string; type: string; uri: string; }[]' is not assignable to type 'Artist[]'.
-//         Property 'genres' is missing in type '{ external_urls: { spotify: string; }; href: string; id: string; name: string; type: string; uri: string; }' but required in type 'Artist'.
-
-
 export interface Track {
   id: string,
   name: string,
@@ -50,7 +46,7 @@ export interface Artist{
   name: string,
   genres: string[],
   images: Image[],
-  selected?: boolean, // REMOVE ? AFTER TESTING
+  selected?: boolean,
   userDisabled?: boolean
 }
 
