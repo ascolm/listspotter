@@ -1,13 +1,16 @@
 # Listspotter
-Pamela and Gero 
+Web app that creates playlists from your saved songs in Spotify using intuitive genre filters.
 
-## TODO
-1. Implement testing
-2. Implement TS on backend 
-3. Set up JWT for multiple users 
+# UI
+![Screenshot 2021-04-03 at 09 57 36](https://user-images.githubusercontent.com/59074533/113473692-07e42f00-9463-11eb-9e94-21bb5db26f5f.png)
 
-## GIT WORKFLOW
-- CREATING NEW BRANCH: git checkout -b branch_name branched_off_name
-- PUSHING TO NEW BRANCH UPSTREAM: git push -u origin branch_name
-- NAVIGATING TO EXISTING BRANCH: git checkout branch_name
-- BEFORE YOU PUSH, PULL FROM: git pull origin branch_name. THEN: git push origin branch_name
+# Contributors ✨
+
+Github's and LinkedIn's linked below!
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/pamelakaylin"><img src="https://avatars.githubusercontent.com/u/59074533?v=4" width="120px;" alt=""/><br /><sub><b><a href="https://www.linkedin.com/in/pamela-chen-60377216b/" title="linkedin">Pamela Chen</a></b></sub></a><br /><a href="code-pamela" title="Code">💻</a> <a href="#test-pamela" title="Tests">⚠️</a> <a href="#main-pamela" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/geroalexander"><img src="https://avatars.githubusercontent.com/u/59166685?v=4" width="120px;" alt=""/><br /><sub><b><a href="https://www.linkedin.com/in/gero-kassing-9b79311a3/" title="linkedin">Gero Kassing</a></b></sub></a><br /><a href="code-gero" title="Code">💻</a> <a href="#test-gero" title="Tests">⚠️</a> <a href="#main-gero" title="Maintenance">🚧</a></td>
+  </tr>
+</table>
