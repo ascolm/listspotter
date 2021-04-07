@@ -3,11 +3,12 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const router = require('./router');
+const config = require('./config');
 
 // SERVER CONFIG
 const app = express();
-const port = 3001;
-const host = '127.0.0.1';
+const port = config.serverPort;
+const host = config.serverHost;
 
 // MIDDLEWARES
 app.use(cors());
