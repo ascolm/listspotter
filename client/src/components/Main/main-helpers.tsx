@@ -8,7 +8,7 @@ export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<R
     let genres: GenreDb;
 
     async function fetchArtistsAsync (code: string, nextUrl: string | undefined) {
-      const artistData: ArtistData = await getArtists(code, nextUrl);
+      const artistData: ArtistData = await getArtists(nextUrl);
       nextUrl = artistData.artists.next;
 
       const newArtists = artistData.artists.items.map((artistObj) => {
