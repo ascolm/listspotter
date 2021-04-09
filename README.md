@@ -30,6 +30,8 @@ npm install
 module.exports = {
   clientID: // YOUR CLIENT ID HERE,
   clientSecret: // YOUR CLIENT SECRET HERE,
+  serverHost: // SERVER HOST, ex: '127.0.0.1',
+  serverPort: // SERVER PORT, ex: '3001',
   redirectUri: // YOUR REDIRECT URI HERE,
   spotifyTokenUrl: 'https://accounts.spotify.com/api/token'
 };
