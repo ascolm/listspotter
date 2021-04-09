@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { TrackItem, Artist, PlaylistData, PlaylistCover } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import Genres from './Genres/genres-index';
-import { getTokens, createPlaylist, getTracks, getPlaylistCover } from 'apiService';
+import { getToken, createPlaylist, getTracks, getPlaylistCover } from 'apiService';
 import './main-style.scss';
 import {
   fetchArtistsWithOffset,
@@ -43,10 +43,10 @@ const Main: React.FC = () => {
     if (!code) return;
 
     const fetchData = async () => {
-      await getTokens(code);
+      await getToken(code);
 
       if (tracks.length === 0) {
-       const trackList = getTracks(code).then((trackList) => {
+       const trackList = getTracks().then((trackList) => {
          console.log(trackList.length + ' tracks received');
          setTracks(trackList);
        });
@@ -80,9 +80,9 @@ const Main: React.FC = () => {
 
   async function createPlaylistHandler (playlistName: string, trackURIs: string[]) {
     if (!code) return;
-    const playlistData: PlaylistData = await createPlaylist(code, playlistName, trackURIs);
+    const playlistData: PlaylistData = await createPlaylist(playlistName, trackURIs);
     await new Promise((resolve, reject) => setTimeout(() => resolve(''), coverGenerationWaitTime));
-    const playlistCover: PlaylistCover[] = await getPlaylistCover(code, playlistData.id);
+    const playlistCover: PlaylistCover[] = await getPlaylistCover(playlistData.id);
     playlistData.cover = playlistCover[0];
     setCreatedPlaylist(playlistData);
   }

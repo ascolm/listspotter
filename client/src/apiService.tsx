@@ -1,19 +1,25 @@
 const baseUrl = require('config').serverBaseUrl;
 
-export const getTokens = async (code: string) => {
-  return fetch(baseUrl + '/tokens', {
+let clientToken: string | null = null;
+
+// SERVER SHOULD SEND BACK THE TOKEN IN REPLY
+export const getToken = async (code: string) => {
+  let response = await fetch(baseUrl + '/tokens', {
     method: 'POST',
     body: JSON.stringify({code}),
     headers: {
       'Content-Type': 'application/json'
     }
   });
+  clientToken = await response.json();
 };
 
-export const getTracks = async (code: string) => {
+export const getTracks = async () => {
+  if (!clientToken) return;
+
   const response = await fetch(baseUrl + '/tracks', {
     method: 'POST',
-    body: JSON.stringify({code}),
+    body: JSON.stringify({clientToken}),
     headers: {
       'Content-Type': 'application/json'
     }
@@ -21,10 +27,11 @@ export const getTracks = async (code: string) => {
   return await response.json();
 };
 
-export const getArtists = async (code: string, nextUrl: string | undefined) => {
+export const getArtists = async (nextUrl: string | undefined) => {
+  if (!clientToken) return;
   const response = await fetch(baseUrl + '/artists', {
     method: 'POST',
-    body: JSON.stringify({code, nextUrl}),
+    body: JSON.stringify({clientToken, nextUrl}),
     headers: {
       'Content-Type': 'application/json'
     }
@@ -33,10 +40,11 @@ export const getArtists = async (code: string, nextUrl: string | undefined) => {
   return artists;
 };
 
-export const createPlaylist = async (code: string, playlistName: string, trackURIs: string[]) => {
+export const createPlaylist = async (playlistName: string, trackURIs: string[]) => {
+  if (!clientToken) return;
   const response = await fetch(baseUrl + '/create', {
     method: 'POST',
-    body: JSON.stringify({code, playlistName, trackURIs}),
+    body: JSON.stringify({clientToken, playlistName, trackURIs}),
     headers: {
       'Content-Type': 'application/json'
     }
@@ -45,10 +53,11 @@ export const createPlaylist = async (code: string, playlistName: string, trackUR
   return playlistData;
 };
 
-export const getPlaylistCover = async (code: string, playlistId: string) => {
+export const getPlaylistCover = async (playlistId: string) => {
+  if (!clientToken) return;
   const response = await fetch(baseUrl + '/cover', {
     method: 'POST',
-    body: JSON.stringify({code, playlistId}),
+    body: JSON.stringify({clientToken, playlistId}),
     headers: {
       'Content-Type': 'application/json'
     }
