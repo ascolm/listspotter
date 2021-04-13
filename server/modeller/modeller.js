@@ -13,7 +13,7 @@ exports.requestToken = (code, next) => {
     .then((tokenResponse) => {
       return tokenResponse.data;
     })
-    .catch(next);
+    .catch((err) => console.log(err));
 };
 
 exports.requestTracks = (spotifyTracksUrl, tokens, offset) => {

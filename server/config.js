@@ -8,3 +8,5 @@ module.exports = {
   redirectUri: process.env.REDIRECT_URI,
   spotifyTokenUrl: process.env.SPOTIFY_TOKEN_URL
 };
+
+console.log(module.exports.spotifyTokenUrl)
