@@ -25,25 +25,21 @@ cd listspotter
 npm install
 ```
 
-3. Directly under the "server" folder, add a config.js file that exports your client ID, client secret key, redirect uri and Spotify's token link (make sure you ignore this file on git!!).
+3. The config file directly under the "server" folder groups environment variables for convenience. Create a .env file in the same folder that has your client ID, client secret key, redirect uri and Spotify's token link (make sure you ignore this file on git!!). The .env file should look like:
 ```
-module.exports = {
-  clientID: // YOUR CLIENT ID HERE,
-  clientSecret: // YOUR CLIENT SECRET HERE,
-  serverHost: // SERVER HOST, ex: '127.0.0.1',
-  serverPort: // SERVER PORT, ex: '3001',
-  redirectUri: // YOUR REDIRECT URI HERE,
-  spotifyTokenUrl: 'https://accounts.spotify.com/api/token'
-};
+CLIENT_ID=// YOUR CLIENT ID HERE,
+CLIENT_SECRET=// YOUR CLIENT SECRET HERE,
+SERVER_HOST=// SERVER HOST, ex: '127.0.0.1',
+SERVER_PORT=// SERVER PORT, ex: '3001',
+REDIRECT_URI=// YOUR REDIRECT URI HERE,
+SPOTIFY_TOKEN_URL='https://accounts.spotify.com/api/token'
 ```
 
-4. Under "src" folder in your client, add a config.js file that exports your client ID, redirect uri and server url(ignore this file on Git too).
+4. The config file directly under the "client" folder groups environment variables for convenience. Create a .env file in the same folder that has your client ID, redirect uri and server base url (make sure you ignore this file on git too). The .env file should look like:
 ```
-module.exports = {
-  clientId: // YOUR CLIENT ID HERE,
-  redirectUri: // YOUR REDIRECT URI,
-  serverBaseUrl: // SERVER URL HERE, ex: 'http://localhost:3001'
-};
+  REACT_APP_CLIENT_ID=// YOUR CLIENT ID HERE,
+  REACT_APP_REDIRECT_URI=// YOUR REDIRECT URI,
+  REACT_APP_SERVER_BASE_URL=// SERVER URL HERE, ex: 'http://localhost:3001'
 ```
 
 5. You can run your server using nodemon to watch for changes:
