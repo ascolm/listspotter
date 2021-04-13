@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(__dirname + '/../client/build'));
+  app.use('/main', express.static(__dirname + '/../client/build'));
 }
 app.use(router);
 
