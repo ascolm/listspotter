@@ -1,4 +1,5 @@
 // DEPENDENCIES
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -14,6 +15,9 @@ const host = config.serverHost;
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(__dirname + '/../client/build'));
+}
 app.use(router);
 
 // CONNECTION TO DB & LISTENING TO PORT
