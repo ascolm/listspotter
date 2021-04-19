@@ -1,6 +1,7 @@
 # Listspotter
 Listspotter is an application that lets users create genre based playlists of tracks they have saved in their Spotify accounts. <br>
-With Listspotter it is quick and easy to have a coherent playlist out of the songs you already like, in just a few minutes.
+With Listspotter it is quick and easy to have a coherent playlist out of the songs you already like, in just a few minutes. <br>
+Available at http://listspotter.tech.
 
 ## Screenshots
 ![listspotterSS3](https://user-images.githubusercontent.com/65975591/113475350-5c90a580-9475-11eb-9407-3982e427a6ba.png)
