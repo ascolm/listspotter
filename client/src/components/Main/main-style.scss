@@ -40,6 +40,10 @@
   scroll-snap-align: start;
 }
 
+.scroll-message{
+  display: none;
+}
+
 .genre-artist-wrapper{
   height: 80%;
   width: 35%;
@@ -61,11 +65,21 @@
     }
   }
 
+  .scroll-message{
+    display: block;
+    writing-mode: vertical-rl;
+    color: rgba(128, 128, 128, 0.692);
+    position: relative;
+    left: 10rem;
+    text-orientation: upright;
+  }
+
   .genre-artist-wrapper{
     height: 80%;
     width: 60%;
     margin: 0 80% 0 15%;
     min-width: 320px;
+    position: relative;
     align-items: center;
   }
 
@@ -81,6 +95,10 @@
   .genre-artist-wrapper{
     min-width: 300px;
     margin: 0 50% 0 2%;
+  }
+
+  .scroll-message{
+    left: 0;
   }
 
   .playlist-wrapper{
