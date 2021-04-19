@@ -105,7 +105,7 @@ const Main: React.FC = () => {
       <div className="genre-artist-wrapper">
         <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler} loaded={Object.keys(genres).length > 0}/>
         <Artists artistList={artists.filter((artist) => artist.selected)} loaded={Object.keys(genres).length > 0} toggleHandler={toggleArtistHandler}/>
-        <p className="scroll-message">SCROLL RIGHT</p>
+        {Object.keys(genres).length > 0 && <p className="scroll-message">SCROLL RIGHT</p>}
       </div>
 
       <div className="playlist-wrapper">
