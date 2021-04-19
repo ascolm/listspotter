@@ -27,9 +27,15 @@
       border: 1px solid white;
     }
   }
-
   &.user-disabled{
     opacity: 0.4;
+  }
+}
+
+@media only screen and (max-width: 1300px){
+  .artist-item-container img{
+    height: 50px;
+    width: 50px;
   }
 }
 
