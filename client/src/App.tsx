@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
         <Switch>
-          <Route path="/main">
+          <Route path={process.env.NODE_ENV === 'development' ? '/' : '/main'}>
             <Main/>
           </Route>
           <Route path="/">

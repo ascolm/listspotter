@@ -1,8 +1,16 @@
 import { TrackItem, ArtistData, Artist } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import { getArtists } from 'apiService';
+import { artistsMock, genresMock } from 'devtools/dataMocks';
 
 export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<Artist[]>>) {
+  if (process.env.NODE_ENV === 'development') {
+    return new Promise<GenreDb>(res => {
+      setState(artistsMock);
+      res(genresMock);
+    })
+  }
+  
   const artistPromise = new Promise<GenreDb> ((resolve) => {
     let nextUrl;
     let genres: GenreDb;
@@ -87,4 +95,8 @@ export function getSelectedTracks (artists: Artist[], tracks: TrackItem[]) {
     return trackItem.track.artists.some((trackArtist) => selectedArtists.findIndex((artist) => artist.id === trackArtist.id) !== -1);
   })
 
+}
+
+function mockArtists(mockArtists: any) {
+  throw new Error('Function not implemented.');
 }
