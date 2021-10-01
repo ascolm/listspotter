@@ -4,14 +4,16 @@ import { useState, useEffect } from 'react';
 import { TrackItem, Artist, PlaylistData, PlaylistCover } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import Genres from './Genres/genres-index';
-import { getToken, createPlaylist, getTracks, getPlaylistCover } from 'apiService';
+import { getToken, createPlaylist, getTracks, getPlaylistCover, getSpecifiedArtists } from 'apiService';
 import './main-style.scss';
 import {
   fetchArtistsWithOffset,
   getSelectedTracks,
   markGenreArtists,
   filterSelectedGenres,
-  artistToggleUpdate
+  artistToggleUpdate,
+  identifyArtistsNotFollowed,
+  generateGenres
  } from './main-helpers';
 import Artists from './Artists/artists-index';
 import Playlist from './Playlist/playlist-index';
@@ -66,6 +68,16 @@ const Main: React.FC = () => {
     setArtists(updatedArtists);
   }, [genres]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const artistsNotFollowed = identifyArtistsNotFollowed(artists, tracks);
+      const additionalArtistData = await getSpecifiedArtists(artistsNotFollowed);
+      setArtists(artists => [...artists, ...additionalArtistData]);
+      setGenres(generateGenres(additionalArtistData, genres));
+    }
+
+    fetchData();
+  }, [tracks]);
 
   function selectGenreHandler (genreName: string) {
     const newGenreDb = Object.assign({}, genres);

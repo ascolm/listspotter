@@ -1,4 +1,4 @@
-import { TrackItem, ArtistData, Artist } from 'interfaces/spotifyObjects';
+import { TrackItem, ArtistData, Artist, SimplifiedArtist } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import { getArtists } from 'apiService';
 
@@ -32,8 +32,7 @@ export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<R
   return artistPromise;
 }
 
-export function generateGenres (artists: Artist[]) {
-  const genreDb: GenreDb = {};
+export function generateGenres (artists: Artist[], genreDb: GenreDb = {}) {
   artists.forEach((artist) => {
     artist.genres.forEach((artistGenre) => {
       if (!genreDb[artistGenre]) {
@@ -87,4 +86,15 @@ export function getSelectedTracks (artists: Artist[], tracks: TrackItem[]) {
     return trackItem.track.artists.some((trackArtist) => selectedArtists.findIndex((artist) => artist.id === trackArtist.id) !== -1);
   })
 
+}
+
+export function identifyArtistsNotFollowed (artists: Artist[], tracks: TrackItem[]): string[] {
+  const artistsNotFollowed: string[] = [];
+  tracks.forEach(trackItem => {
+    const trackArtistId = trackItem.track.artists[0].id;
+    if (!artists.some(artist => artist.id === trackArtistId)) {
+      artistsNotFollowed.push(trackArtistId);
+    }
+  })
+  return artistsNotFollowed;
 }

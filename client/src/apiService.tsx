@@ -40,6 +40,19 @@ export const getArtists = async (nextUrl: string | undefined) => {
   return artists;
 };
 
+export const getSpecifiedArtists = async (artistIds: string[]) => {
+  if (!clientToken) return;
+  const response = await fetch(baseUrl + '/specified_artists', {
+    method: 'POST',
+    body: JSON.stringify({clientToken, artistIds}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const artists = await response.json();
+  return artists;
+};
+
 export const createPlaylist = async (playlistName: string, trackURIs: string[]) => {
   if (!clientToken) return;
   const response = await fetch(baseUrl + '/create', {

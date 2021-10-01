@@ -6,13 +6,15 @@ const { requestWhileQueued } = require('./controller-helpers');
 const baseUrl = 'https://api.spotify.com/v1';
 const spotifyTracksUrl = baseUrl + '/me/tracks';
 const spotifyArtistsUrl = baseUrl + '/me/following';
+const spotifySpecifiedArtistsUrl = baseUrl + '/artists';
 const spotifyUserUrl = baseUrl + '/me';
 const spotifyCreatePlaylistUrl = baseUrl + '/users';
 const spotifyPlaylistUrl = baseUrl + '/playlists';
 const triesBeforeError = 10;
 const saveTrackRequestLimit = 100; // max number of tracks allowed in a single "save tracks to playlist" request in spotify
 const offsetIncrement = 50; // max number of tracks allowed in a single "get saved tracks" request in spotify
-const msBetweenTrackRequests = 250;
+const specifiedArtistRequestLimit = 50; // max number of tracks allowed in a single "get saved tracks" request in spotify
+const msBetweenRequests = 250; // used for track requests and specified artist requests
 
 exports.getTokens = async (req, res, next) => {
   const { code } = req.body;
@@ -20,18 +22,14 @@ exports.getTokens = async (req, res, next) => {
   res.status(200).send(tokens);
 };
 
+function timeOutPromise () {
+  return new Promise((resolve) => setTimeout(() => resolve(), msBetweenRequests));
+};
+
 exports.getTracks = async (req, res) => {
   const {clientToken} = req.body;
   let initialOffset = 0;
   let trackData = [];
-
-  // if (!tokens) {
-  //   tokens = await modeller.requestToken(code, next);
-  // }
-
-  function timeOutPromise () {
-    return new Promise((resolve) => setTimeout(() => resolve(), msBetweenTrackRequests));
-  };
 
   let tryCount = 0;
 
@@ -74,10 +72,6 @@ exports.getTracks = async (req, res) => {
 exports.getArtists = async (req, res) => {
   const {clientToken, nextUrl} = req.body;
 
-  // if (!tokens) {
-  //   tokens = await modeller.requestToken(code, next);
-  // }
-
   modeller.requestArtists(spotifyArtistsUrl, nextUrl, clientToken)
     .then((artistResponse) => {
       res.statusCode = 200;
@@ -86,12 +80,41 @@ exports.getArtists = async (req, res) => {
     .catch((err) => console.log(err.response.data));
 };
 
+exports.getSpecifiedArtists = async (req, res) => {
+  const {clientToken, artistIds} = req.body;
+
+  const specifiedArtists = [];
+
+  while (artistIds.length > 0) {
+    const artistsToQuery = artistIds.splice(0, specifiedArtistRequestLimit);
+    const queryString = artistsToQuery.join(',');
+
+    let tryCount = 0;
+    await (async function fetchSpecifiedArtistsAsync () {
+      try{
+        const specifiedArtistResponse = await modeller.requestSpecifiedArtists(spotifySpecifiedArtistsUrl, queryString, clientToken);
+        specifiedArtists.push(specifiedArtistResponse.data.artists);
+      } catch (err) {
+        if(err.response.status === 404){
+          tryCount++;
+          await timeOutPromise();
+          if (tryCount < triesBeforeError) {
+            await fetchSpecifiedArtistsAsync();
+          } else {
+            console.log(err);
+          }
+          return;
+        }
+      }
+    })();
+  }
+
+  res.status = 200;
+  res.send(specifiedArtists);
+}
+
 exports.getPlaylistCover = async (req, res, next) => {
   const {clientToken, playlistId} = req.body;
-
-  // if (!tokens) {
-  //   tokens = await modeller.requestToken(code, next);
-  // }
 
   modeller.requestPlaylistCover(spotifyPlaylistUrl, playlistId, clientToken)
     .then((coverResponse) => {
@@ -104,10 +127,6 @@ exports.getPlaylistCover = async (req, res, next) => {
 
 exports.createPlaylist = async (req, res, next) => {
   const {clientToken, playlistName, trackURIs} = req.body;
-
-  // if (!tokens) {
-  //   tokens = await modeller.requestToken(code, next);
-  // }
 
   const userResponse = await modeller.requestUser(spotifyUserUrl, clientToken);
   const userID = userResponse.data.id;

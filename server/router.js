@@ -7,5 +7,6 @@ router.post('/tokens', controller.getTokens);
 router.post('/artists', controller.getArtists);
 router.post('/create', controller.createPlaylist);
 router.post('/cover', controller.getPlaylistCover);
+router.post('/specified_artists', controller.getSpecifiedArtists);
 
 module.exports = router;
