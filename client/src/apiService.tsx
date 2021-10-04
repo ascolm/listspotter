@@ -1,4 +1,4 @@
-import { artistsMock, playlistMock, tracksMock } from "devtools/dataMocks";
+import { artistsMock, playlistMock, specifiedArtists, tracksMock } from "devtools/dataMocks";
 
 const baseUrl = require('config').serverBaseUrl;
 
@@ -51,6 +51,10 @@ export const getArtists = async (nextUrl: string | undefined) => {
 
 export const getSpecifiedArtists = async (artistIds: string[]) => {
   if (!clientToken) return;
+  if (process.env.NODE_ENV === 'development') {
+    await new Promise(res => setTimeout(() => res(''), 3000));
+    return specifiedArtists.artists;
+  }
 
   try {
     const response = await fetch(baseUrl + '/specified_artists', {
@@ -61,9 +65,8 @@ export const getSpecifiedArtists = async (artistIds: string[]) => {
       }
     });
     const artists = await response.json();
-    return artists;
+    return artists.artists;
   } catch (err) {
-    console.log('There was an error while updating artists from liked songs');
   }
 };
 

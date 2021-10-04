@@ -29,6 +29,7 @@ const Main: React.FC = () => {
   let [artists, setArtists] = useState<Artist[]>([]);
   let [genres, setGenres] = useState<GenreDb>({});
   let [createdPlaylist, setCreatedPlaylist] = useState<any>({});
+  let [unfollowedArtists, setUnfollowedArtists] = useState<Artist[]>([]);
   const [modalIsOpen,setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -48,14 +49,24 @@ const Main: React.FC = () => {
       await getToken(code);
 
       if (tracks.length === 0) {
-       const trackList = getTracks().then((trackList) => {
-         console.log(trackList.length + ' tracks received');
-         setTracks(trackList);
-       });
+        getTracks().then(async (trackList) => {
+          setTracks(trackList);
+        });
       }
+
       if (artists.length === 0) {
         fetchArtistsWithOffset(code, setArtists).then((genres) => {
-          setGenres(genres)
+          setGenres(genres);
+        });
+      }
+
+      const artistsNotFollowed = identifyArtistsNotFollowed(artists, tracks);
+      const additionalArtistData = await getSpecifiedArtists(artistsNotFollowed);
+      if (additionalArtistData) {
+        setUnfollowedArtists(additionalArtistData);
+        setArtists(artists => {
+          const updatedArtists = [...artists, ...additionalArtistData]
+          return updatedArtists;
         });
       }
     }
@@ -63,28 +74,19 @@ const Main: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const selectedGenres = filterSelectedGenres(genres);
-    const updatedArtists = markGenreArtists(artists, selectedGenres);
-    setArtists(updatedArtists);
-  }, [genres]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const artistsNotFollowed = identifyArtistsNotFollowed(artists, tracks);
-      const additionalArtistData = await getSpecifiedArtists(artistsNotFollowed);
-      if (additionalArtistData) {
-        setArtists(artists => [...artists, ...additionalArtistData]);
-        setGenres(generateGenres(additionalArtistData, genres));
+    if (unfollowedArtists.length > 0) {
+          setGenres(generateGenres(unfollowedArtists, genres));
       }
-    }
-
-    fetchData();
-  }, [tracks]);
+  }, [unfollowedArtists])
 
   function selectGenreHandler (genreName: string) {
     const newGenreDb = Object.assign({}, genres);
     newGenreDb[genreName].selected = !newGenreDb[genreName].selected;
     setGenres(newGenreDb);
+
+    const selectedGenres = filterSelectedGenres(newGenreDb);
+    const updatedArtists = markGenreArtists(artists, selectedGenres);
+    setArtists(updatedArtists);
   }
 
   function toggleArtistHandler (artistId: string) {

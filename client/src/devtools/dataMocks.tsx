@@ -535,6 +535,91 @@ function addSelectedProperty (data: ArtistData) {
   });
 }
 
+export const specifiedArtists = {
+  "artists": [
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/4LNC9g5ie0tSgZed2CHQ5A"
+      },
+      "followers": {
+        "href": null,
+        "total": 21232
+      },
+      "genres": [
+        "classic czech pop",
+        "czech country",
+        "czech folk",
+        "czech rock"
+      ],
+      "href": "https://api.spotify.com/v1/artists/4LNC9g5ie0tSgZed2CHQ5A",
+      "id": "4LNC9g5ie0tSgZed2CHQ5A",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab67616d0000b273d65f92695b407bb9c9a19694",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://i.scdn.co/image/ab67616d00001e02d65f92695b407bb9c9a19694",
+          "width": 300
+        },
+        {
+          "height": 64,
+          "url": "https://i.scdn.co/image/ab67616d00004851d65f92695b407bb9c9a19694",
+          "width": 64
+        }
+      ],
+      "name": "Waldemar Matuška",
+      "popularity": 42,
+      "type": "artist",
+      "uri": "spotify:artist:4LNC9g5ie0tSgZed2CHQ5A"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/7mnBLXK823vNxN3UWB7Gfz"
+      },
+      "followers": {
+        "href": null,
+        "total": 3553851
+      },
+      "genres": [
+        "alternative rock",
+        "blues rock",
+        "garage rock",
+        "modern blues rock",
+        "modern rock",
+        "punk blues",
+        "rock",
+        "roots rock"
+      ],
+      "href": "https://api.spotify.com/v1/artists/7mnBLXK823vNxN3UWB7Gfz",
+      "id": "7mnBLXK823vNxN3UWB7Gfz",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5ebda012e44f73353016e419282",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174da012e44f73353016e419282",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178da012e44f73353016e419282",
+          "width": 160
+        }
+      ],
+      "name": "The Black Keys",
+      "popularity": 73,
+      "type": "artist",
+      "uri": "spotify:artist:7mnBLXK823vNxN3UWB7Gfz"
+    }
+  ]
+}
+
 export const artistsMock: Artist[] = addSelectedProperty(artistData);
 export const tracksMock: TrackItem[] = trackData.items;
 export const playlistMock: PlaylistData = playlistData.data;

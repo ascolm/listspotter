@@ -7,7 +7,8 @@ export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<R
   if (process.env.NODE_ENV === 'development') {
     return new Promise<GenreDb>(res => {
       setState(artistsMock);
-      res(genresMock);
+      const genres = generateGenres(artistsMock)
+      res(genres);
     })
   }
   
@@ -45,7 +46,7 @@ export function generateGenres (artists: Artist[], genreDb: GenreDb = {}) {
     artist.genres.forEach((artistGenre) => {
       if (!genreDb[artistGenre]) {
         genreDb[artistGenre] = {artists: [artist], selected: false};
-      } else {
+      } else if (!genreDb[artistGenre].artists.some(genreArtist => genreArtist.id === artist.id)) {
         genreDb[artistGenre].artists.push(artist);
       }
     })
