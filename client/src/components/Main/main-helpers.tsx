@@ -96,7 +96,3 @@ export function getSelectedTracks (artists: Artist[], tracks: TrackItem[]) {
   })
 
 }
-
-function mockArtists(mockArtists: any) {
-  throw new Error('Function not implemented.');
-}
