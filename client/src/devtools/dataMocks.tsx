@@ -331,7 +331,7 @@ const trackData = {
             "spotify" : "https://open.spotify.com/artist/6RmijobcphddxSNtsBHjF0"
           },
           "href" : "https://api.spotify.com/v1/artists/6RmijobcphddxSNtsBHjF0",
-          "id" : "6RmijobcphddxSNtsBHjF0",
+          "id" : "1",
           "name" : "Wankelmut",
           "type" : "artist",
           "uri" : "spotify:artist:6RmijobcphddxSNtsBHjF0"
@@ -340,7 +340,7 @@ const trackData = {
             "spotify" : "https://open.spotify.com/artist/0m5XJwKGYyUjd3VMfcINCQ"
           },
           "href" : "https://api.spotify.com/v1/artists/0m5XJwKGYyUjd3VMfcINCQ",
-          "id" : "0m5XJwKGYyUjd3VMfcINCQ",
+          "id" : "1",
           "name" : "Wankelmut",
           "type" : "artist",
           "uri" : "spotify:artist:0m5XJwKGYyUjd3VMfcINCQ"
@@ -376,7 +376,7 @@ const trackData = {
           "spotify" : "https://open.spotify.com/artist/0m5XJwKGYyUjd3VMfcINCQ"
         },
         "href" : "https://api.spotify.com/v1/artists/0m5XJwKGYyUjd3VMfcINCQ",
-        "id" : "0m5XJwKGYyUjd3VMfcINCQ",
+        "id" : "1",
         "name" : "Wankelmut",
         "type" : "artist",
         "uri" : "spotify:artist:0m5XJwKGYyUjd3VMfcINCQ"
