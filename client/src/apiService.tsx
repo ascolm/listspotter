@@ -51,15 +51,20 @@ export const getArtists = async (nextUrl: string | undefined) => {
 
 export const getSpecifiedArtists = async (artistIds: string[]) => {
   if (!clientToken) return;
-  const response = await fetch(baseUrl + '/specified_artists', {
-    method: 'POST',
-    body: JSON.stringify({clientToken, artistIds}),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const artists = await response.json();
-  return artists;
+
+  try {
+    const response = await fetch(baseUrl + '/specified_artists', {
+      method: 'POST',
+      body: JSON.stringify({clientToken, artistIds}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const artists = await response.json();
+    return artists;
+  } catch (err) {
+    console.log('There was an error while updating artists from liked songs');
+  }
 };
 
 export const createPlaylist = async (playlistName: string, trackURIs: string[]) => {

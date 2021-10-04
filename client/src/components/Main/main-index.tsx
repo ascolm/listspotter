@@ -72,8 +72,10 @@ const Main: React.FC = () => {
     const fetchData = async () => {
       const artistsNotFollowed = identifyArtistsNotFollowed(artists, tracks);
       const additionalArtistData = await getSpecifiedArtists(artistsNotFollowed);
-      setArtists(artists => [...artists, ...additionalArtistData]);
-      setGenres(generateGenres(additionalArtistData, genres));
+      if (additionalArtistData) {
+        setArtists(artists => [...artists, ...additionalArtistData]);
+        setGenres(generateGenres(additionalArtistData, genres));
+      }
     }
 
     fetchData();
