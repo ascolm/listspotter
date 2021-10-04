@@ -29,7 +29,9 @@ const Genres: React.FC<Props> = ({genreList, artists, selectHandler, loaded}) =>
 
         <div className={'genres-container' + (loaded ? ' loaded':'')}>
         {getSortedGenreKeys(searchValue ? getMatchingGenres(searchValue, genreList) : genreList, artists.filter((artist) => artist.selected)).map((genreName) => {
-            return <GenreItem key={genreName} genreName={genreName} artistCount={countUnselected(genreList, genreName, artists)} selectHandler={selectHandler} selected={genreList[genreName].selected}/>
+            const artistCount = countUnselected(genreList, genreName, artists);
+            const isSelected = genreList[genreName].selected;
+            return (artistCount || isSelected) && <GenreItem key={genreName} genreName={genreName} artistCount={artistCount} selectHandler={selectHandler} selected={genreList[genreName].selected}/>
           })}
         </div>
         </>

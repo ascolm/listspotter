@@ -4,14 +4,16 @@ import { useState, useEffect } from 'react';
 import { TrackItem, Artist, PlaylistData, PlaylistCover } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import Genres from './Genres/genres-index';
-import { getToken, createPlaylist, getTracks, getPlaylistCover } from 'apiService';
+import { getToken, createPlaylist, getTracks, getPlaylistCover, getSpecifiedArtists } from 'apiService';
 import './main-style.scss';
 import {
   fetchArtistsWithOffset,
   getSelectedTracks,
   markGenreArtists,
   filterSelectedGenres,
-  artistToggleUpdate
+  artistToggleUpdate,
+  identifyArtistsNotFollowed,
+  generateGenres
  } from './main-helpers';
 import Artists from './Artists/artists-index';
 import Playlist from './Playlist/playlist-index';
@@ -27,6 +29,7 @@ const Main: React.FC = () => {
   let [artists, setArtists] = useState<Artist[]>([]);
   let [genres, setGenres] = useState<GenreDb>({});
   let [createdPlaylist, setCreatedPlaylist] = useState<any>({});
+  let [unfollowedArtists, setUnfollowedArtists] = useState<Artist[]>([]);
   const [modalIsOpen,setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -37,7 +40,7 @@ const Main: React.FC = () => {
     setIsOpen(false);
   }
 
-  const code = searchParams.get('code');
+  const code = process.env.NODE_ENV === 'development' ? '123' : searchParams.get('code');
 
   useEffect(() => {
     if (!code) return;
@@ -46,14 +49,24 @@ const Main: React.FC = () => {
       await getToken(code);
 
       if (tracks.length === 0) {
-       const trackList = getTracks().then((trackList) => {
-         console.log(trackList.length + ' tracks received');
-         setTracks(trackList);
-       });
+        getTracks().then(async (trackList) => {
+          setTracks(trackList);
+        });
       }
+
       if (artists.length === 0) {
         fetchArtistsWithOffset(code, setArtists).then((genres) => {
-          setGenres(genres)
+          setGenres(genres);
+        });
+      }
+
+      const artistsNotFollowed = identifyArtistsNotFollowed(artists, tracks);
+      const additionalArtistData = await getSpecifiedArtists(artistsNotFollowed);
+      if (additionalArtistData) {
+        setUnfollowedArtists(additionalArtistData);
+        setArtists(artists => {
+          const updatedArtists = [...artists, ...additionalArtistData]
+          return updatedArtists;
         });
       }
     }
@@ -61,16 +74,19 @@ const Main: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const selectedGenres = filterSelectedGenres(genres);
-    const updatedArtists = markGenreArtists(artists, selectedGenres);
-    setArtists(updatedArtists);
-  }, [genres]);
-
+    if (unfollowedArtists.length > 0) {
+          setGenres(generateGenres(unfollowedArtists, genres));
+      }
+  }, [unfollowedArtists])
 
   function selectGenreHandler (genreName: string) {
     const newGenreDb = Object.assign({}, genres);
     newGenreDb[genreName].selected = !newGenreDb[genreName].selected;
     setGenres(newGenreDb);
+
+    const selectedGenres = filterSelectedGenres(newGenreDb);
+    const updatedArtists = markGenreArtists(artists, selectedGenres);
+    setArtists(updatedArtists);
   }
 
   function toggleArtistHandler (artistId: string) {

@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { clientID, clientSecret, redirectUri, spotifyTokenUrl } = require('../config');
 
-exports.requestToken = (code, next) => {
+exports.requestToken = (code) => {
   return axios.request({
     method: 'POST',
     url: spotifyTokenUrl,
@@ -31,6 +31,18 @@ exports.requestArtists = (spotifyArtistsUrl, nextUrl, tokens) => {
   return axios.request({
     method: 'GET',
     url: nextUrl || spotifyArtistsUrl + '?type=artist&limit=50',
+    headers: {
+      'Authorization': `Bearer ${tokens['access_token']}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+  });
+};
+
+exports.requestSpecifiedArtists = (spotifySpecifiedArtistsUrl, queryString, tokens) => {
+  return axios.request({
+    method: 'GET',
+    url: spotifySpecifiedArtistsUrl + '?ids=' + queryString,
     headers: {
       'Authorization': `Bearer ${tokens['access_token']}`,
       'Content-Type': 'application/json',

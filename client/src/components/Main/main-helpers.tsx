@@ -1,8 +1,17 @@
-import { TrackItem, ArtistData, Artist } from 'interfaces/spotifyObjects';
+import { TrackItem, ArtistData, Artist, SimplifiedArtist } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import { getArtists } from 'apiService';
+import { artistsMock, genresMock } from 'devtools/dataMocks';
 
 export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<Artist[]>>) {
+  if (process.env.NODE_ENV === 'development') {
+    return new Promise<GenreDb>(res => {
+      setState(artistsMock);
+      const genres = generateGenres(artistsMock)
+      res(genres);
+    })
+  }
+  
   const artistPromise = new Promise<GenreDb> ((resolve) => {
     let nextUrl;
     let genres: GenreDb;
@@ -32,13 +41,12 @@ export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<R
   return artistPromise;
 }
 
-export function generateGenres (artists: Artist[]) {
-  const genreDb: GenreDb = {};
+export function generateGenres (artists: Artist[], genreDb: GenreDb = {}) {
   artists.forEach((artist) => {
     artist.genres.forEach((artistGenre) => {
       if (!genreDb[artistGenre]) {
         genreDb[artistGenre] = {artists: [artist], selected: false};
-      } else {
+      } else if (!genreDb[artistGenre].artists.some(genreArtist => genreArtist.id === artist.id)) {
         genreDb[artistGenre].artists.push(artist);
       }
     })
@@ -87,4 +95,15 @@ export function getSelectedTracks (artists: Artist[], tracks: TrackItem[]) {
     return trackItem.track.artists.some((trackArtist) => selectedArtists.findIndex((artist) => artist.id === trackArtist.id) !== -1);
   })
 
+}
+
+export function identifyArtistsNotFollowed (artists: Artist[], tracks: TrackItem[]): string[] {
+  const artistsNotFollowed: string[] = [];
+  tracks.forEach(trackItem => {
+    const trackArtistId = trackItem.track.artists[0].id;
+    if (!artists.some(artist => artist.id === trackArtistId)) {
+      artistsNotFollowed.push(trackArtistId);
+    }
+  })
+  return artistsNotFollowed;
 }
