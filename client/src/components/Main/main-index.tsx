@@ -39,7 +39,7 @@ const Main: React.FC = () => {
     setIsOpen(false);
   }
 
-  const code = searchParams.get('code');
+  const code = process.env.NODE_ENV === 'development' ? '123' : searchParams.get('code');
 
   useEffect(() => {
     if (!code) return;

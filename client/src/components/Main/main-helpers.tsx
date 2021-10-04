@@ -1,8 +1,16 @@
 import { TrackItem, ArtistData, Artist, SimplifiedArtist } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import { getArtists } from 'apiService';
+import { artistsMock, genresMock } from 'devtools/dataMocks';
 
 export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<Artist[]>>) {
+  if (process.env.NODE_ENV === 'development') {
+    return new Promise<GenreDb>(res => {
+      setState(artistsMock);
+      res(genresMock);
+    })
+  }
+  
   const artistPromise = new Promise<GenreDb> ((resolve) => {
     let nextUrl;
     let genres: GenreDb;
