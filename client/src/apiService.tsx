@@ -6,23 +6,27 @@ let clientToken: string | null = null;
 
 // SERVER SHOULD SEND BACK THE TOKEN IN REPLY
 export const getToken = async (code: string) => {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.REACT_APP_ENV === 'development') {
     clientToken = '123';
     return;
   }
 
-  let response = await fetch(baseUrl + '/tokens', {
-    method: 'POST',
-    body: JSON.stringify({code}),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  clientToken = await response.json();
+  try {
+    let response = await fetch(baseUrl + '/tokens', {
+      method: 'POST',
+      body: JSON.stringify({code}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    clientToken = await response.json();
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const getTracks = async () => {
-  if (process.env.NODE_ENV === 'development') return tracksMock;
+  if (process.env.REACT_APP_ENV === 'development') return tracksMock;
   if (!clientToken) return;
 
   const response = await fetch(baseUrl + '/tracks', {
@@ -51,7 +55,7 @@ export const getArtists = async (nextUrl: string | undefined) => {
 
 export const getSpecifiedArtists = async (artistIds: string[]) => {
   if (!clientToken) return;
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.REACT_APP_ENV === 'development') {
     await new Promise(res => setTimeout(() => res(''), 3000));
     return specifiedArtists.artists;
   }
@@ -71,7 +75,7 @@ export const getSpecifiedArtists = async (artistIds: string[]) => {
 };
 
 export const createPlaylist = async (playlistName: string, trackURIs: string[]) => {
-  if (process.env.NODE_ENV === 'development') return playlistMock;
+  if (process.env.REACT_APP_ENV === 'development') return playlistMock;
   if (!clientToken) return;
 
   const response = await fetch(baseUrl + '/create', {
@@ -86,7 +90,7 @@ export const createPlaylist = async (playlistName: string, trackURIs: string[]) 
 };
 
 export const getPlaylistCover = async (playlistId: string) => {
-  if (process.env.NODE_ENV === 'development') return playlistMock.cover?.url;
+  if (process.env.REACT_APP_ENV === 'development') return playlistMock.cover?.url;
   if (!clientToken) return;
 
   const response = await fetch(baseUrl + '/cover', {

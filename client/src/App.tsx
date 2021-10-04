@@ -7,12 +7,11 @@ import {
   Route
 } from "react-router-dom";
 
-
 function App() {
   return (
     <Router>
         <Switch>
-          <Route path={process.env.NODE_ENV === 'development' ? '/' : '/main'}>
+          <Route path={process.env.REACT_APP_ENV === 'development' ? '/' : '/main'}>
             <Main/>
           </Route>
           <Route path="/">

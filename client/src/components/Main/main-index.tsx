@@ -40,7 +40,7 @@ const Main: React.FC = () => {
     setIsOpen(false);
   }
 
-  const code = process.env.NODE_ENV === 'development' ? '123' : searchParams.get('code');
+  const code = process.env.REACT_APP_ENV === 'development' ? '123' : searchParams.get('code');
 
   useEffect(() => {
     if (!code) return;
@@ -59,16 +59,6 @@ const Main: React.FC = () => {
           setGenres(genres);
         });
       }
-
-      const artistsNotFollowed = identifyArtistsNotFollowed(artists, tracks);
-      const additionalArtistData = await getSpecifiedArtists(artistsNotFollowed);
-      if (additionalArtistData) {
-        setUnfollowedArtists(additionalArtistData);
-        setArtists(artists => {
-          const updatedArtists = [...artists, ...additionalArtistData]
-          return updatedArtists;
-        });
-      }
     }
     fetchData();
   }, []);
@@ -78,6 +68,22 @@ const Main: React.FC = () => {
           setGenres(generateGenres(unfollowedArtists, genres));
       }
   }, [unfollowedArtists])
+
+  useEffect(() => {
+    if (tracks.length > 0) {
+      (async function () {
+        const artistsNotFollowed = identifyArtistsNotFollowed(artists, tracks);
+        const additionalArtistData = await getSpecifiedArtists(artistsNotFollowed);
+        if (additionalArtistData) {
+          setUnfollowedArtists(additionalArtistData);
+          setArtists(artists => {
+            const updatedArtists = [...artists, ...additionalArtistData]
+            return updatedArtists;
+          });
+        }
+      })();
+    }
+  }, [tracks.length])
 
   function selectGenreHandler (genreName: string) {
     const newGenreDb = Object.assign({}, genres);

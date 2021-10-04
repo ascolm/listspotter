@@ -4,14 +4,14 @@ import { getArtists } from 'apiService';
 import { artistsMock, genresMock } from 'devtools/dataMocks';
 
 export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<Artist[]>>) {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.REACT_APP_ENV === 'development') {
     return new Promise<GenreDb>(res => {
       setState(artistsMock);
       const genres = generateGenres(artistsMock)
       res(genres);
     })
   }
-  
+
   const artistPromise = new Promise<GenreDb> ((resolve) => {
     let nextUrl;
     let genres: GenreDb;
