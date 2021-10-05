@@ -2,6 +2,7 @@
 
 const modeller = require('../modeller/modeller');
 const { requestWhileQueued } = require('./controller-helpers');
+const flatten = require('lodash/flatten');
 
 const baseUrl = 'https://api.spotify.com/v1';
 const spotifyTracksUrl = baseUrl + '/me/tracks';
@@ -23,7 +24,7 @@ exports.getTokens = async (req, res, next) => {
 };
 
 function timeOutPromise () {
-  return new Promise((resolve) => setTimeout(() => resolve(), msBetweenRequests));
+  return new Promise((resolve) => setTimeout(() => resolve(''), msBetweenRequests));
 };
 
 exports.getTracks = async (req, res) => {
@@ -110,7 +111,7 @@ exports.getSpecifiedArtists = async (req, res) => {
   }
 
   res.status = 200;
-  res.send(specifiedArtists);
+  res.send(flatten(specifiedArtists));
 }
 
 exports.getPlaylistCover = async (req, res, next) => {

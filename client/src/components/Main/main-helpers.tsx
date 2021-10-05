@@ -101,7 +101,7 @@ export function identifyArtistsNotFollowed (artists: Artist[], tracks: TrackItem
   const artistsNotFollowed: string[] = [];
   tracks.forEach(trackItem => {
     const trackArtistId = trackItem.track.artists[0].id;
-    if (!artists.some(artist => artist.id === trackArtistId)) {
+    if (!artists.some(artist => artist.id === trackArtistId) && !artistsNotFollowed.some(artistId => artistId === trackArtistId)) {
       artistsNotFollowed.push(trackArtistId);
     }
   })
