@@ -69,8 +69,9 @@ export const getSpecifiedArtists = async (artistIds: string[]) => {
       }
     });
     const artists = await response.json();
-    return artists.artists;
+    return artists;
   } catch (err) {
+    console.log(err);
   }
 };
 
