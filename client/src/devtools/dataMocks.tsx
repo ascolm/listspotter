@@ -250,6 +250,78 @@ const trackData = {
     }
   },
   {
+    "added_at" : "2020-12-31T17:02:26Z",
+    "track" : {
+      "album" : {
+        "album_type" : "album",
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/7mnBLXK823vNxN3UWB7Gfz"
+          },
+          "href" : "https://api.spotify.com/v1/artists/7mnBLXK823vNxN3UWB7Gfz",
+          "id" : "7mnBLXK823vNxN3UWB7Gfz",
+          "name" : "The Black Keys",
+          "type" : "artist",
+          "uri" : "spotify:artist:7mnBLXK823vNxN3UWB7Gfz"
+        } ],
+        "available_markets" : [ "AD", "AE", "AG", "AL", "AM", "AR", "AT", "AU", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BN", "BO", "BR", "BS", "BW", "BY", "BZ", "CA", "CH", "CL", "CM", "CO", "CR", "CV", "CW", "CY", "CZ", "DE", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FJ", "FM", "FR", "GA", "GB", "GD", "GH", "GM", "GN", "GQ", "GR", "GT", "GW", "HK", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JM", "JO", "JP", "KE", "KG", "KH", "KM", "KN", "KR", "KW", "KZ", "LA", "LB", "LC", "LK", "LR", "LS", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "ML", "MN", "MO", "MR", "MT", "MW", "MX", "MY", "NA", "NE", "NG", "NI", "NL", "NO", "NP", "NZ", "OM", "PA", "PE", "PG", "PH", "PK", "PL", "PT", "PY", "QA", "RO", "RS", "RU", "RW", "SA", "SC", "SE", "SG", "SI", "SK", "SL", "SM", "SN", "ST", "SV", "SZ", "TD", "TG", "TH", "TL", "TN", "TR", "TT", "TW", "TZ", "UA", "UG", "US", "UY", "UZ", "VC", "VN", "XK", "ZA", "ZW" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/6TvxpBzf9c8H1fsrAaQ8t3"
+        },
+        "href" : "https://api.spotify.com/v1/albums/6TvxpBzf9c8H1fsrAaQ8t3",
+        "id" : "6TvxpBzf9c8H1fsrA34aQ8t3",
+        "images" : [ {
+          "height" : 640,
+          "url" : "https://i.scdn.co/image/ab67616d0000b2731af8fb0d8859055d35d2290f",
+          "width" : 640
+        }, {
+          "height" : 300,
+          "url" : "https://i.scdn.co/image/ab67616d00001e021af8fb0d8859055d35d2290f",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/ab67616d000048511af8fb0d8859055d35d2290f",
+          "width" : 64
+        } ],
+        "name" : "Bamboo",
+        "release_date" : "2014-05-09",
+        "release_date_precision" : "day",
+        "total_tracks" : 11,
+        "type" : "album",
+        "uri" : "spotify:album:6TvxpBzf9c8H1fsrAaQ8t3"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/7mnBLXK823vNxN3UWB7Gfz"
+        },
+        "href" : "https://api.spotify.com/v1/artists/7mnBLXK823vNxN3UWB7Gfz",
+        "id" : "7mnBLXK823vNxN3UWB7Gfz",
+        "name" : "The Black Keys",
+        "type" : "artist",
+        "uri" : "spotify:artist:7mnBLXK823vNxN3UWB7Gfz"
+      } ],
+      "available_markets" : [ "AD", "AE", "AG", "AL", "AM", "AR", "AT", "AU", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BN", "BO", "BR", "BS", "BW", "BY", "BZ", "CA", "CH", "CL", "CM", "CO", "CR", "CV", "CW", "CY", "CZ", "DE", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FJ", "FM", "FR", "GA", "GB", "GD", "GH", "GM", "GN", "GQ", "GR", "GT", "GW", "HK", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JM", "JO", "JP", "KE", "KG", "KH", "KM", "KN", "KR", "KW", "KZ", "LA", "LB", "LC", "LK", "LR", "LS", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "ML", "MN", "MO", "MR", "MT", "MW", "MX", "MY", "NA", "NE", "NG", "NI", "NL", "NO", "NP", "NZ", "OM", "PA", "PE", "PG", "PH", "PK", "PL", "PT", "PY", "QA", "RO", "RS", "RU", "RW", "SA", "SC", "SE", "SG", "SI", "SK", "SL", "SM", "SN", "ST", "SV", "SZ", "TD", "TG", "TH", "TL", "TN", "TR", "TT", "TW", "TZ", "UA", "UG", "US", "UY", "UZ", "VC", "VN", "XK", "ZA", "ZW" ],
+      "disc_number" : 1,
+      "duration_ms" : 268120,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "USNO11400178"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/39e1gl7VaxuCev5ga7bvNq"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/39e1gl7VaxuCev5ga7bvNq",
+      "id" : "39e21gl7VaxuCev5ga7bvNq",
+      "is_local" : false,
+      "name" : "Babbao",
+      "popularity" : 46,
+      "preview_url" : "https://p.scdn.co/mp3-preview/1c48a19cd1aeb79e5c16d1d25357c01fe1228c53?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number" : 2,
+      "type" : "track",
+      "uri" : "spotify:track:39e1gl7VaxuCev5ga7bvNq"
+    }
+  },
+  {
     "added_at" : "2021-03-04T21:45:53Z",
     "track" : {
       "album" : {
@@ -591,7 +663,7 @@ export const specifiedArtists = {
         "modern rock",
         "punk blues",
         "rock",
-        "roots rock"
+        "folk metal"
       ],
       "href": "https://api.spotify.com/v1/artists/7mnBLXK823vNxN3UWB7Gfz",
       "id": "7mnBLXK823vNxN3UWB7Gfz",

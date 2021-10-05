@@ -1,7 +1,7 @@
-import { TrackItem, ArtistData, Artist, SimplifiedArtist } from 'interfaces/spotifyObjects';
+import { TrackItem, ArtistData, Artist } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import { getArtists } from 'apiService';
-import { artistsMock, genresMock } from 'devtools/dataMocks';
+import { artistsMock } from 'devtools/dataMocks';
 
 export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<Artist[]>>) {
   if (process.env.REACT_APP_ENV === 'development') {

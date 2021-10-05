@@ -1,4 +1,4 @@
-import { artistsMock, playlistMock, specifiedArtists, tracksMock } from "devtools/dataMocks";
+import { playlistMock, specifiedArtists, tracksMock } from "devtools/dataMocks";
 
 const baseUrl = require('config').serverBaseUrl;
 

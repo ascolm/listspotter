@@ -26,10 +26,6 @@ export function getMatchingGenres (searchValue: string, genres: GenreDb) {
     }, {});
 }
 
-export function genreResort (genreName: string, db: GenreDb) {
-  const splitName = genreName.split(' ');
-}
-
 export function countUnselected (genreList: GenreDb, genreName: string, artists: Artist[]) {
   const genreArtists = genreList[genreName].artists;
   const selectedArtists = artists.filter((artist) => artist.selected);
