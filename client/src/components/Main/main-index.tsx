@@ -121,6 +121,24 @@ const Main: React.FC = () => {
     }
   }, [createdPlaylist])
 
+  const renderStatusMessage = () => {
+    let message;
+    if (Object.keys(genres).length > 0 && tracks.length === 0) {
+      message = 'Your genres will update after tracks are loaded.';
+    } else if (isSyncing) {
+      message = 'Syncing saved tracks from unfollowed artists...';
+    } else {
+      return;
+    }
+
+    return (
+      <div className='sync-message-container'>
+        <WaveSpinner color="var(--spotify-white)" size={7} />
+        <span className='sync-message'>{message}</span>
+      </div>
+    )
+  }
+
   return (
     <div className='main-container'>
 
@@ -131,12 +149,7 @@ const Main: React.FC = () => {
       </div>
 
       <div className="genre-artist-wrapper">
-
-        {isSyncing && <div className='sync-message-container'>
-          <WaveSpinner color="var(--spotify-white)" size={7} />
-          <span className='sync-message'>Syncing saved tracks from unfollowed artists...</span>
-        </div>}
-
+        {renderStatusMessage()}
         <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler} loaded={Object.keys(genres).length > 0}/>
         <Artists artistList={artists.filter((artist) => artist.selected)} loaded={Object.keys(genres).length > 0} toggleHandler={toggleArtistHandler} />
         {Object.keys(genres).length > 0 && <p className="scroll-message">SCROLL RIGHT</p>}
