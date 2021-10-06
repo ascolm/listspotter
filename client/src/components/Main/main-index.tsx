@@ -19,6 +19,7 @@ import Artists from './Artists/artists-index';
 import Playlist from './Playlist/playlist-index';
 import icon from './Spotify_Icon_RGB_Green.png';
 import PlaylistCreatedModal from './Modal/modal-index';
+import { WaveSpinner } from 'react-spinners-kit';
 
 const Main: React.FC = () => {
   const location = useLocation();
@@ -30,6 +31,7 @@ const Main: React.FC = () => {
   let [genres, setGenres] = useState<GenreDb>({});
   let [createdPlaylist, setCreatedPlaylist] = useState<any>({});
   let [unfollowedArtists, setUnfollowedArtists] = useState<Artist[]>([]);
+  let [isSyncing, setIsSyncing] = useState(false);
   const [modalIsOpen,setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -66,6 +68,7 @@ const Main: React.FC = () => {
   useEffect(() => {
     if (unfollowedArtists.length > 0) {
           setGenres(generateGenres(unfollowedArtists, genres));
+          setIsSyncing(false);
       }
   }, [unfollowedArtists])
 
@@ -73,6 +76,7 @@ const Main: React.FC = () => {
     if (tracks.length > 0) {
       (async function () {
         const artistsNotFollowed = identifyArtistsNotFollowed(artists, tracks);
+        setIsSyncing(true);
         const additionalArtistData = await getSpecifiedArtists(artistsNotFollowed);
         if (additionalArtistData) {
           setUnfollowedArtists(additionalArtistData);
@@ -80,6 +84,8 @@ const Main: React.FC = () => {
             const updatedArtists = [...artists, ...additionalArtistData]
             return updatedArtists;
           });
+        } else {
+          setIsSyncing(false);
         }
       })();
     }
@@ -125,8 +131,14 @@ const Main: React.FC = () => {
       </div>
 
       <div className="genre-artist-wrapper">
+
+        {isSyncing && <div className='sync-message-container'>
+          <WaveSpinner color="var(--spotify-white)" size={7} />
+          <span className='sync-message'>Syncing saved tracks from unfollowed artists...</span>
+        </div>}
+
         <Genres genreList={genres} artists={artists} selectHandler={selectGenreHandler} loaded={Object.keys(genres).length > 0}/>
-        <Artists artistList={artists.filter((artist) => artist.selected)} loaded={Object.keys(genres).length > 0} toggleHandler={toggleArtistHandler}/>
+        <Artists artistList={artists.filter((artist) => artist.selected)} loaded={Object.keys(genres).length > 0} toggleHandler={toggleArtistHandler} />
         {Object.keys(genres).length > 0 && <p className="scroll-message">SCROLL RIGHT</p>}
       </div>
 

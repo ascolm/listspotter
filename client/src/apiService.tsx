@@ -26,7 +26,11 @@ export const getToken = async (code: string) => {
 };
 
 export const getTracks = async () => {
-  if (process.env.REACT_APP_ENV === 'development') return tracksMock;
+  if (process.env.REACT_APP_ENV === 'development') {
+    await new Promise(res => setTimeout(() => res(''), 2000));
+    return tracksMock;
+  } 
+  
   if (!clientToken) return;
 
   const response = await fetch(baseUrl + '/tracks', {
@@ -56,7 +60,7 @@ export const getArtists = async (nextUrl: string | undefined) => {
 export const getSpecifiedArtists = async (artistIds: string[]) => {
   if (!clientToken) return;
   if (process.env.REACT_APP_ENV === 'development') {
-    await new Promise(res => setTimeout(() => res(''), 3000));
+    await new Promise(res => setTimeout(() => res(''), 2000));
     return specifiedArtists.artists;
   }
 

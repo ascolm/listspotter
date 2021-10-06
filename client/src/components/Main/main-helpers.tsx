@@ -6,9 +6,11 @@ import { artistsMock } from 'devtools/dataMocks';
 export function fetchArtistsWithOffset (code: string, setState: React.Dispatch<React.SetStateAction<Artist[]>>) {
   if (process.env.REACT_APP_ENV === 'development') {
     return new Promise<GenreDb>(res => {
-      setState(artistsMock);
-      const genres = generateGenres(artistsMock)
-      res(genres);
+      setTimeout(() => {
+        setState(artistsMock);
+        const genres = generateGenres(artistsMock)
+        res(genres);
+      }, 1000);
     })
   }
 
