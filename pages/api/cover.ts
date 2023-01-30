@@ -8,9 +8,15 @@ export default async function getPlaylistCover(
     res: NextApiResponse
 ) {
     const {clientToken, playlistId} = req.body;
-
+    console.log('received token: '  + clientToken)
+    console.log('received playlistId: '  + playlistId)
     requestPlaylistCover(spotifyPlaylistUrl, playlistId, clientToken)
       .then((coverResponse) => {
+        console.log('data from spotify: ')
+        console.log(coverResponse.data)
+        console.log('status from spotify: ')
+        console.log(coverResponse.status)
+        console.log(coverResponse.statusText)
         res.status(200).send(coverResponse.data);
       })
       .catch(err => logErrorAndSendResponse(err, res));
