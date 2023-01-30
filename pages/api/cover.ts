@@ -8,16 +8,13 @@ export default async function getPlaylistCover(
     res: NextApiResponse
 ) {
     const {clientToken, playlistId} = req.body;
-    console.log('received token: '  + clientToken)
-    console.log('received playlistId: '  + playlistId)
-    requestPlaylistCover(spotifyPlaylistUrl, playlistId, clientToken)
-      .then((coverResponse) => {
-        console.log('data from spotify: ')
-        console.log(coverResponse.data)
-        console.log('status from spotify: ')
-        console.log(coverResponse.status)
-        console.log(coverResponse.statusText)
-        res.status(200).send(coverResponse.data);
-      })
-      .catch(err => logErrorAndSendResponse(err, res));
+    const coverGenerationWaitTime = 500; // Spotify takes a while to generate playlist cover image after playlist is created
+
+    setTimeout(() => {
+      requestPlaylistCover(spotifyPlaylistUrl, playlistId, clientToken)
+        .then((coverResponse) => {
+          res.status(200).send(coverResponse.data);
+        })
+        .catch(err => logErrorAndSendResponse(err, res));
+    }, coverGenerationWaitTime);
 }

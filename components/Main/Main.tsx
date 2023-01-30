@@ -24,7 +24,6 @@ import { useRouter } from 'next/router';
 const Main: React.FC = () => {
   const router = useRouter();
   const codeFromURLParams = router.query['code'] as string;
-  const coverGenerationWaitTime = 500; // Spotify takes a while to generate playlist cover image after playlist is created
   const [tracks, setTracks] = useState<TrackItem[]>([]);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [genres, setGenres] = useState<GenreDb>({});
@@ -120,8 +119,6 @@ const Main: React.FC = () => {
       return;
     }
     
-    await new Promise((resolve) => setTimeout(() => resolve(''), coverGenerationWaitTime));
-
     let playlistCover: PlaylistCover[];
     try {
       playlistCover = await getPlaylistCover(playlistData.id);
