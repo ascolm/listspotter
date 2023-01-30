@@ -35,7 +35,7 @@ const PlaylistCreatedModal: React.FC<Props> = ({ isOpen, playlist, onRequestClos
               <h1>Glorious Victory!</h1>
               <p>Your playlist is created and waiting for you in your Spotify account.</p>
               <a href={playlist.uri}>Open in Spotify</a>
-              <a href={playlist.external_urls.spotify} target='_blank'>Open in browser</a>
+              <a href={playlist.external_urls.spotify} target='_blank' rel='noreferrer'>Open in browser</a>
             </div>
             <div className={styles.playlistInfo}>
               {playlist.cover && <img src={playlist.cover.url} alt="Playlist Image" className={styles.coverImage}/>}
