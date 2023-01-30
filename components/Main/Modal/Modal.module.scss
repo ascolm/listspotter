@@ -1,0 +1,50 @@
+.base{
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+.modalContainer{
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  justify-content: center;
+  color: var(--spotify-white);
+  .createdMessage{
+    p{
+      margin-bottom: 1.2rem;
+    }
+    a{
+      display: block;
+      margin: 0.6rem 0;
+      color: var(--spotify-green);
+      &:hover{
+        opacity: 0.8;
+      }
+    }
+  }
+
+
+  .playlistInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5rem;
+    .coverImage{
+      height: 10rem;
+      width: 10rem;
+      border-radius: 4px;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

@@ -1,0 +1,21 @@
+.base{
+  color: white;
+  padding: 0.11rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+  display: block;
+    &:hover{
+      opacity: 0.7;
+    }
+    &.selected{
+      color: var(--spotify-green);
+      font-weight: bold;
+    }
+    .artistCount{
+      color: grey;
+      font-size: 0.6rem;
+    }
+}
+

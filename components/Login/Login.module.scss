@@ -1,0 +1,39 @@
+.base{
+  background-color: var(--spotify-black);
+  color: var(--spotify-white);
+  height: 100vh;
+  padding-top: 13%;
+  padding-left: 5%;
+  font-size: 1.8rem;
+  h1{
+    margin-top: 0;
+  }
+  p{
+    vertical-align: middle;
+    font-size: 1.5rem;
+  }
+}
+
+.spotifyLogo{
+  vertical-align: middle;
+  object-fit: cover;
+  height: 2.5rem;
+  margin-bottom: 5px;
+}
+
+.loginButton{
+  font-weight: bold;
+  font-size: 0.8rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  background-color: var(--spotify-green);
+  padding: 0.7rem 2.5rem;
+
+  &:hover{
+    filter: brightness(1.1);
+  }
+}
+
+
+
+
