@@ -24,7 +24,7 @@ import { useRouter } from 'next/router';
 const Main: React.FC = () => {
   const router = useRouter();
   const codeFromURLParams = router.query['code'] as string;
-  const coverGenerationWaitTime = 1000; // Spotify takes a while to generate playlist cover image after playlist is created
+  const coverGenerationWaitTime = 2000; // Spotify takes a while to generate playlist cover image after playlist is created
   const [tracks, setTracks] = useState<TrackItem[]>([]);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [genres, setGenres] = useState<GenreDb>({});
