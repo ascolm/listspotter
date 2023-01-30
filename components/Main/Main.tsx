@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { TrackItem, Artist } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import Genres from './Genres/Genres';
-import { getToken, createPlaylist, getTracks, getPlaylistCover, getSpecifiedArtists } from 'apiService';
+import { getToken, createPlaylist, getPlaylistCover, getSpecifiedArtists } from 'apiService';
 import styles from './Main.module.scss';
 import {
   fetchArtistsWithOffset,
@@ -24,7 +24,7 @@ import { useRouter } from 'next/router';
 const Main: React.FC = () => {
   const router = useRouter();
   const codeFromURLParams = router.query['code'] as string;
-  const coverGenerationWaitTime = 500; // Spotify takes a while to generate playlist cover image after playlist is created
+  const coverGenerationWaitTime = 1000; // Spotify takes a while to generate playlist cover image after playlist is created
   const [tracks, setTracks] = useState<TrackItem[]>([]);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [genres, setGenres] = useState<GenreDb>({});
