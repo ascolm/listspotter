@@ -12,7 +12,8 @@ import {
   filterSelectedGenres,
   artistToggleUpdate,
   identifyArtistsNotFollowed,
-  generateGenres
+  generateGenres,
+  fetchTracksWithOffset
  } from './helpers';
 import Artists from './Artists/Artists';
 import Playlist from './Playlist/Playlist';
@@ -47,7 +48,7 @@ const Main: React.FC = () => {
     
     getToken(code)
       .then(() => {
-          getTracks().then((trackList) => {
+          fetchTracksWithOffset(code).then((trackList) => {
             setTracks(trackList);
           }).catch(() => console.log('Error fetching tracks.'));
 

@@ -1,7 +1,9 @@
-import { TrackItem, ArtistData, Artist } from 'interfaces/spotifyObjects';
+import { TrackItem, ArtistData, Artist, TrackData } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
-import { getArtists } from 'apiService';
-import { artistsMock } from 'dataMocks';
+import { getArtists, getTracks } from 'apiService';
+import { artistsMock, tracksMock } from 'dataMocks';
+
+const OFFSET_INCREMENT = 50;
 
 export function fetchArtistsWithOffset (code: string) {
   if (process.env.NEXT_PUBLIC_ENV === 'development') {
@@ -33,6 +35,32 @@ export function fetchArtistsWithOffset (code: string) {
     };
 
     return fetchArtistsAsync(code, nextUrl);
+}
+export function fetchTracksWithOffset (code: string) {
+  if (process.env.NEXT_PUBLIC_ENV === 'development') {
+    return new Promise<TrackItem[]>(res => {
+      setTimeout(() => {
+        res(tracksMock);
+      }, 1000);
+    })
+  }
+
+    let offset = 0;
+    let tracks: TrackItem[] = [];
+
+    async function fetchTracksAsync (code: string, offset: number): Promise<TrackItem[]> {
+      const trackData: TrackData = await getTracks(offset);
+      tracks = [...tracks, ...trackData.items];
+
+      if (trackData.next) {
+        offset += OFFSET_INCREMENT;
+        return fetchTracksAsync (code, offset);
+      }
+
+      return tracks;
+    };
+
+    return fetchTracksAsync(code, offset);
 }
 
 export function generateGenres (artists: Artist[], genreDb: GenreDb = {}) {

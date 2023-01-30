@@ -41,7 +41,7 @@ export const getToken = async (code: string) => {
   throw new Error;
 };
 
-export const getTracks = async () => {
+export const getTracks = async (offset: number) => {
   if (process.env.NEXT_PUBLIC_ENV === 'development') {
     await new Promise(res => setTimeout(() => res(''), 2000));
     return tracksMock;
@@ -50,7 +50,7 @@ export const getTracks = async () => {
   return withStatusHandling(() => 
     fetch(baseUrl + '/tracks', {
       method: 'POST',
-      body: JSON.stringify({clientToken}),
+      body: JSON.stringify({clientToken, offset}),
       headers: {
         'Content-Type': 'application/json'
       }
