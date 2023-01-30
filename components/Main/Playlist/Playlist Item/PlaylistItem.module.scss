@@ -1,0 +1,50 @@
+%focus{
+  padding: 0.06rem 0.13rem;
+}
+
+.base{
+  color: white;
+  width: 100%;
+  padding: 0.11rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  margin: 2rem;
+  cursor: pointer;
+  user-select: none;
+    &:hover{
+      @extend %focus;
+      color: grey;
+    }
+    &.selected{
+      @extend %focus;
+    }
+    &.userDisabled{
+      color: rgba(128, 128, 128, 0.63);
+    }
+    td{
+      overflow: scroll;
+      white-space: nowrap;
+      line-height: 1.2rem;
+    }
+    tr{
+      border-bottom: 1px solid white;
+    }
+}
+
+@media only screen and (min-width: 801px) and (max-width: 1000px){
+  .base{
+    font-size: 0.7rem;
+    td{
+      line-height: 0.8rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px){
+  .base{
+    font-size: 0.7rem;
+    td{
+      line-height: 0.8rem;
+    }
+  }
+}

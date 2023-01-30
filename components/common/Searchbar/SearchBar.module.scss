@@ -1,0 +1,26 @@
+.base {
+  display: flex;
+  align-items: center;
+  .searchInput{
+    background-color: transparent;
+    border: none;
+    margin-bottom: 5px;
+    padding: 5px 0;
+    border-bottom: 1px solid white;
+    color: white;
+      &:focus{
+        outline: none;
+      }
+  }
+  a{
+    line-height: 0;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  i{
+    color: rgba(82, 81, 81, 0.671);
+    cursor: pointer;
+    margin-left: 10px;
+  }
+}

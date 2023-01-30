@@ -1,66 +1,38 @@
-# Listspotter
-Listspotter is an application that lets users create genre based playlists of tracks they have saved in their Spotify accounts. <br>
-With Listspotter it is quick and easy to have a coherent playlist out of the songs you already like, in just a few minutes. <br>
-Available at http://listspotter.tech.
-
-## Screenshots
-![listspotterSS3](https://user-images.githubusercontent.com/65975591/113475350-5c90a580-9475-11eb-9407-3982e427a6ba.png)
-
-![listspotterSS4](https://user-images.githubusercontent.com/65975591/113475359-674b3a80-9475-11eb-8140-c23d0e5996e9.png)
-
-![listspotterSS5](https://user-images.githubusercontent.com/65975591/113475362-6c0fee80-9475-11eb-981a-da925b7308ef.png)
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
-Listspotter uses Spotify Web API and as such, you will need to register your app in Spotify's Dashboard [here.](https://developer.spotify.com/dashboard/login) After registration you should have a client ID, a client secret and have your redirect URL entered in project settings (the URL that Spotify will redirect your user to after login - default would be the port used by your local React app) In case needed, you can find additional information [here.](https://developer.spotify.com/documentation/general/guides/authorization-guide/) Note that this project uses Authorization Code Flow.
 
-After you register with Spotify, follow these steps below to get started:
+First, run the development server:
 
-1. Clone the repo
-```
-git clone https://github.com/ascolm/listspotter.git
-cd listspotter
-```
-
-2. Install dependencies
-```
-npm install
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
 ```
 
-3. The config file directly under the "server" folder groups environment variables for convenience. Create a .env file in the same folder that has your client ID, client secret key, redirect uri and Spotify's token link (make sure you ignore this file on git!!). The .env file should look like:
-```
-CLIENT_ID=// YOUR CLIENT ID HERE,
-CLIENT_SECRET=// YOUR CLIENT SECRET HERE,
-SERVER_HOST=// SERVER HOST, ex: '127.0.0.1',
-SERVER_PORT=// SERVER PORT, ex: '3001',
-REDIRECT_URI=// YOUR REDIRECT URI HERE,
-SPOTIFY_TOKEN_URL='https://accounts.spotify.com/api/token'
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-4. The config file directly under the "client" folder groups environment variables for convenience. Create a .env file in the same folder that has your client ID, redirect uri and server base url (make sure you ignore this file on git too). The .env file should look like:
-```
-  REACT_APP_CLIENT_ID=// YOUR CLIENT ID HERE,
-  REACT_APP_REDIRECT_URI=// YOUR REDIRECT URI,
-  REACT_APP_SERVER_BASE_URL=// SERVER URL HERE, ex: 'http://localhost:3001'
-```
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-5. You can run your server using nodemon to watch for changes:
-```
-cd server
-nodemon
-```
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-6. Navigate to client folder and launch the React app:
-```
-cd ../client
-npm start
-```
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Tech Stack
-### Front End
-- [TypeScript](https://www.typescriptlang.org/)
-- [React](https://reactjs.org/)
-- [Sass](https://sass-lang.com/)
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-### Back End
-- [Express](http://expressjs.com/)
-- [Spotify Web API](https://developer.spotify.com/documentation/web-api/)
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
