@@ -49,6 +49,7 @@ export default async function getTracks(
 }
 
 export const config = {
+  runtime: 'edge',
   api: {
     responseLimit: false,
   },
