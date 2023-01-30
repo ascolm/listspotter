@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { TrackItem, Artist } from 'interfaces/spotifyObjects';
+import { TrackItem, Artist, PlaylistData, PlaylistCover } from 'interfaces/spotifyObjects';
 import { GenreDb } from 'interfaces/genreObjects';
 import Genres from './Genres/Genres';
 import { getToken, createPlaylist, getPlaylistCover, getSpecifiedArtists } from 'apiService';
@@ -24,7 +24,7 @@ import { useRouter } from 'next/router';
 const Main: React.FC = () => {
   const router = useRouter();
   const codeFromURLParams = router.query['code'] as string;
-  const coverGenerationWaitTime = 2000; // Spotify takes a while to generate playlist cover image after playlist is created
+  const coverGenerationWaitTime = 500; // Spotify takes a while to generate playlist cover image after playlist is created
   const [tracks, setTracks] = useState<TrackItem[]>([]);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [genres, setGenres] = useState<GenreDb>({});
@@ -108,19 +108,28 @@ const Main: React.FC = () => {
     setArtists(updatedArtists);
   }
 
-  function createPlaylistHandler (playlistName: string, trackURIs: string[]) {
+  async function createPlaylistHandler (playlistName: string, trackURIs: string[]) {
     if (!code || !playlistName) return;
 
-    return createPlaylist(playlistName, trackURIs).then(playlistData => {
-      setTimeout(() => {
-        getPlaylistCover(playlistData.id)
-          .then((playlistCover) => {
-            playlistData.cover = playlistCover[0];
-            setCreatedPlaylist(playlistData);
-          })
-          .catch(() => console.log('Playlist created, however got an error when obtaining data to display.'))
-      }, coverGenerationWaitTime);
-    }).catch(() => console.log('Could not create the playlist.'))
+    let playlistData: PlaylistData;
+    try {
+      playlistData = await createPlaylist(playlistName, trackURIs);
+    }
+    catch {
+      console.log('Could not create the playlist.')
+      return;
+    }
+    
+    await new Promise((resolve) => setTimeout(() => resolve(''), coverGenerationWaitTime));
+
+    let playlistCover: PlaylistCover[];
+    try {
+      playlistCover = await getPlaylistCover(playlistData.id);
+      playlistData.cover = playlistCover[0];
+      setCreatedPlaylist(playlistData);
+    } catch {
+      console.log('Playlist created, however got an error when obtaining data to display.');
+    }
   }
 
   useEffect(() => {
